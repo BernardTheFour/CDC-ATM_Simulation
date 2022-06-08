@@ -19,9 +19,9 @@ public class TransactionScreen extends Page implements IStatePattern {
         System.out.println("2. Fund Transfer");
         System.out.println("3. Exit");
 
-        String userInput = input.nextLine();
+        String answer = input.nextLine();
 
-        switch (userInput) {
+        switch (answer) {
             case "1":
                 nextPage = Pages.WITHDRAW;
                 break;

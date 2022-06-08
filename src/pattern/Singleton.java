@@ -27,10 +27,10 @@ public class Singleton {
     private WithdrawScreen withdrawScreen = new WithdrawScreen();
     private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
 
-    public static void init(Singleton singleton) throws Exception {
+    public static void init() throws Exception {
         if (instance == null) {
-            instance = singleton;
-        } else if (instance != singleton) {
+            instance = new Singleton();
+        } else {
             throw new Exception("Only one singleton at a time!");
         }
     }
