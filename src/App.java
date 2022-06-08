@@ -3,12 +3,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 import domains.Account;
-import pages.WelcomePage;
+import pages.WelcomeScreen;
 
 public class App {
 
     private static Scanner input = new Scanner(System.in);
-    private static WelcomePage welcomePage = new WelcomePage();
+    private static WelcomeScreen welcomePage = new WelcomeScreen();
 
     public static void main(String[] args) throws Exception {
         boolean exit = false;
@@ -17,7 +17,8 @@ public class App {
         Account loggedAccount = new Account();
 
         while (!exit) {
-            loggedAccount = welcomePage.show(accounts);
+            welcomePage.show(accounts);
+            loggedAccount = welcomePage.getLoggedAccount();
             exit = true;
         }
 
