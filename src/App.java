@@ -1,36 +1,23 @@
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 import domains.Account;
-import pages.TransactionScreen;
-import pages.WelcomeScreen;
+import pattern.Singleton;
+import pattern.StateController;
 
 public class App {
 
-    private static Scanner input = new Scanner(System.in);
-    private static WelcomeScreen welcomeScreen = new WelcomeScreen();
-    private static TransactionScreen transactionScreen = new TransactionScreen();
+    private static StateController screenNavigator;
 
     public static void main(String[] args) throws Exception {
-        boolean exit = false;
+        
+        Singleton.setAccounts(initDummyData());
 
-        Set<Account> accounts = initDummyData();
-        Account loggedAccount = new Account();
+        screenNavigator = new StateController(
+            Singleton.getWelcomeScreen()
+        );
 
-        while (!exit) {
-            welcomeScreen.show(accounts);
-            loggedAccount = welcomeScreen.getLoggedAccount();
-
-            transactionScreen.show();
-
-            if(transactionScreen.isSkip())
-            {
-                break;
-            }            
-        }
-
-        System.out.println(loggedAccount.toString());
+        screenNavigator.showCurrent();
     }
 
     private static Set<Account> initDummyData() {
@@ -40,9 +27,5 @@ public class App {
         account.add(new Account("112244", "932012", "Jane Doe", 30));
 
         return account;
-    }
-
-    private static void print(Set<Account> accounts){
-        accounts.forEach(i -> System.out.println(i));
     }
 }
