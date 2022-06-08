@@ -8,14 +8,15 @@ import pattern.StateController;
 public class App {
 
     private static StateController screenNavigator;
+    private static Singleton singleton = new Singleton();
 
     public static void main(String[] args) throws Exception {
-        
+        Singleton.init(singleton);
+
         Singleton.setAccounts(initDummyData());
 
         screenNavigator = new StateController(
-            Singleton.getWelcomeScreen()
-        );
+                Singleton.getWelcomeScreen());
 
         screenNavigator.showCurrent();
     }
