@@ -3,12 +3,21 @@ package pages;
 import pattern.IStatePattern;
 import pattern.StateController;
 
-public class OtherWithdrawScreen implements IStatePattern{
+public class OtherWithdrawScreen extends Page implements IStatePattern{
 
     @Override
-    public void show(StateController controller) {
-        System.out.println("This is other withdraw screen");
-        
+    public void init(StateController controller) {
+        this.controller = controller;
+        nextPage = Pages.OTHER_WITHDRAW;        
     }
-    
+
+    @Override
+    public void show() {
+        System.out.println("This is other withdraw screen");        
+    }
+
+    @Override
+    public void navigate() {
+        // TODO Auto-generated method stub        
+    }    
 }

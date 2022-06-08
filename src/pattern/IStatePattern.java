@@ -1,5 +1,7 @@
 package pattern;
 
 public interface IStatePattern {
-    public void show(StateController controller);
+    public void init(StateController controller);
+    public void show();
+    public void navigate();
 }

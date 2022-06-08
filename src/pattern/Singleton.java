@@ -17,7 +17,7 @@ public class Singleton {
     public static Singleton instance;
 
     private Account loggedUser = new Account();;
-    private Set<Account> accounts = new HashSet<>();;
+    private Set<Account> accounts = new HashSet<>();
 
     private WelcomeScreen welcomeScreen = new WelcomeScreen();
     private TransactionScreen transactionScreen = new TransactionScreen();
@@ -51,31 +51,31 @@ public class Singleton {
         instance.accounts = accounts;
     }
 
-    public static WelcomeScreen getWelcomeScreen() {
+    public static WelcomeScreen WelcomeScreen() {
         return instance.welcomeScreen;
     }
 
-    public static TransactionScreen getTransactionScreen() {
+    public static TransactionScreen TransactionScreen() {
         return instance.transactionScreen;
     }
 
-    public static SummaryScreen getSummaryScreen() {
+    public static SummaryScreen SummaryScreen() {
         return instance.summaryScreen;
     }
 
-    public static TransferScreen getTransferScreen() {
+    public static TransferScreen TransferScreen() {
         return instance.transferScreen;
     }
 
-    public static TransferSummaryScreen getTransferSummaryScreen() {
+    public static TransferSummaryScreen TransferSummaryScreen() {
         return instance.transferSummaryScreen;
     }
 
-    public static WithdrawScreen getWithdrawScreen() {
+    public static WithdrawScreen WithdrawScreen() {
         return instance.withdrawScreen;
     }
 
-    public static OtherWithdrawScreen getOtherWithdrawScreen() {
+    public static OtherWithdrawScreen OtherWithdrawScreen() {
         return instance.otherWithdrawScreen;
     }
 }

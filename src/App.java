@@ -16,9 +16,9 @@ public class App {
         Singleton.setAccounts(initDummyData());
 
         screenNavigator = new StateController(
-                Singleton.getWelcomeScreen());
+                Singleton.WelcomeScreen());
 
-        screenNavigator.showCurrent();
+        screenNavigator.run();
     }
 
     private static Set<Account> initDummyData() {

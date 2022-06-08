@@ -1,16 +1,19 @@
 package pages;
 
-import java.util.Scanner;
-
 import pattern.IStatePattern;
+import pattern.Singleton;
 import pattern.StateController;
 
-public class TransactionScreen implements IStatePattern{    
-
-    private Scanner input = new Scanner(System.in);
+public class TransactionScreen extends Page implements IStatePattern {
 
     @Override
-    public void show(StateController controller){
+    public void init(StateController controller) {
+        this.controller = controller;
+        nextPage = Pages.TRANSACTION;
+    }
+
+    @Override
+    public void show() {
         System.out.println("\n--Transactions--");
         System.out.println("1. Withdraw");
         System.out.println("2. Fund Transfer");
@@ -18,14 +21,34 @@ public class TransactionScreen implements IStatePattern{
 
         String userInput = input.nextLine();
 
-        switch(userInput){
+        switch (userInput) {
             case "1":
-            break;
+                nextPage = Pages.WITHDRAW;
+                break;
             case "2":
-            break;
+                nextPage = Pages.TRANSFER;
+                break;
             case "3":
-            break;
-            default: controller.nextState(this);;
+                nextPage = Pages.WELCOME;
+                break;
+        }
+    }
+
+    @Override
+    public void navigate() {
+        switch (nextPage) {
+            case WELCOME:
+                controller.nextState(Singleton.WelcomeScreen());
+                break;
+            case TRANSACTION:
+                controller.nextState(Singleton.TransactionScreen());
+                break;
+            case WITHDRAW:
+                controller.nextState(Singleton.WithdrawScreen());
+                break;
+            default:
+                controller.nextState(controller.getCurrentState());
+                break;
         }
     }
 }

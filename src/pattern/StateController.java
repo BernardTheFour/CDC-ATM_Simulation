@@ -9,14 +9,16 @@ public class StateController {
 
     public void nextState(IStatePattern state){
         currentState = state;
-        showCurrent();
+        run();
     }
 
-    public void showCurrent(){
-        currentState.show(this);
+    public void run(){
+        currentState.init(this);
+        currentState.show();
+        currentState.navigate();
     }
 
     public StateController (IStatePattern initState){
-        currentState = initState;
+        currentState = initState;        
     }
 }

@@ -1,18 +1,20 @@
 package pages;
 
 import java.io.IOException;
-import java.util.Scanner;
 import pattern.IStatePattern;
 import pattern.Singleton;
 import pattern.StateController;
 
-
-public class WelcomeScreen implements IStatePattern {
-
-    private Scanner input = new Scanner(System.in);
+public class WelcomeScreen extends Page implements IStatePattern {
 
     @Override
-    public void show(StateController controller) {
+    public void init(StateController controller) {
+        this.controller = controller;
+        nextPage = Pages.WELCOME;
+    }
+
+    @Override
+    public void show() {
         System.out.println("\n\nWelcome to Automated Teller Machine");
 
         try {
@@ -23,20 +25,37 @@ public class WelcomeScreen implements IStatePattern {
             String pinNumber = checkPinNumber(input.nextLine());
 
             Singleton.setLoggedUser(
-                Singleton.getAccounts().stream()
-                .filter(i -> accountNumber.equals(i.getAccountNumber()))
-                .filter(i -> pinNumber.equals(i.getPin()))
-                .findAny().get()
-            );
+                    Singleton.getAccounts().stream()
+                            .filter(i -> accountNumber.equals(i.getAccountNumber()))
+                            .filter(i -> pinNumber.equals(i.getPin()))
+                            .findAny().get());
 
-            controller.nextState(Singleton.getTransactionScreen());
+            nextPage = Pages.TRANSACTION;
 
         } catch (Exception e) {
+            nextPage = Pages.WELCOME;
+
             if (e instanceof IOException) {
                 System.out.println(e.getMessage());
+                return;
             }
 
-            controller.nextState(this);
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void navigate() {
+        switch (nextPage) {
+            case WELCOME:
+                controller.nextState(Singleton.WelcomeScreen());
+                break;
+            case TRANSACTION:
+                controller.nextState(Singleton.TransactionScreen());
+                break;
+            default:
+                controller.nextState(controller.getCurrentState());
+                break;
         }
     }
 
