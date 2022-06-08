@@ -3,12 +3,14 @@ import java.util.Scanner;
 import java.util.Set;
 
 import domains.Account;
+import pages.TransactionScreen;
 import pages.WelcomeScreen;
 
 public class App {
 
     private static Scanner input = new Scanner(System.in);
-    private static WelcomeScreen welcomePage = new WelcomeScreen();
+    private static WelcomeScreen welcomeScreen = new WelcomeScreen();
+    private static TransactionScreen transactionScreen = new TransactionScreen();
 
     public static void main(String[] args) throws Exception {
         boolean exit = false;
@@ -17,9 +19,15 @@ public class App {
         Account loggedAccount = new Account();
 
         while (!exit) {
-            welcomePage.show(accounts);
-            loggedAccount = welcomePage.getLoggedAccount();
-            exit = true;
+            welcomeScreen.show(accounts);
+            loggedAccount = welcomeScreen.getLoggedAccount();
+
+            transactionScreen.show();
+
+            if(transactionScreen.isSkip())
+            {
+                break;
+            }            
         }
 
         System.out.println(loggedAccount.toString());
