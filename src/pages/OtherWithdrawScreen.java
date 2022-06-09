@@ -36,11 +36,14 @@ public class OtherWithdrawScreen extends Page implements IState {
        int balance = Singleton.getLoggedUser().getBalance();
 
        if (balance < withdraw){
-           System.out.println("Insufficient balance: $" + withdraw);
+           System.out.println("Insufficient balance to withdraw $" + withdraw);
            return;
        }
 
-       Singleton.getLoggedUser().setBalance(balance-withdraw);
+       balance -= withdraw;
+
+       Singleton.getLoggedUser().setBalance(balance);
+       Singleton.setWithdraw(balance);
        super.nextPage = Pages.SUMMARY;
     }
 

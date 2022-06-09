@@ -49,13 +49,14 @@ public class WithdrawScreen extends Page implements IState {
         int balance = Singleton.getLoggedUser().getBalance();
 
         if (balance < withdraw) {
-            System.out.println("Insufficient balance: " + balance);
+            System.out.println("Insufficient balance to withdraw $" + withdraw);
             return;
         }
 
-        balance = balance - withdraw;
+        balance -= withdraw;
 
         Singleton.getLoggedUser().setBalance(balance);
+        Singleton.setWithdraw(balance);
     }
 
     @Override
