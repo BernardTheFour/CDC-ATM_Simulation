@@ -12,7 +12,7 @@ public class OtherWithdrawScreen extends Page implements IState{
     }
 
     @Override
-    public void show() {
+    public void run() {
         System.out.println("This is other withdraw screen");        
     }
 
