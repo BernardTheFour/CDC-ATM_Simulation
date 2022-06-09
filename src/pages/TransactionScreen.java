@@ -13,7 +13,7 @@ public class TransactionScreen extends Page implements IState {
     }
 
     @Override
-    public void run() {
+    public void logic() {
         System.out.println("\n--Transactions--");
         System.out.println("1. Withdraw");
         System.out.println("2. Fund Transfer");

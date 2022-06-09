@@ -12,7 +12,7 @@ public class TransferSummaryScreen extends Page implements IState {
     }
 
     @Override
-    public void run() {
+    public void logic() {
         System.out.println("This is fund transfer summary screen");
     }
 

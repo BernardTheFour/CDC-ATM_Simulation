@@ -14,7 +14,7 @@ public class WelcomeScreen extends Page implements IState {
     }
 
     @Override
-    public void run() {
+    public void logic() {
         System.out.println("\n\nWelcome to Automated Teller Machine");
 
         try {

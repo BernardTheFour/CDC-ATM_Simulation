@@ -14,7 +14,7 @@ public class StateController {
 
     public void run(){
         currentState.init(this);
-        currentState.run();
+        currentState.logic();
         currentState.navigate();
     }
 
