@@ -1,5 +1,6 @@
 package pattern;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,8 @@ public class Singleton {
     private WithdrawScreen withdrawScreen = new WithdrawScreen();
     private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
 
+    private String dateTimeFormat = "yyy-MM-dd hh:mm a";
+
     private int withdraw = 0;
 
     public static void init() throws Exception {
@@ -35,6 +38,10 @@ public class Singleton {
         } else {
             throw new Exception("Only one singleton at a time!");
         }
+    }
+
+    public static String getDateFormat(){
+        return instance.dateTimeFormat;
     }
 
     public static Account getLoggedUser() {
@@ -81,11 +88,11 @@ public class Singleton {
         return instance.otherWithdrawScreen;
     }
 
-    public static void setWithdraw(int amount){
+    public static void setWithdraw(int amount) {
         instance.withdraw = amount;
     }
 
-    public static int getWithdraw(){
+    public static int getWithdraw() {
         return instance.withdraw;
     }
 }

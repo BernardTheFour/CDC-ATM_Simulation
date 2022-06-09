@@ -13,6 +13,7 @@ public class WelcomeScreen extends Page implements IState {
     @Override
     public void init(StateController controller) {
         super.controller = controller;
+        super.nextPage = Pages.DEFAULT;
     }
 
     @Override
@@ -64,7 +65,6 @@ public class WelcomeScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
-        super.nextPage = Pages.DEFAULT;
     }
 
     private String checkAccountNumber(String accountNumber) throws IOException {

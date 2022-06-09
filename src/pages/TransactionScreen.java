@@ -9,6 +9,7 @@ public class TransactionScreen extends Page implements IState {
     @Override
     public void init(StateController controller) {
         super.controller = controller;
+        super.nextPage = Pages.DEFAULT;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class TransactionScreen extends Page implements IState {
         System.out.println("2. Fund Transfer");
         System.out.println("3. Exit");
 
-        System.out.print("\nNavigate to: ");
+        System.out.print("\nChoose option: ");
 
         String answer = super.input.nextLine();
 
@@ -51,6 +52,5 @@ public class TransactionScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
-        super.nextPage = Pages.DEFAULT;
     }
 }

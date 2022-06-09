@@ -7,8 +7,8 @@ public class TransferSummaryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
-        this.controller = controller;
-        nextPage = Pages.TRANSFER;
+        super.controller = controller;
+        super.nextPage = Pages.DEFAULT;
     }
 
     @Override

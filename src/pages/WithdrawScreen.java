@@ -9,6 +9,7 @@ public class WithdrawScreen extends Page implements IState {
     @Override
     public void init(StateController controller) {
         super.controller = controller;
+        super.nextPage = Pages.DEFAULT;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class WithdrawScreen extends Page implements IState {
         balance -= withdraw;
 
         Singleton.getLoggedUser().setBalance(balance);
-        Singleton.setWithdraw(balance);
+        Singleton.setWithdraw(withdraw);
     }
 
     @Override
@@ -75,6 +76,5 @@ public class WithdrawScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
-        super.nextPage = Pages.DEFAULT;
     }
 }
