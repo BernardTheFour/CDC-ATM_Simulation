@@ -41,12 +41,13 @@ public class TransactionScreen extends Page implements IState {
                 controller.nextState(Singleton.WelcomeScreen());
                 break;
             case TRANSACTION:
-                logic();
+                controller.nextState(Singleton.TransactionScreen());
                 break;
             case WITHDRAW:
                 controller.nextState(Singleton.WithdrawScreen());
                 break;
             default:
+                System.out.println("Option unavailable");
                 controller.nextState(Singleton.WelcomeScreen());
                 break;
         }

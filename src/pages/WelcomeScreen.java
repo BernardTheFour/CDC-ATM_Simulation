@@ -1,6 +1,9 @@
 package pages;
 
 import java.io.IOException;
+import java.util.Optional;
+
+import domains.Account;
 import pattern.IState;
 import pattern.Singleton;
 import pattern.StateController;
@@ -15,7 +18,7 @@ public class WelcomeScreen extends Page implements IState {
 
     @Override
     public void logic() {
-        System.out.println("\n\nWelcome to Automated Teller Machine");
+        System.out.println("\n\n--Automated Teller Machine--");
 
         try {
             System.out.print("Account number: ");
@@ -24,11 +27,18 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("PIN number:");
             String pinNumber = checkPinNumber(input.nextLine());
 
-            Singleton.setLoggedUser(
-                    Singleton.getAccounts().stream()
-                            .filter(i -> accountNumber.equals(i.getAccountNumber()))
-                            .filter(i -> pinNumber.equals(i.getPin()))
-                            .findAny().get());
+            Optional<Account> checkUser = Singleton.getAccounts().stream()
+                    .filter(i -> accountNumber.equals(i.getAccountNumber()))
+                    .filter(i -> pinNumber.equals(i.getPin()))
+                    .findAny();
+
+            if (checkUser.isEmpty()) {
+                System.out.println("\nAccount number or PIN wrong");
+                nextPage = Pages.WELCOME;
+                return;
+            }
+
+            System.out.printf("%nWelcome %s", checkUser.get().getName());
 
             nextPage = Pages.TRANSACTION;
 
@@ -48,12 +58,13 @@ public class WelcomeScreen extends Page implements IState {
     public void navigate() {
         switch (nextPage) {
             case WELCOME:
-                logic();
+                controller.nextState(Singleton.WelcomeScreen());
                 break;
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
                 break;
             default:
+                System.out.println("Option unavailable");
                 controller.nextState(Singleton.WelcomeScreen());
                 break;
         }
