@@ -9,7 +9,6 @@ public class TransactionScreen extends Page implements IState {
     @Override
     public void init(StateController controller) {
         this.controller = controller;
-        nextPage = Pages.TRANSACTION;
     }
 
     @Override
@@ -40,15 +39,14 @@ public class TransactionScreen extends Page implements IState {
             case WELCOME:
                 controller.nextState(Singleton.WelcomeScreen());
                 break;
-            case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
-                break;
             case WITHDRAW:
                 controller.nextState(Singleton.WithdrawScreen());
                 break;
+            case TRANSFER:
+                controller.nextState(Singleton.TransferScreen());
+                break;
             default:
-                System.out.println("Option unavailable");
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(controller.getCurrentState());
                 break;
         }
     }

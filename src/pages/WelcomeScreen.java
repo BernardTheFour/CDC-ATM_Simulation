@@ -13,7 +13,6 @@ public class WelcomeScreen extends Page implements IState {
     @Override
     public void init(StateController controller) {
         this.controller = controller;
-        nextPage = Pages.WELCOME;
     }
 
     @Override
@@ -34,7 +33,6 @@ public class WelcomeScreen extends Page implements IState {
 
             if (checkUser.isEmpty()) {
                 System.out.println("\nAccount number or PIN wrong");
-                nextPage = Pages.WELCOME;
                 return;
             }
 
@@ -43,7 +41,6 @@ public class WelcomeScreen extends Page implements IState {
             nextPage = Pages.TRANSACTION;
 
         } catch (Exception e) {
-            nextPage = Pages.WELCOME;
 
             if (e instanceof IOException) {
                 System.out.println(e.getMessage());
@@ -57,15 +54,11 @@ public class WelcomeScreen extends Page implements IState {
     @Override
     public void navigate() {
         switch (nextPage) {
-            case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
-                break;
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
                 break;
             default:
-                System.out.println("Option unavailable");
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(controller.getCurrentState());
                 break;
         }
     }
