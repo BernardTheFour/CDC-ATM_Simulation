@@ -23,10 +23,11 @@ public class Singleton {
     private WelcomeScreen welcomeScreen = new WelcomeScreen();
     private TransactionScreen transactionScreen = new TransactionScreen();
     private SummaryScreen summaryScreen = new SummaryScreen();
-    private TransferScreen transferScreen = new TransferScreen();
     private TransferSummaryScreen transferSummaryScreen = new TransferSummaryScreen();
     private WithdrawScreen withdrawScreen = new WithdrawScreen();
     private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
+
+    private TransferScreen transferScreen = new TransferScreen();
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
@@ -40,7 +41,7 @@ public class Singleton {
         }
     }
 
-    public static String getDateFormat(){
+    public static String getDateFormat() {
         return instance.dateTimeFormat;
     }
 
