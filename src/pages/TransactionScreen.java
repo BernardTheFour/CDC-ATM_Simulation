@@ -20,7 +20,7 @@ public class TransactionScreen extends Page implements IState {
 
         System.out.print("\nNavigate to: ");
 
-        String answer = input.nextLine();
+        String answer = super.input.nextLine();
 
         switch (answer) {
             case "1":

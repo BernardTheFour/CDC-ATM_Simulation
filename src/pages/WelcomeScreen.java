@@ -21,10 +21,10 @@ public class WelcomeScreen extends Page implements IState {
 
         try {
             System.out.print("Account number: ");
-            String accountNumber = checkAccountNumber(input.nextLine());
+            String accountNumber = checkAccountNumber(super.input.nextLine());
 
             System.out.print("PIN number: ");
-            String pinNumber = checkPinNumber(input.nextLine());
+            String pinNumber = checkPinNumber(super.input.nextLine());
 
             Optional<Account> checkUser = Singleton.getAccounts().stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
@@ -32,11 +32,14 @@ public class WelcomeScreen extends Page implements IState {
                     .findAny();
 
             if (checkUser.isEmpty()) {
-                System.out.println("\nAccount number or PIN wrong");
+                System.out.println("\nWrong PIN or account number");
                 return;
             }
 
-            System.out.printf("%nWelcome %s", checkUser.get().getName());
+            Singleton.setLoggedUser(checkUser.get());
+
+            System.out.printf("%nWelcome %s",
+                    Singleton.getLoggedUser().getName());
 
             super.nextPage = Pages.TRANSACTION;
 
