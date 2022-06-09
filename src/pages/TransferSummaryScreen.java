@@ -1,9 +1,9 @@
 package pages;
 
-import pattern.IStatePattern;
+import pattern.IState;
 import pattern.StateController;
 
-public class TransferSummaryScreen extends Page implements IStatePattern {
+public class TransferSummaryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {

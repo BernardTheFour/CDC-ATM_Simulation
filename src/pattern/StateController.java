@@ -1,13 +1,13 @@
 package pattern;
 
 public class StateController {
-    private IStatePattern currentState;
+    private IState currentState;
     
-    public IStatePattern getCurrentState(){
+    public IState getCurrentState(){
         return currentState;
     }
 
-    public void nextState(IStatePattern state){
+    public void nextState(IState state){
         currentState = state;
         run();
     }
@@ -18,7 +18,7 @@ public class StateController {
         currentState.navigate();
     }
 
-    public StateController (IStatePattern initState){
+    public StateController (IState initState){
         currentState = initState;        
     }
 }

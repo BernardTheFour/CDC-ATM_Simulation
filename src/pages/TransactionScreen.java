@@ -1,10 +1,10 @@
 package pages;
 
-import pattern.IStatePattern;
+import pattern.IState;
 import pattern.Singleton;
 import pattern.StateController;
 
-public class TransactionScreen extends Page implements IStatePattern {
+public class TransactionScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
