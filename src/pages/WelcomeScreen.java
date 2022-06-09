@@ -71,7 +71,7 @@ public class WelcomeScreen extends Page implements IState {
         if (accountNumber.length() != 6) {
             throw new IOException("Account number should have 6 digits length");
         }
-        if (accountNumber.matches("[a-zA-Z]+")) {
+        if (!accountNumber.matches("[0-9]+")) {
             throw new IOException("Account number should contains only numbers");
         }
         return accountNumber;
@@ -81,7 +81,7 @@ public class WelcomeScreen extends Page implements IState {
         if (pinNumber.length() != 6) {
             throw new IOException("PIN should have 6 digits length");
         }
-        if (pinNumber.matches("[a-zA-Z]+")) {
+        if (!pinNumber.matches("[0-9]+")) {
             throw new IOException("PIN should only contains numbers");
         }
         return pinNumber;
