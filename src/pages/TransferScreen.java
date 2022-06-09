@@ -1,7 +1,6 @@
 package pages;
 
 import java.io.IOException;
-import java.util.Random;
 
 import pattern.IState;
 import pattern.Singleton;
@@ -50,6 +49,10 @@ public class TransferScreen extends Page implements IState {
         switch (super.nextPage) {
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
+                break;
+            case TRANSFER_SUMMARY:
+                controller.nextState(Singleton.TransferSummaryScreen());
+                break;
             default:
                 controller.nextState(controller.getCurrentState());
         }
@@ -59,7 +62,7 @@ public class TransferScreen extends Page implements IState {
         try {
             System.out.println("\nPlease enter destination account and");
             System.out.println("press enter to continue or");
-            System.out.println("type (Q/q)  to go back to Transaction");
+            System.out.println("type (Q/q)  to go back to Transaction\n");
 
             String answer = super.input.nextLine();
             if (!answer.matches("[qQ]")) {
@@ -77,42 +80,35 @@ public class TransferScreen extends Page implements IState {
     }
 
     private int getAmount() {
-        try {
-            System.out.println("\nPlease enter transfer amount and");
-            System.out.println("press enter to continue or");
-            System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.println("\nPlease enter transfer amount and");
+        System.out.println("press enter to continue or");
+        System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.print("\n$");
 
-            String answer = super.input.nextLine();
-            if (answer.matches("[qQ]")) {
-                return -1;
-            }
-
-            if (!answer.matches("[0-9]+")) {
-                throw new IOException("Invalid amount: please input only number");
-            }
-
-            int amount = Integer.parseInt(answer);
-            if (amount <= 0) {
-                throw new IOException("Invalid amount: cannot less than or equal to 0");
-            }
-            return amount;
-        } catch (Exception e) {
-            if (e instanceof IOException) {
-                System.out.println(e.getMessage());
-                return getAmount();
-            }
-
-            e.printStackTrace();
+        String answer = super.input.nextLine();
+        if (answer.matches("[qQ]")) {
+            return -1;
         }
-        return 0;
+
+        if (!answer.matches("[0-9]+")) {
+            System.out.println("Invalid amount: please input only number");
+            return getAmount();
+        }
+
+        int amount = Integer.parseInt(answer);
+        if (amount <= 0) {
+            System.out.println("Invalid amount: cannot less than or equal to 0");
+            return getAmount();
+        }
+        return amount;
     }
 
     private int getReferenceNumber() {
-        int randomInt = (int) Math.random() * 1000000;
+        int randomInt = (int) (Math.random() * 1000000);
 
         System.out.println("\nReference Number: " + randomInt);
         System.out.println("press enter to continue or");
-        System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.println("type (Q/q)  to go back to Transaction\n");
 
         String answer = super.input.nextLine();
 
