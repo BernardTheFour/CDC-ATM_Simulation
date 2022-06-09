@@ -12,7 +12,7 @@ public class WelcomeScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
-        this.controller = controller;
+        super.controller = controller;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("Account number: ");
             String accountNumber = checkAccountNumber(input.nextLine());
 
-            System.out.print("PIN number:");
+            System.out.print("PIN number: ");
             String pinNumber = checkPinNumber(input.nextLine());
 
             Optional<Account> checkUser = Singleton.getAccounts().stream()
@@ -38,7 +38,7 @@ public class WelcomeScreen extends Page implements IState {
 
             System.out.printf("%nWelcome %s", checkUser.get().getName());
 
-            nextPage = Pages.TRANSACTION;
+            super.nextPage = Pages.TRANSACTION;
 
         } catch (Exception e) {
 
@@ -53,7 +53,7 @@ public class WelcomeScreen extends Page implements IState {
 
     @Override
     public void navigate() {
-        switch (nextPage) {
+        switch (super.nextPage) {
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
                 break;
@@ -61,6 +61,7 @@ public class WelcomeScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
+        super.nextPage = Pages.DEFAULT;
     }
 
     private String checkAccountNumber(String accountNumber) throws IOException {

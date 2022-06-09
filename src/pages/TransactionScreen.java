@@ -8,7 +8,7 @@ public class TransactionScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
-        this.controller = controller;
+        super.controller = controller;
     }
 
     @Override
@@ -18,24 +18,26 @@ public class TransactionScreen extends Page implements IState {
         System.out.println("2. Fund Transfer");
         System.out.println("3. Exit");
 
+        System.out.print("\nNavigate to: ");
+
         String answer = input.nextLine();
 
         switch (answer) {
             case "1":
-                nextPage = Pages.WITHDRAW;
+                super.nextPage = Pages.WITHDRAW;
                 break;
             case "2":
-                nextPage = Pages.TRANSFER;
+                super.nextPage = Pages.TRANSFER;
                 break;
             case "3":
-                nextPage = Pages.WELCOME;
+                super.nextPage = Pages.WELCOME;
                 break;
         }
     }
 
     @Override
     public void navigate() {
-        switch (nextPage) {
+        switch (super.nextPage) {
             case WELCOME:
                 controller.nextState(Singleton.WelcomeScreen());
                 break;
@@ -49,5 +51,6 @@ public class TransactionScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
+        super.nextPage = Pages.DEFAULT;
     }
 }

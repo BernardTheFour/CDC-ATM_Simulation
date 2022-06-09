@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 import pattern.StateController;
 
-public class Page{
-    public enum Pages {
+public class Page {
+    public static enum Pages {
+        DEFAULT,
         SUMMARY,
         TRANSACTION,
         OTHER_WITHDRAW,
@@ -17,6 +18,5 @@ public class Page{
 
     protected Scanner input = new Scanner(System.in);
     protected StateController controller;
-    protected Page.Pages nextPage;
+    protected Page.Pages nextPage = Pages.DEFAULT;
 }
-
