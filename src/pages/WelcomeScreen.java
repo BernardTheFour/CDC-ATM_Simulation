@@ -48,13 +48,13 @@ public class WelcomeScreen extends Page implements IState {
     public void navigate() {
         switch (nextPage) {
             case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
+                logic();
                 break;
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
                 break;
             default:
-                controller.nextState(controller.getCurrentState());
+                controller.nextState(Singleton.WelcomeScreen());
                 break;
         }
     }
