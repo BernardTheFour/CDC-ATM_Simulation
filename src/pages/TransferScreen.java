@@ -1,8 +1,10 @@
 package pages;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.Optional;
+import java.util.Set;
 
+import domains.Account;
 import pattern.IState;
 import pattern.Singleton;
 import pattern.StateController;
@@ -43,6 +45,14 @@ public class TransferScreen extends Page implements IState {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
+        
+        if (!processTransfer(destination, amount, referenceNumber)) {
+            super.nextPage = Pages.TRANSACTION;
+            return;
+        }
+
+        Singleton.TransferSummaryScreen().setInfo(destination, amount, referenceNumber);
+        super.nextPage = Pages.TRANSFER_SUMMARY;
     }
 
     @Override
@@ -50,6 +60,10 @@ public class TransferScreen extends Page implements IState {
         switch (super.nextPage) {
             case TRANSACTION:
                 controller.nextState(Singleton.TransactionScreen());
+                break;
+            case TRANSFER_SUMMARY:
+                controller.nextState(Singleton.TransferSummaryScreen());
+                break;
             default:
                 controller.nextState(controller.getCurrentState());
         }
@@ -59,7 +73,7 @@ public class TransferScreen extends Page implements IState {
         try {
             System.out.println("\nPlease enter destination account and");
             System.out.println("press enter to continue or");
-            System.out.println("type (Q/q)  to go back to Transaction");
+            System.out.println("type (Q/q)  to go back to Transaction\n");
 
             String answer = super.input.nextLine();
             if (!answer.matches("[qQ]")) {
@@ -77,42 +91,35 @@ public class TransferScreen extends Page implements IState {
     }
 
     private int getAmount() {
-        try {
-            System.out.println("\nPlease enter transfer amount and");
-            System.out.println("press enter to continue or");
-            System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.println("\nPlease enter transfer amount and");
+        System.out.println("press enter to continue or");
+        System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.print("\n$");
 
-            String answer = super.input.nextLine();
-            if (answer.matches("[qQ]")) {
-                return -1;
-            }
-
-            if (!answer.matches("[0-9]+")) {
-                throw new IOException("Invalid amount: please input only number");
-            }
-
-            int amount = Integer.parseInt(answer);
-            if (amount <= 0) {
-                throw new IOException("Invalid amount: cannot less than or equal to 0");
-            }
-            return amount;
-        } catch (Exception e) {
-            if (e instanceof IOException) {
-                System.out.println(e.getMessage());
-                return getAmount();
-            }
-
-            e.printStackTrace();
+        String answer = super.input.nextLine();
+        if (answer.matches("[qQ]")) {
+            return -1;
         }
-        return 0;
+
+        if (!answer.matches("[0-9]+")) {
+            System.out.println("Invalid amount: please input only number");
+            return getAmount();
+        }
+
+        int amount = Integer.parseInt(answer);
+        if (amount <= 0) {
+            System.out.println("Invalid amount: cannot less than or equal to 0");
+            return getAmount();
+        }
+        return amount;
     }
 
     private int getReferenceNumber() {
-        int randomInt = (int) Math.random() * 1000000;
+        int randomInt = (int) (Math.random() * 1000000);
 
         System.out.println("\nReference Number: " + randomInt);
         System.out.println("press enter to continue or");
-        System.out.println("type (Q/q)  to go back to Transaction");
+        System.out.println("type (Q/q)  to go back to Transaction\n");
 
         String answer = super.input.nextLine();
 
@@ -147,6 +154,46 @@ public class TransferScreen extends Page implements IState {
                 System.out.println("Invalid option");
                 return transferConfirmation(destination, amount, referenceNumber);
         }
+    }
+
+    private boolean processTransfer(String destination, int amount, int referenceNumber) {
+        Optional<Account> destinationAccount = Singleton.getAccounts().stream()
+                .filter(i -> destination.equals(i.getAccountNumber()))
+                .findAny();
+
+        if (destinationAccount.isEmpty()) {
+            System.out.println("Invalid Account: destination account not found");
+            return false;
+        }
+
+        if (amount > 1000) {
+            System.out.println("Invalid Amount: maximal transfer is $1000");
+            return false;
+        }
+
+        if (amount < 1) {
+            System.out.println("Invalid Amount: minimal transfer is $1");
+            return false;
+        }
+
+        if (amount > Singleton.getLoggedUser().getBalance()) {
+            System.out.println("Insufficient Balance: cannot transfer $" + amount);
+            return false;
+        }
+
+        Set<Account> accounts = Singleton.getAccounts();
+        accounts.remove(destinationAccount.get());
+
+        int senderBalance = Singleton.getLoggedUser().getBalance() - amount;
+        Singleton.getLoggedUser().setBalance(senderBalance);
+
+        int retrieverBalance = destinationAccount.get().getBalance() + amount;
+        destinationAccount.get().setBalance(retrieverBalance);
+
+        accounts.add(destinationAccount.get());
+        Singleton.setAccounts(accounts);
+
+        return true;
     }
 
     private String checkAccountNumber(String accountNumber) throws IOException {
