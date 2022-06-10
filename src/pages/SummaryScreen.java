@@ -9,6 +9,12 @@ import pattern.StateController;
 
 public class SummaryScreen extends Page implements IState {
 
+    private int withdrawAmount;
+
+    public void setInfo(int withdrawAmount){
+        this.withdrawAmount = withdrawAmount;
+    }
+
     @Override
     public void init(StateController controller) {
         super.controller = controller;
@@ -21,7 +27,7 @@ public class SummaryScreen extends Page implements IState {
         System.out.printf("Date: %s%n",
                 LocalDateTime.now().format(
                         DateTimeFormatter.ofPattern(Singleton.getDateFormat())));
-        System.out.println("Withdraw: $" + Singleton.getWithdraw());
+        System.out.println("Withdraw: $" + withdrawAmount);
         System.out.println("Balance: $" + Singleton.getLoggedUser().getBalance());
 
         System.out.println("\n1. Transaction");

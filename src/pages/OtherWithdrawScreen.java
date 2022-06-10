@@ -43,8 +43,7 @@ public class OtherWithdrawScreen extends Page implements IState {
 
        balance -= withdraw;
 
-       Singleton.getLoggedUser().setBalance(balance);
-       Singleton.setWithdraw(withdraw);
+       Singleton.SummaryScreen().setInfo(withdraw);
        super.nextPage = Pages.SUMMARY;
     }
 

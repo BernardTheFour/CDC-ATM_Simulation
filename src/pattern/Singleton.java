@@ -31,8 +31,6 @@ public class Singleton {
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
-    private int withdraw = 0;
-
     public static void init() throws Exception {
         if (instance == null) {
             instance = new Singleton();
@@ -87,13 +85,5 @@ public class Singleton {
 
     public static OtherWithdrawScreen OtherWithdrawScreen() {
         return instance.otherWithdrawScreen;
-    }
-
-    public static void setWithdraw(int amount) {
-        instance.withdraw = amount;
-    }
-
-    public static int getWithdraw() {
-        return instance.withdraw;
     }
 }

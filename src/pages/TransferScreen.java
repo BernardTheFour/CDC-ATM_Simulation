@@ -1,7 +1,10 @@
 package pages;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Set;
 
+import domains.Account;
 import pattern.IState;
 import pattern.Singleton;
 import pattern.StateController;
@@ -42,6 +45,14 @@ public class TransferScreen extends Page implements IState {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
+        
+        if (!processTransfer(destination, amount, referenceNumber)) {
+            super.nextPage = Pages.TRANSACTION;
+            return;
+        }
+
+        Singleton.TransferSummaryScreen().setInfo(destination, amount, referenceNumber);
+        super.nextPage = Pages.TRANSFER_SUMMARY;
     }
 
     @Override
@@ -143,6 +154,46 @@ public class TransferScreen extends Page implements IState {
                 System.out.println("Invalid option");
                 return transferConfirmation(destination, amount, referenceNumber);
         }
+    }
+
+    private boolean processTransfer(String destination, int amount, int referenceNumber) {
+        Optional<Account> destinationAccount = Singleton.getAccounts().stream()
+                .filter(i -> destination.equals(i.getAccountNumber()))
+                .findAny();
+
+        if (destinationAccount.isEmpty()) {
+            System.out.println("Invalid Account: destination account not found");
+            return false;
+        }
+
+        if (amount > 1000) {
+            System.out.println("Invalid Amount: maximal transfer is $1000");
+            return false;
+        }
+
+        if (amount < 1) {
+            System.out.println("Invalid Amount: minimal transfer is $1");
+            return false;
+        }
+
+        if (amount > Singleton.getLoggedUser().getBalance()) {
+            System.out.println("Insufficient Balance: cannot transfer $" + amount);
+            return false;
+        }
+
+        Set<Account> accounts = Singleton.getAccounts();
+        accounts.remove(destinationAccount.get());
+
+        int senderBalance = Singleton.getLoggedUser().getBalance() - amount;
+        Singleton.getLoggedUser().setBalance(senderBalance);
+
+        int retrieverBalance = destinationAccount.get().getBalance() + amount;
+        destinationAccount.get().setBalance(retrieverBalance);
+
+        accounts.add(destinationAccount.get());
+        Singleton.setAccounts(accounts);
+
+        return true;
     }
 
     private String checkAccountNumber(String accountNumber) throws IOException {
