@@ -1,4 +1,4 @@
-## run the build file
+## Run he Build File
 1. Open CMD
 2. java -jar (your folder directory)\CDC-ATM_Simulation.jar
 
