@@ -1,3 +1,7 @@
+## run the build file
+1. Open CMD
+2. java -jar <your folder directory>\CDC-ATM_Simulation.jar
+
 ## Getting Started
 
 Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
