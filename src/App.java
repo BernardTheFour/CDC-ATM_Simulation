@@ -1,24 +1,23 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import domains.Account;
 import pattern.SingletonData;
+import pattern.SingletonPath;
 import pattern.SingletonScreen;
 import pattern.StateController;
+import util.FileManagement;
 
 public class App {
 
     private static StateController screenNavigator;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        
-        SingletonData.init();
-        SingletonScreen.init();
+        Initialization();
+
+        FileManagement.extractPath(args[0]);
 
         SingletonData.setAccounts(initDummyData());
 
@@ -35,5 +34,15 @@ public class App {
         account.add(new Account("112244", "932012", "Jane Doe", 30));
 
         return account;
+    }
+
+    private static void Initialization() {
+        try {
+            SingletonPath.init();
+            SingletonData.init();
+            SingletonScreen.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
