@@ -7,13 +7,12 @@ public class SingletonPath {
 
     private String generalPath;
 
-    private File account;
+    private File accounts;
+    private File transactions;
 
-    public static void init() throws Exception {
+    public static void init() {
         if (instance == null) {
             instance = new SingletonPath();
-        } else {
-            throw new Exception("Only one singleton at a time!");
         }
     }
 
@@ -26,10 +25,34 @@ public class SingletonPath {
     }
 
     public static void setAccount(File file){
-        instance.account = file;
+        instance.accounts = file;
     }
 
     public File getAccount(){
-        return instance.account;
+        return instance.accounts;
+    }
+
+    public String getGeneralPath() {
+        return this.generalPath;
+    }
+
+    public void setGeneralPath(String generalPath) {
+        this.generalPath = generalPath;
+    }
+
+    public File getAccounts() {
+        return this.accounts;
+    }
+
+    public void setAccounts(File accounts) {
+        this.accounts = accounts;
+    }
+
+    public File getTransactions() {
+        return this.transactions;
+    }
+
+    public void setTransactions(File transactions) {
+        this.transactions = transactions;
     }
 }

@@ -22,11 +22,9 @@ public class SingletonScreen {
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
-    public static void init() throws Exception {
+    public static void init() {
         if (instance == null) {
             instance = new SingletonScreen();
-        } else {
-            throw new Exception("Only one singleton at a time!");
         }
     }
 

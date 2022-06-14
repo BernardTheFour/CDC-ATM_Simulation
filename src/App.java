@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,12 @@ public class App {
 
         Initialization();
 
-        FileManagement.extractPath(args[0]);
+        // try {
+        //     FileManagement.extractPath(args[0]);
+        // } catch (FileNotFoundException e) {
+        //     System.out.println(e.getMessage());
+        //     System.out.println();
+        // }
 
         SingletonData.setAccounts(initDummyData());
 
@@ -37,12 +43,8 @@ public class App {
     }
 
     private static void Initialization() {
-        try {
             SingletonPath.init();
             SingletonData.init();
             SingletonScreen.init();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

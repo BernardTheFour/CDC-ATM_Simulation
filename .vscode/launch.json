@@ -1,0 +1,14 @@
+{
+    "args": [
+        "D:\\Project\\CDC-ATM_Simulation\\data"
+    ],
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "CDC-ATM_Simulation_321a1246"
+        }
+    ],
+}

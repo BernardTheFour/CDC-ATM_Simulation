@@ -12,11 +12,9 @@ public class SingletonData {
     private Account loggedUser = new Account();;
     private Set<Account> accounts = new HashSet<>();
 
-    public static void init() throws Exception {
+    public static void init() {
         if (instance == null) {
             instance = new SingletonData();
-        } else {
-            throw new Exception("Only one singleton at a time!");
         }
     }
 
