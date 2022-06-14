@@ -16,7 +16,7 @@ public class FileManagement {
             String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
 
             if (!"csv".equals(extension)){
-                return
+                
             }
         }
     }
