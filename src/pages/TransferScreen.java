@@ -47,7 +47,8 @@ public class TransferScreen extends Page implements IState {
             return;
         }
         
-        if (!processTransfer(destination, amount, referenceNumber)) {
+        boolean transferSuccess = processTransfer(destination, amount, referenceNumber);
+        if (!transferSuccess) {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
