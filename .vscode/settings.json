@@ -1,7 +1,22 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "launch": {
+        "configurations": [
+            {
+                "type": "java",
+                "name": "Launch App",
+                "request": "launch",
+                "vmArgs": ["Tes"],
+                "mainClass": "App.java",
+                "projectName": "CDC-ATM_Simulation_321a1246"
+            }
+        ],
+        "compounds": []
+    },
 }

@@ -8,7 +8,6 @@ import pattern.SingletonData;
 import pattern.SingletonPath;
 import pattern.SingletonScreen;
 import pattern.StateController;
-import util.FileManagement;
 
 public class App {
 
@@ -17,6 +16,8 @@ public class App {
     public static void main(String[] args) {
 
         Initialization();
+
+        System.out.println("\nLENGTH: " + args.length + "\n");
 
         // try {
         //     FileManagement.extractPath(args[0]);
