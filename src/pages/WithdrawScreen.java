@@ -1,7 +1,8 @@
 package pages;
 
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class WithdrawScreen extends Page implements IState {
@@ -47,7 +48,7 @@ public class WithdrawScreen extends Page implements IState {
                 return;
         }
 
-        int balance = Singleton.getLoggedUser().getBalance();
+        int balance = SingletonData.getLoggedUser().getBalance();
 
         if (balance < withdraw) {
             System.out.println("Insufficient balance to withdraw $" + withdraw);
@@ -56,21 +57,21 @@ public class WithdrawScreen extends Page implements IState {
 
         balance -= withdraw;
         
-        Singleton.getLoggedUser().setBalance(balance);
-        Singleton.SummaryScreen().setInfo(withdraw);
+        SingletonData.getLoggedUser().setBalance(balance);
+        SingletonScreen.SummaryScreen().setInfo(withdraw);
     }
 
     @Override
     public void navigate() {
         switch (super.nextPage) {
             case SUMMARY:
-                controller.nextState(Singleton.SummaryScreen());
+                controller.nextState(SingletonScreen.SummaryScreen());
                 break;
             case OTHER_WITHDRAW:
-                controller.nextState(Singleton.OtherWithdrawScreen());
+                controller.nextState(SingletonScreen.OtherWithdrawScreen());
                 break;
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

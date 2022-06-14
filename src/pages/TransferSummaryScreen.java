@@ -1,7 +1,8 @@
 package pages;
 
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class TransferSummaryScreen extends Page implements IState {
@@ -28,7 +29,7 @@ public class TransferSummaryScreen extends Page implements IState {
         System.out.println("Destination Account: " + destination);
         System.out.println("Transfer Amount: $" + amount);
         System.out.println("Reference Number: " + referenceNumber);
-        System.out.println("Balance : $" + Singleton.getLoggedUser().getBalance());
+        System.out.println("Balance : $" + SingletonData.getLoggedUser().getBalance());
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
@@ -50,10 +51,10 @@ public class TransferSummaryScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(SingletonScreen.WelcomeScreen());
             default:
                 controller.nextState(controller.getCurrentState());
                 break;

@@ -1,7 +1,7 @@
 package pages;
 
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class TransactionScreen extends Page implements IState {
@@ -40,13 +40,13 @@ public class TransactionScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(SingletonScreen.WelcomeScreen());
                 break;
             case WITHDRAW:
-                controller.nextState(Singleton.WithdrawScreen());
+                controller.nextState(SingletonScreen.WithdrawScreen());
                 break;
             case TRANSFER:
-                controller.nextState(Singleton.TransferScreen());
+                controller.nextState(SingletonScreen.TransferScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

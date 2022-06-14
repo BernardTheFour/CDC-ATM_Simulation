@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class SummaryScreen extends Page implements IState {
@@ -26,9 +27,9 @@ public class SummaryScreen extends Page implements IState {
         System.out.println("\n--Summary--");
         System.out.printf("Date: %s%n",
                 LocalDateTime.now().format(
-                        DateTimeFormatter.ofPattern(Singleton.getDateFormat())));
+                        DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));
         System.out.println("Withdraw: $" + withdrawAmount);
-        System.out.println("Balance: $" + Singleton.getLoggedUser().getBalance());
+        System.out.println("Balance: $" + SingletonData.getLoggedUser().getBalance());
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
@@ -51,10 +52,10 @@ public class SummaryScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(SingletonScreen.WelcomeScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

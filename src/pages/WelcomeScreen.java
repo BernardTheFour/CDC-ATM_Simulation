@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import domains.Account;
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class WelcomeScreen extends Page implements IState {
@@ -27,7 +28,7 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("PIN number: ");
             String pinNumber = checkPinNumber(super.input.nextLine());
 
-            Optional<Account> checkUser = Singleton.getAccounts().stream()
+            Optional<Account> checkUser = SingletonData.getAccounts().stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
                     .filter(i -> pinNumber.equals(i.getPin()))
                     .findAny();
@@ -37,10 +38,10 @@ public class WelcomeScreen extends Page implements IState {
                 return;
             }
 
-            Singleton.setLoggedUser(checkUser.get());
+            SingletonData.setLoggedUser(checkUser.get());
 
             System.out.printf("%nWelcome %s",
-                    Singleton.getLoggedUser().getName());
+                    SingletonData.getLoggedUser().getName());
 
             super.nextPage = Pages.TRANSACTION;
 
@@ -59,7 +60,7 @@ public class WelcomeScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

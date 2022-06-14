@@ -1,8 +1,13 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import domains.Account;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class App {
@@ -10,12 +15,15 @@ public class App {
     private static StateController screenNavigator;
 
     public static void main(String[] args) throws Exception {
-        Singleton.init();
 
-        Singleton.setAccounts(initDummyData());
+        
+        SingletonData.init();
+        SingletonScreen.init();
+
+        SingletonData.setAccounts(initDummyData());
 
         screenNavigator = new StateController(
-                Singleton.WelcomeScreen());
+                SingletonScreen.WelcomeScreen());
 
         screenNavigator.run();
     }
