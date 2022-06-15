@@ -18,13 +18,14 @@ public class SummaryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Summary--");
+        System.out.println("--Summary--");
         System.out.printf("Date: %s%n",
                 LocalDateTime.now().format(
                         DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));

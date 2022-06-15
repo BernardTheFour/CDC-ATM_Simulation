@@ -13,13 +13,14 @@ public class WelcomeScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n\n--Automated Teller Machine--");
+        System.out.println("--Automated Teller Machine--");
 
         try {
             System.out.print("Account number: ");

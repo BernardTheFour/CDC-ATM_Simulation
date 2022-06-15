@@ -19,13 +19,14 @@ public class TransferSummaryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Transfer Summary Screen--");
+        System.out.println("--Transfer Summary Screen--");
         System.out.println("Destination Account: " + destination);
         System.out.println("Transfer Amount: $" + amount);
         System.out.println("Reference Number: " + referenceNumber);

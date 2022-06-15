@@ -11,13 +11,14 @@ public class OtherWithdrawScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Other Withdraw--");
+        System.out.println("--Other Withdraw--");
         System.out.println("Enter amount to withdraw (max $1000):");
         System.out.printf("$");
 

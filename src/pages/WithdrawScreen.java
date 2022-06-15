@@ -9,13 +9,14 @@ public class WithdrawScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Withdraw--");
+        System.out.println("--Withdraw--");
         System.out.println("1. $10");
         System.out.println("2. $50");
         System.out.println("3. $100");

@@ -14,6 +14,7 @@ public class TransferScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
@@ -21,7 +22,7 @@ public class TransferScreen extends Page implements IState {
     @Override
     public void logic() {
 
-        System.out.println("\n--Transfer--");
+        System.out.println("--Transfer--");
 
         String destination = getDestination();
         if (destination == null) {
