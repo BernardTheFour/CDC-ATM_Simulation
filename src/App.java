@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 import domains.Account;
@@ -8,6 +9,7 @@ import pattern.SingletonData;
 import pattern.SingletonPath;
 import pattern.SingletonScreen;
 import pattern.StateController;
+import util.FileManagement;
 
 public class App {
 
@@ -15,16 +17,15 @@ public class App {
 
     public static void main(String[] args) {
 
+        CheckPath(args);
+
         Initialization();
 
-        System.out.println("\nLENGTH: " + args.length + "\n");
-
-        // try {
-        //     FileManagement.extractPath(args[0]);
-        // } catch (FileNotFoundException e) {
-        //     System.out.println(e.getMessage());
-        //     System.out.println();
-        // }
+        try {
+            FileManagement.extractPath(args[0]);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         SingletonData.setAccounts(initDummyData());
 
@@ -43,9 +44,24 @@ public class App {
         return account;
     }
 
+    private static void CheckPath(String[] path) {
+        File file = path.length > 0 ? new File(path[0]) : null;
+
+        if (file == null) {
+            System.out.println("\nPlease input directory path argument\n");
+            System.exit(0);
+        }
+
+        if (!file.isDirectory()) {
+            System.out.println("Pathfile should be folder directory, not file.");
+            System.exit(0);
+        }
+    }
+
     private static void Initialization() {
-            SingletonPath.init();
-            SingletonData.init();
-            SingletonScreen.init();
+        System.out.println("\nProgram starting...");
+        SingletonPath.init();
+        SingletonData.init();
+        SingletonScreen.init();
     }
 }

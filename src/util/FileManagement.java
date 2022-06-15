@@ -8,24 +8,41 @@ import pattern.SingletonPath;
 public class FileManagement {
 
     public static void extractPath(String path) throws FileNotFoundException {
-        SingletonPath.setPath(path);
+        SingletonPath.setPath(new File(path));
 
-        File[] files = new File(path).listFiles();
+        File[] files = SingletonPath.getPath().listFiles();
 
         for (File file : files) {
             String fileName = file.getName();
 
-            if (!"account.csv".equals(fileName)){
-                throw new FileNotFoundException("error: cannot find account.csv");
+            if ("account.csv".equals(fileName)) {
+                SingletonPath.setAccount(file);
             }
 
-            if (!"transaction.csv".equals(fileName)){
-                throw new FileNotFoundException("error: cannot find transaction.csv");
+            if ("transaction.csv".equals(fileName)) {
+                SingletonPath.setTransactions(file);
             }
+        }
+
+        boolean error = false;
+        if (SingletonPath.getAccount() == null) {
+            System.out.println("\nError: cannot find account.csv");
+            createFile("account.csv", SingletonPath.getPath());
+            error = true;
+        }
+
+        if (SingletonPath.getTransactions() == null) {
+            System.out.println("\nError: cannot find transactions.csv");
+            createFile("transactions.csv", SingletonPath.getPath());
+            error = true;
+        }
+
+        if (error) {
+            throw new FileNotFoundException("\nCreating required file in the directory success");
         }
     }
 
-    public static void createFile(String fileName){
-
+    public static void createFile(String fileName, File path) {
+        System.out.println("Create file " + fileName + " in " + path.getPath());
     }
 }

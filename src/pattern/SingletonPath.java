@@ -5,7 +5,7 @@ import java.io.File;
 public class SingletonPath {
     private static SingletonPath instance;
 
-    private String generalPath;
+    private File generalPath;
 
     private File accounts;
     private File transactions;
@@ -16,11 +16,11 @@ public class SingletonPath {
         }
     }
 
-    public static void setPath(String path){
+    public static void setPath(File path){
         instance.generalPath = path;
     }
 
-    public String getPath(String path){
+    public static File getPath(){
         return instance.generalPath;
     }
 
@@ -28,31 +28,15 @@ public class SingletonPath {
         instance.accounts = file;
     }
 
-    public File getAccount(){
+    public static File getAccount(){
         return instance.accounts;
     }
 
-    public String getGeneralPath() {
-        return this.generalPath;
+    public static File getTransactions() {
+        return instance.transactions;
     }
 
-    public void setGeneralPath(String generalPath) {
-        this.generalPath = generalPath;
-    }
-
-    public File getAccounts() {
-        return this.accounts;
-    }
-
-    public void setAccounts(File accounts) {
-        this.accounts = accounts;
-    }
-
-    public File getTransactions() {
-        return this.transactions;
-    }
-
-    public void setTransactions(File transactions) {
-        this.transactions = transactions;
+    public static void setTransactions(File transactions) {
+        instance.transactions = transactions;
     }
 }
