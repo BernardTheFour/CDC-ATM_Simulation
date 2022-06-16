@@ -1,4 +1,4 @@
-package util;
+package dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ public class DataAccessObject {
 
     public DataAccessObject(File file) throws FileNotFoundException {
         this.file = file;
-        scanner = new Scanner(file);
+        scanner = new Scanner(this.file);
     }
 
     protected Object[] readRow(int row) {

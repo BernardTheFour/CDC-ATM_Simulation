@@ -1,7 +1,5 @@
 package pages;
 
-import java.io.IOException;
-
 import pattern.IState;
 import pattern.SingletonData;
 import pattern.SingletonScreen;

@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import java.util.Locale;
-import java.util.Scanner;
 import java.util.Set;
 
 import dao.AccountDao;
@@ -12,7 +10,6 @@ import pattern.SingletonPath;
 import pattern.SingletonScreen;
 import pattern.SingletonUtils;
 import pattern.StateController;
-import util.DataAccessObject;
 import util.FileManagement;
 
 public class App {
@@ -40,7 +37,6 @@ public class App {
             AccountDao daoAccount = new AccountDao(SingletonPath.getAccount());
             System.out.println(daoAccount.getAccount(5));
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

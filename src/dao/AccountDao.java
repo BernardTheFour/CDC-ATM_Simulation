@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import domains.Account;
-import util.DataAccessObject;
 
 public class AccountDao extends DataAccessObject {
 
