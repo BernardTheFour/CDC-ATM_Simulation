@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import pattern.SingletonPath;
 
@@ -30,14 +31,20 @@ public class FileManagement {
         boolean error = false;
         if (SingletonPath.getAccount() == null) {
             System.out.println("\nError: cannot find account.csv");
-            createAccountFile(path);
+            System.out.println("Creating account.csv file");
             error = true;
+
+            String[] columns ={"Account Number", "Pin", "Name", "Balance"};
+            createFile(columns, "account.csv", path);
         }
 
         if (SingletonPath.getTransactions() == null) {
             System.out.println("\nError: cannot find transaction.csv");
-            createTransactionFile(path);
+            System.out.println("Creating transaction.csv file");
             error = true;
+
+            String[] columns ={"Account Number", "Type", "Transfer To", "Amount", "Date"};
+            createFile(columns, "transaction.csv", path);
         }
 
         if (error) {
@@ -45,34 +52,17 @@ public class FileManagement {
         }
     }
 
-    private static void createAccountFile(String path) throws IOException {
-        File file = new File(path + "\\account.csv");
+    public static void createFile(String[] columns, String fileName, String path) throws IOException {
+        File file = new File(path + "\\" + fileName);
         file.createNewFile();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-        writer.write("Account Number");
-        writer.write("Pin");
-        writer.write("Name");
-        writer.write("Balance");
+        for (String column : columns) {
+            writer.write(column);
+        }
+
         writer.newLine();
-
-        writer.flush();
-        writer.close();
-    }
-
-    private static void createTransactionFile(String path) throws IOException {
-        File file = new File(path + "\\transaction.csv");
-        file.createNewFile();
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
-        writer.write("Account Number;");
-        writer.write("Type;");
-        writer.write("Transfer To;");
-        writer.write("Amount;");
-        writer.write("Date;");
-
         writer.flush();
         writer.close();
     }
