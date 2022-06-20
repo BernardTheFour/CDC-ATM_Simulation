@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
+import csv_access.CSVAccount;
 import domains.Account;
 import pattern.SingletonData;
 import pattern.SingletonPath;
@@ -23,6 +25,10 @@ public class App {
 
         try {
             FileManagement.extractPath(args[0]);
+
+            CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
+            Optional<Account> acc = csvAccount.getById("940213");
+
         } catch (Exception e) {
             if (e instanceof FileNotFoundException) {
                 System.out.println(e.getMessage());

@@ -11,4 +11,5 @@
             "lib/jsr173_1.0_api.jar"
         ]
     },
+    "java.configuration.updateBuildConfiguration": "interactive",
 }
