@@ -34,8 +34,9 @@ public class FileManagement {
             System.out.println("Creating account.csv file");
             error = true;
 
-            String[] columns ={"Account Number", "Pin", "Name", "Balance"};
-            createFile(columns, "account.csv", path);
+            String[] columns = { "Account Number", "Pin", "Name", "Balance" };
+            File file = createFile(columns, "account.csv", path);
+            SingletonPath.setAccount(file);
         }
 
         if (SingletonPath.getTransactions() == null) {
@@ -43,8 +44,9 @@ public class FileManagement {
             System.out.println("Creating transaction.csv file");
             error = true;
 
-            String[] columns ={"Account Number", "Type", "Transfer To", "Amount", "Date"};
-            createFile(columns, "transaction.csv", path);
+            String[] columns = { "Account Number", "Type", "Transfer To", "Amount", "Date" };
+            File file = createFile(columns, "transaction.csv", path);
+            SingletonPath.setTransactions(file);
         }
 
         if (error) {
@@ -52,7 +54,7 @@ public class FileManagement {
         }
     }
 
-    public static void createFile(String[] columns, String fileName, String path) throws IOException {
+    public static File createFile(String[] columns, String fileName, String path) throws IOException {
         File file = new File(path + "\\" + fileName);
         file.createNewFile();
 
@@ -65,5 +67,6 @@ public class FileManagement {
         writer.newLine();
         writer.flush();
         writer.close();
+        return file;
     }
 }

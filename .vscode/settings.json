@@ -3,7 +3,12 @@
         "src"
     ],
     "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ],
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "lib/jsr173_1.0_api.jar"
+        ]
+    },
 }

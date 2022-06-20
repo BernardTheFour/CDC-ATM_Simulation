@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
-import dao.AccountDao;
 import domains.Account;
 import pattern.SingletonData;
 import pattern.SingletonPath;
@@ -32,31 +31,6 @@ public class App {
                 System.exit(0);
             }
         }
-
-        try {
-            AccountDao daoAccount = new AccountDao(SingletonPath.getAccount());
-            System.out.println(daoAccount.getAccount(5));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // try {
-        // Scanner scanner = new Scanner(SingletonPath.getAccount());
-
-        // scanner.useDelimiter("\r\n"); // windows newline delimiter (EOL)
-
-        // while (scanner.hasNext()) {
-        // String[] data = scanner.next().split(";");
-
-        // for (int i = 0; i < data.length; i++) {
-        // System.out.print(data[i] + " | ");
-        // }
-        // System.out.println("--");
-        // }
-        // scanner.close();
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
 
         SingletonData.setAccounts(initDummyData());
 
