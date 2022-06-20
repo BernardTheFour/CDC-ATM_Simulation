@@ -1,5 +1,7 @@
 package pattern;
 
+import csv_access.CSVAccount;
+
 public class SingletonUtils {
 
     private static SingletonUtils instance;
@@ -11,6 +13,8 @@ public class SingletonUtils {
      */
     private String csvRowDelimiter = "\r\n";
 
+    private CSVAccount csvAccount;
+
     public static void init() {
         if (instance == null) {
             instance = new SingletonUtils();
@@ -19,5 +23,13 @@ public class SingletonUtils {
 
     public static String getCSVRowDelimiter(){
         return instance.csvRowDelimiter;
+    }
+
+    public static void setCSVAccount (CSVAccount cAccount){
+        instance.csvAccount = cAccount;
+    }
+
+    public static CSVAccount getCsvAccount(){
+        return instance.csvAccount;
     }
 }

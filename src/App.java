@@ -26,9 +26,6 @@ public class App {
         try {
             FileManagement.extractPath(args[0]);
 
-            CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
-            Optional<Account> acc = csvAccount.getById("940213");
-
         } catch (Exception e) {
             if (e instanceof FileNotFoundException) {
                 System.out.println(e.getMessage());
@@ -38,21 +35,16 @@ public class App {
             }
         }
 
-        SingletonData.setAccounts(initDummyData());
+        CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
+
+
+        SingletonUtils.setCSVAccount(csvAccount);
+        SingletonData.setAccounts(new HashSet<>(SingletonUtils.getCsvAccount().getAll().get()));
 
         screenNavigator = new StateController(
                 SingletonScreen.WelcomeScreen());
 
         screenNavigator.run();
-    }
-
-    private static Set<Account> initDummyData() {
-        Set<Account> account = new HashSet<Account>();
-
-        account.add(new Account("112233", "012108", "John Doe", 100));
-        account.add(new Account("112244", "932012", "Jane Doe", 30));
-
-        return account;
     }
 
     private static void CheckPath(String[] path) {

@@ -7,7 +7,9 @@ import java.util.Set;
 import domains.Account;
 import pattern.IState;
 import pattern.SingletonData;
+import pattern.SingletonPath;
 import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class TransferScreen extends Page implements IState {
@@ -47,7 +49,7 @@ public class TransferScreen extends Page implements IState {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
-        
+
         boolean transferSuccess = processTransfer(destination, amount, referenceNumber);
         if (!transferSuccess) {
             super.nextPage = Pages.TRANSACTION;
@@ -195,6 +197,9 @@ public class TransferScreen extends Page implements IState {
 
         accounts.add(destinationAccount.get());
         SingletonData.setAccounts(accounts);
+
+        SingletonUtils.getCsvAccount().editBalance(SingletonPath.getAccount(), SingletonData.getLoggedUser(),
+                destinationAccount.get());
 
         return true;
     }

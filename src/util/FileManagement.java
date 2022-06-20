@@ -61,7 +61,7 @@ public class FileManagement {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
         for (String column : columns) {
-            writer.write(column);
+            writer.write(column + ";");
         }
 
         writer.newLine();
