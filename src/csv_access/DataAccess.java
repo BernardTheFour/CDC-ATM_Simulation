@@ -93,7 +93,7 @@ public class DataAccess {
             scanner.close();
             writer.close();
 
-            // copy prev filename to memory file in order to rename
+            // copy prev file path in order to rename
             Path filePath = Paths.get(file.getAbsolutePath());
 
             // delete file
@@ -101,8 +101,10 @@ public class DataAccess {
 
             // replace file with tmp file
             Path newFilePath = Paths.get(tempFile.getAbsolutePath());
-            Files.move(newFilePath, filePath.resolveSibling(filePath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-            
+            Files.move(newFilePath,
+                    filePath.resolveSibling(filePath.getFileName()),
+                    StandardCopyOption.REPLACE_EXISTING);
+
             // return file reference
             return file;
         } catch (Exception e) {
