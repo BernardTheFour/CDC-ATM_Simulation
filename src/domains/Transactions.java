@@ -5,14 +5,20 @@ import java.time.LocalDateTime;
 public class Transactions {
 
     public static enum Type{
-        WITHDRAW,
-        TRANSFER
+        WITHDRAW("WITHDRAW"),
+        TRANSFER("TRANSFER");
+
+        String value;
+
+        Type(String value){
+            this.value = value;
+        }
     }
 
     private String accountNumber;
     private Type transactionType;
     private String transferTo;
-    private String amount;
+    private int amount;
     private LocalDateTime date;
 
     public String getAccountNumber() {
@@ -27,7 +33,7 @@ public class Transactions {
         return this.transferTo;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return this.amount;
     }
 
@@ -35,18 +41,11 @@ public class Transactions {
         return this.date;
     }
 
-    public Transactions(String accountNumber, Type transactionType, String transferTo, String amount, LocalDateTime date) {
+    public Transactions(String accountNumber, Type transactionType, String transferTo, int amount, LocalDateTime date) {
         this.accountNumber = accountNumber;
         this.transactionType = transactionType;
         this.transferTo = transferTo;
         this.amount = amount;
         this.date = date;
-    }
-
-    public Transactions(String accountNumber, Type transactionType, String amount, LocalDateTime date) {
-        this.accountNumber = accountNumber;
-        this.transactionType = transactionType;
-        this.amount = amount;
-        this.date = date;
-    }        
+    }     
 }

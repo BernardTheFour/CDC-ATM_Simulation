@@ -74,19 +74,20 @@ public class CSVAccount implements IFileManipulation<Account> {
                 dataAccess.save(SingletonPath.getAccount(), list));
     }
 
-    private Account read(List<String> data) {
-        Account account = new Account();
-        account.setAccountNumber(data.get(0));
-        account.setPin(data.get(1));
-        account.setName(data.get(2));
-        account.setBalance(Integer.valueOf(data.get(3)));
-
-        return account;
-    }
-
     @Override
     public void add(Account data) {
         // TODO Auto-generated method stub
         
+    }
+
+    private Account read(List<String> data) {
+        Account account = new Account(
+            data.get(0),
+            data.get(1),
+            data.get(2),
+            Integer.valueOf(data.get(3))
+        );
+
+        return account;
     }
 }
