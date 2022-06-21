@@ -12,6 +12,7 @@ public class SingletonUtils {
      * Change before deploy to different OS
      */
     private String csvRowDelimiter = "\r\n";
+    private String csvColumnDelimiter = ";";
 
     private CSVAccount csvAccount;
 
@@ -21,15 +22,19 @@ public class SingletonUtils {
         }
     }
 
-    public static String getCSVRowDelimiter(){
+    public static String getCSVRowDelimiter() {
         return instance.csvRowDelimiter;
     }
 
-    public static void setCSVAccount (CSVAccount cAccount){
+    public static String getCSVColumnDelimiter(){
+        return instance.csvColumnDelimiter;
+    }
+
+    public static void setCSVAccount(CSVAccount cAccount) {
         instance.csvAccount = cAccount;
     }
 
-    public static CSVAccount getCsvAccount(){
+    public static CSVAccount getCsvAccount() {
         return instance.csvAccount;
     }
 }

@@ -27,7 +27,7 @@ public class CSVAccount implements IFileManipulation<Account> {
             return Optional.empty();
         }
 
-        List<String> data = List.of(result.get().split(";"));
+        List<String> data = List.of(result.get().split(SingletonUtils.getCSVColumnDelimiter()));
 
         return Optional.of(read(data));
     }
@@ -42,7 +42,7 @@ public class CSVAccount implements IFileManipulation<Account> {
         }
 
         result.get().forEach(member -> {
-            List<String> line = List.of(member.split(";"));
+            List<String> line = List.of(member.split(SingletonUtils.getCSVColumnDelimiter()));
             data.add(read(line));
         });
 
@@ -64,9 +64,9 @@ public class CSVAccount implements IFileManipulation<Account> {
 
         for (Account account : SingletonData.getAccounts()) {
             list += SingletonUtils.getCSVRowDelimiter();
-            list += account.getAccountNumber() + ";";
-            list += account.getPin() + ";";
-            list += account.getName() + ";";
+            list += account.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
+            list += account.getPin() + SingletonUtils.getCSVColumnDelimiter();
+            list += account.getName() + SingletonUtils.getCSVColumnDelimiter();
             list += account.getBalance();
         }
 
