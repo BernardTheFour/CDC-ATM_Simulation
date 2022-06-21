@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import domains.Transactions;
-import domains.Transactions.Type;
+import domains.Transaction;
+import domains.Transaction.Type;
 import pattern.SingletonUtils;
 
-public class CSVTransaction implements IFileManipulation<Transactions> {
+public class CSVTransaction implements IFileManipulation<Transaction> {
 
     private DataAccess dataAccess;
 
@@ -18,7 +18,7 @@ public class CSVTransaction implements IFileManipulation<Transactions> {
     }
 
     @Override
-    public Optional<Transactions> getById(String id) {
+    public Optional<Transaction> getById(String id) {
         Optional<String> result = dataAccess.getById(id);
 
         if (result.isEmpty()) {
@@ -32,7 +32,7 @@ public class CSVTransaction implements IFileManipulation<Transactions> {
     }
 
     @Override
-    public void edit(Transactions data) {
+    public void edit(Transaction data) {
         // TODO Auto-generated method stub
 
     }
@@ -44,19 +44,19 @@ public class CSVTransaction implements IFileManipulation<Transactions> {
     }
 
     @Override
-    public Optional<List<Transactions>> getAll() {
+    public Optional<List<Transaction>> getAll() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void add(Transactions data) {
+    public void add(Transaction data) {
         // TODO Auto-generated method stub
 
     }
 
-    private Transactions read(List<String> data) {
-        Transactions transaction = new Transactions(
+    private Transaction read(List<String> data) {
+        Transaction transaction = new Transaction(
                 data.get(0),
                 Type.valueOf(data.get(1)),
                 data.get(2),
