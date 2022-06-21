@@ -1,9 +1,11 @@
 package pattern;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import domains.Account;
+import domains.Transaction;
 
 public class SingletonData {    
     
@@ -11,6 +13,7 @@ public class SingletonData {
 
     private Account loggedUser = new Account();;
     private Set<Account> accounts = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     public static void init() {
         if (instance == null) {
@@ -32,5 +35,13 @@ public class SingletonData {
 
     public static void setAccounts(Set<Account> accounts) {
         instance.accounts = accounts;
+    }
+
+    public static Set<Transaction> getTransactions(){
+        return instance.transactions;
+    }
+
+    public static void setTransactions(Set<Transaction> transactions){
+        instance.transactions = transactions;
     }
 }
