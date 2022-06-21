@@ -198,8 +198,10 @@ public class TransferScreen extends Page implements IState {
         accounts.add(destinationAccount.get());
         SingletonData.setAccounts(accounts);
 
-        SingletonUtils.getCsvAccount().editBalance(SingletonPath.getAccount(), SingletonData.getLoggedUser(),
-                destinationAccount.get());
+        SingletonUtils.getCsvAccount().edit(SingletonData.getLoggedUser());
+        SingletonUtils.getCsvAccount().edit(destinationAccount.get());
+
+        SingletonUtils.getCsvAccount().save();
 
         return true;
     }

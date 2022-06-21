@@ -24,8 +24,8 @@ public class SingletonPath {
         return instance.generalPath;
     }
 
-    public static void setAccount(File file){
-        instance.accounts = file;
+    public static void setAccount(File fileAccount){
+        instance.accounts = fileAccount;
     }
 
     public static File getAccount(){
