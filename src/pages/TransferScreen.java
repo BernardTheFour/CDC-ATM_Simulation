@@ -1,8 +1,8 @@
 package pages;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import domains.Account;
 import pattern.IState;
@@ -185,7 +185,7 @@ public class TransferScreen extends Page implements IState {
             return false;
         }
 
-        Set<Account> accounts = SingletonData.getAccounts();
+        List<Account> accounts = SingletonData.getAccounts();
         accounts.remove(destinationAccount.get());
 
         int senderBalance = SingletonData.getLoggedUser().getBalance() - amount;
