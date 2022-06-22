@@ -2,6 +2,7 @@ package pattern;
 
 import pages.OtherWithdrawScreen;
 import pages.SummaryScreen;
+import pages.TransactionHistoryScreen;
 import pages.TransactionScreen;
 import pages.TransferScreen;
 import pages.TransferSummaryScreen;
@@ -19,6 +20,7 @@ public class SingletonScreen {
     private WithdrawScreen withdrawScreen = new WithdrawScreen();
     private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
     private TransferScreen transferScreen = new TransferScreen();
+    private TransactionHistoryScreen transactionHistoryScreen = new TransactionHistoryScreen();
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
@@ -58,5 +60,9 @@ public class SingletonScreen {
 
     public static OtherWithdrawScreen OtherWithdrawScreen() {
         return instance.otherWithdrawScreen;
+    }
+
+    public static TransactionHistoryScreen TransactionHistoryScreen(){
+        return instance.transactionHistoryScreen;
     }
 }

@@ -19,14 +19,14 @@ public class TransactionScreen extends Page implements IState {
     public void logic() {
         // get all transaction information
         SingletonData.setTransactions(
-            SingletonUtils.getCSVTransaction().getAllById(SingletonData.getLoggedUser().getAccountNumber())
-        );
+                SingletonUtils.getCSVTransaction().getAllById(SingletonData.getLoggedUser().getAccountNumber()));
 
         System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");
         System.out.println("--Transactions--");
         System.out.println("1. Withdraw");
         System.out.println("2. Fund Transfer");
-        System.out.println("3. Exit");
+        System.out.println("3. Transaction History");
+        System.out.println("4. Exit");
 
         System.out.print("\nChoose option: ");
 
@@ -40,6 +40,9 @@ public class TransactionScreen extends Page implements IState {
                 super.nextPage = Pages.TRANSFER;
                 break;
             case "3":
+                super.nextPage = Pages.TRANSACTION_HISTORY;
+                break;
+            case "4":
                 super.nextPage = Pages.WELCOME;
                 break;
         }
@@ -56,6 +59,9 @@ public class TransactionScreen extends Page implements IState {
                 break;
             case TRANSFER:
                 controller.nextState(SingletonScreen.TransferScreen());
+                break;
+            case TRANSACTION_HISTORY:
+                controller.nextState((SingletonScreen.TransactionHistoryScreen()));
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

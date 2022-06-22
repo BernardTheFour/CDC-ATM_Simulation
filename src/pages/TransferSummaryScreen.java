@@ -32,14 +32,20 @@ public class TransferSummaryScreen extends Page implements IState {
     @Override
     public void logic() {
         // write transaction
-        Transaction transaction = new Transaction(
+        Transaction transactionSender = new Transaction(
                 SingletonData.getLoggedUser().getAccountNumber(),
                 Type.TRANSFER,
                 destination,
                 amount,
                 LocalDateTime.now());
+        Transaction transactionReceiver = new Transaction(
+                destination, Type.RECIEVE,
+                SingletonData.getLoggedUser().getAccountNumber(),
+                amount,
+                LocalDateTime.now());
 
-        SingletonUtils.getCSVTransaction().add(transaction);
+        SingletonUtils.getCSVTransaction().add(transactionSender);
+        SingletonUtils.getCSVTransaction().add(transactionReceiver);
 
         System.out.println("--Transfer Summary Screen--");
         System.out.println("Destination Account: " + destination);
