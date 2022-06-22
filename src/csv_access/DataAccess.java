@@ -112,6 +112,7 @@ public class DataAccess {
             writer.write(scanner.nextLine());
 
             // write data to the temp file and flush
+            writer.newLine();
             writer.write(data);
 
             // close stream

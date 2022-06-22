@@ -29,7 +29,7 @@ public class CSVAccount implements IFileManipulation<Account> {
 
         List<String> data = List.of(result.get().split(SingletonUtils.getCSVColumnDelimiter()));
 
-        return Optional.of(read(data));
+        return Optional.of(readLine(data));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CSVAccount implements IFileManipulation<Account> {
 
         result.get().forEach(member -> {
             List<String> line = List.of(member.split(SingletonUtils.getCSVColumnDelimiter()));
-            data.add(read(line));
+            data.add(readLine(line));
         });
 
         return Optional.of(data);
@@ -63,11 +63,7 @@ public class CSVAccount implements IFileManipulation<Account> {
         String list = "";
 
         for (Account account : SingletonData.getAccounts()) {
-            list += SingletonUtils.getCSVRowDelimiter();
-            list += account.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
-            list += account.getPin() + SingletonUtils.getCSVColumnDelimiter();
-            list += account.getName() + SingletonUtils.getCSVColumnDelimiter();
-            list += account.getBalance();
+           list += writeLine(account);
         }
 
         SingletonPath.setAccount(
@@ -79,7 +75,7 @@ public class CSVAccount implements IFileManipulation<Account> {
         throw new UnsupportedOperationException("Not implemented yet");        
     }
 
-    private Account read(List<String> data) {
+    private Account readLine(List<String> data) {
         Account account = new Account(
             data.get(0),
             data.get(1),
@@ -88,6 +84,16 @@ public class CSVAccount implements IFileManipulation<Account> {
         );
 
         return account;
+    }
+
+    private String writeLine(Account account){
+        String list = "";
+        list += account.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
+        list += account.getPin() + SingletonUtils.getCSVColumnDelimiter();
+        list += account.getName() + SingletonUtils.getCSVColumnDelimiter();
+        list += account.getBalance() + SingletonUtils.getCSVRowDelimiter();
+
+        return list;
     }
 
     @Override
