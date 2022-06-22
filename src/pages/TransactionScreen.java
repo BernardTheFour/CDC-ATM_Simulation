@@ -1,6 +1,7 @@
 package pages;
 
 import pattern.IState;
+import pattern.SingletonData;
 import pattern.SingletonScreen;
 import pattern.StateController;
 
@@ -15,6 +16,7 @@ public class TransactionScreen extends Page implements IState {
 
     @Override
     public void logic() {
+        System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");
         System.out.println("--Transactions--");
         System.out.println("1. Withdraw");
         System.out.println("2. Fund Transfer");
