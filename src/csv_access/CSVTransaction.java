@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import domains.Transaction;
 import domains.Transaction.Type;
@@ -22,23 +25,31 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
 
     @Override
     public Optional<Transaction> getById(String id) {
-        Optional<String> result = dataAccess.getById(id);
+        throw new UnsupportedOperationException("Not supported");
+    }
+
+    @Override
+    public List<Transaction> getAllById(String id) {
+        Optional<List<String>> result = dataAccess.getAllByid(id);
 
         if (result.isEmpty()) {
             System.out.printf("failed: account %s not found%n", id);
-            return Optional.empty();
+            return null;
         }
 
-        List<String> data = List.of(result.get().split(SingletonUtils.getCSVColumnDelimiter()));
+        List<Transaction> transactions = new ArrayList<>();
 
-        return Optional.of(read(data));
+        result.get().forEach(data -> {
+            List<String> toList = List.of(data.split(SingletonUtils.getCSVColumnDelimiter()));
+            transactions.add(readLine(toList));
+        });
+
+        return transactions;
     }
 
     @Override
     public void edit(Transaction data) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Not implemented yet");
-
     }
 
     @Override
@@ -46,12 +57,7 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
         String list = "";
 
         for (Transaction transaction : SingletonData.getTransactions()) {
-            list += SingletonUtils.getCSVRowDelimiter();
-            list += transaction.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
-            list += transaction.getTransactionType().name() + SingletonUtils.getCSVColumnDelimiter();
-            list += transaction.getTransferTo() + SingletonUtils.getCSVColumnDelimiter();
-            list += transaction.getAmount() + SingletonUtils.getCSVColumnDelimiter();
-            list += transaction.getDate();
+            list += writeLine(transaction);
         }
 
         SingletonPath.setTransactions(
@@ -69,7 +75,7 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
 
         result.get().forEach(member -> {
             List<String> line = List.of(member.split(SingletonUtils.getCSVColumnDelimiter()));
-            data.add(read(line));
+            data.add(readLine(line));
         });
 
         return Optional.of(data);
@@ -77,11 +83,27 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
 
     @Override
     public void add(Transaction data) {
-        // TODO Auto-generated method stub
+        List<Transaction> transactions = SingletonData.getTransactions();
+        transactions.add(data);
+        SingletonData.setTransactions(transactions);
 
+        SingletonPath.setTransactions(
+                dataAccess.add(SingletonPath.getTransactions(), writeLine(data)));
     }
 
-    private Transaction read(List<String> data) {
+    private String writeLine(Transaction transaction) {
+        String list = "";
+
+        list += transaction.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getTransactionType().name() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getTransferTo() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getAmount() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getDate() + SingletonUtils.getCSVRowDelimiter();
+
+        return list;
+    }
+
+    private Transaction readLine(List<String> data) {
         Transaction transaction = new Transaction(
                 data.get(0),
                 Type.valueOf(data.get(1)),

@@ -76,7 +76,6 @@ public class CSVAccount implements IFileManipulation<Account> {
 
     @Override
     public void add(Account data) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Not implemented yet");        
     }
 
@@ -89,5 +88,10 @@ public class CSVAccount implements IFileManipulation<Account> {
         );
 
         return account;
+    }
+
+    @Override
+    public List<Account> getAllById(String id) {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }

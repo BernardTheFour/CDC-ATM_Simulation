@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public interface IFileManipulation<T> {
     Optional<T> getById(String id);
+    List<T> getAllById(String id);
     void add(T data);
     void edit(T data);
     void save();

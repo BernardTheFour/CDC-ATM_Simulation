@@ -1,8 +1,13 @@
 package pages;
 
+import java.time.LocalDateTime;
+
+import domains.Transaction;
+import domains.Transaction.Type;
 import pattern.IState;
 import pattern.SingletonData;
 import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class TransferSummaryScreen extends Page implements IState {
@@ -26,6 +31,16 @@ public class TransferSummaryScreen extends Page implements IState {
 
     @Override
     public void logic() {
+        // write transaction
+        Transaction transaction = new Transaction(
+                SingletonData.getLoggedUser().getAccountNumber(),
+                Type.TRANSFER,
+                destination,
+                amount,
+                LocalDateTime.now());
+
+        SingletonUtils.getCSVTransaction().add(transaction);
+
         System.out.println("--Transfer Summary Screen--");
         System.out.println("Destination Account: " + destination);
         System.out.println("Transfer Amount: $" + amount);

@@ -33,7 +33,7 @@ public class DataAccess {
 
             while (line != null) {
                 line = reader.readLine();
-                String readId = line.split(";")[0];
+                String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
 
                 if (readId.equals(id)) {
                     reader.close();
@@ -65,10 +65,36 @@ public class DataAccess {
             reader.close();
             return Optional.of(lines);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             System.exit(0);
         }
+        return Optional.empty();
+    }
+
+    public Optional<List<String>> getAllByid(String id) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            List<String> lines = new ArrayList<>();
+
+            reader.readLine();
+            String line = reader.readLine();
+
+            while (line != null) {
+                String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
+
+                if (readId.equals(id)) {
+                    lines.add(line);
+                }
+                line = reader.readLine();
+            }
+
+            reader.close();
+            return Optional.of(lines);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
         return Optional.empty();
     }
 
@@ -111,5 +137,21 @@ public class DataAccess {
             System.exit(0);
         }
         return null;
+    }
+
+    public File add(File file, String data) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+
+            writer.write(data);
+
+            writer.close();
+
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+            return null;
+        }
     }
 }

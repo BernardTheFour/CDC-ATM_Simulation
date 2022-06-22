@@ -3,16 +3,19 @@ package pages;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import domains.Transaction;
+import domains.Transaction.Type;
 import pattern.IState;
 import pattern.SingletonData;
 import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class SummaryScreen extends Page implements IState {
 
     private int withdrawAmount;
 
-    public void setInfo(int withdrawAmount){
+    public void setInfo(int withdrawAmount) {
         this.withdrawAmount = withdrawAmount;
     }
 
@@ -25,6 +28,16 @@ public class SummaryScreen extends Page implements IState {
 
     @Override
     public void logic() {
+        // write transaction
+        Transaction transaction = new Transaction(
+                SingletonData.getLoggedUser().getAccountNumber(),
+                Type.WITHDRAW,
+                null,
+                withdrawAmount,
+                LocalDateTime.now());
+
+        SingletonUtils.getCSVTransaction().add(transaction);
+
         System.out.println("--Summary--");
         System.out.printf("Date: %s%n",
                 LocalDateTime.now().format(

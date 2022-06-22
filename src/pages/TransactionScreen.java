@@ -3,6 +3,7 @@ package pages;
 import pattern.IState;
 import pattern.SingletonData;
 import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class TransactionScreen extends Page implements IState {
@@ -16,6 +17,11 @@ public class TransactionScreen extends Page implements IState {
 
     @Override
     public void logic() {
+        // get all transaction information
+        SingletonData.setTransactions(
+            SingletonUtils.getCSVTransaction().getAllById(SingletonData.getLoggedUser().getAccountNumber())
+        );
+
         System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");
         System.out.println("--Transactions--");
         System.out.println("1. Withdraw");
