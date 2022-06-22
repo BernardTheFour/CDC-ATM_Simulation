@@ -39,7 +39,7 @@ public class TransferSummaryScreen extends Page implements IState {
                 amount,
                 LocalDateTime.now());
         Transaction transactionReceiver = new Transaction(
-                destination, Type.RECIEVE,
+                destination, Type.RECEIVE,
                 SingletonData.getLoggedUser().getAccountNumber(),
                 amount,
                 LocalDateTime.now());
