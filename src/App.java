@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import csv_access.CSVAccount;
@@ -10,6 +11,7 @@ import pattern.SingletonScreen;
 import pattern.SingletonUtils;
 import pattern.StateController;
 import util.FileManagement;
+import util.FileValidation;
 
 public class App {
 
@@ -38,7 +40,9 @@ public class App {
 
         SingletonUtils.setCSVTransaction(csvTransaction);
         SingletonUtils.setCSVAccount(csvAccount);
-        SingletonData.setAccounts(new HashSet<>(SingletonUtils.getCSVAccount().getAll().get()));
+        SingletonData.setAccounts(new ArrayList<>(SingletonUtils.getCSVAccount().getAll().get()));
+
+        FileValidation.validateFile();
 
         screenNavigator = new StateController(
                 SingletonScreen.WelcomeScreen());

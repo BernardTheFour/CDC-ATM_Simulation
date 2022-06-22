@@ -1,8 +1,6 @@
 package pattern;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import domains.Account;
 import domains.Transaction;
@@ -12,7 +10,7 @@ public class SingletonData {
     private static SingletonData instance;
 
     private Account loggedUser = new Account();;
-    private Set<Account> accounts = new LinkedHashSet<>();
+    private List<Account> accounts = new ArrayList<>();
     private List<Transaction> transactions = new ArrayList<>();
 
     public static void init() {
@@ -29,11 +27,11 @@ public class SingletonData {
         instance.loggedUser = loggedUser;
     }
 
-    public static Set<Account> getAccounts() {
+    public static List<Account> getAccounts() {
         return instance.accounts;
     }
 
-    public static void setAccounts(Set<Account> accounts) {
+    public static void setAccounts(List<Account> accounts) {
         instance.accounts = accounts;
     }
 
