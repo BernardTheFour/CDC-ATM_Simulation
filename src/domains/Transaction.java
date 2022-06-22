@@ -18,7 +18,7 @@ public class Transaction {
 
     private String accountNumber;
     private Type transactionType;
-    private String transferTo;
+    private String Associate;
     private int amount;
     private LocalDateTime date;
 
@@ -30,8 +30,8 @@ public class Transaction {
         return this.transactionType;
     }
 
-    public String getTransferTo() {
-        return this.transferTo;
+    public String getAssociate() {
+        return this.Associate;
     }
 
     public int getAmount() {
@@ -45,7 +45,7 @@ public class Transaction {
     public Transaction(String accountNumber, Type transactionType, String transferTo, int amount, LocalDateTime date) {
         this.accountNumber = accountNumber;
         this.transactionType = transactionType;
-        this.transferTo = transferTo;
+        this.Associate = transferTo;
         this.amount = amount;
         this.date = date;
     }     

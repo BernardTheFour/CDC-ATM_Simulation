@@ -43,7 +43,7 @@ public class FileManagement {
             System.out.println("Creating transaction.csv file");
             error = true;
 
-            String[] columns = { "Account Number", "Type", "Transfer To", "Amount", "Date" };
+            String[] columns = { "Account Number", "Type", "From/To", "Amount", "Date" };
             File file = createFile(columns, "transaction.csv", path);
             SingletonPath.setTransactions(file);
         }

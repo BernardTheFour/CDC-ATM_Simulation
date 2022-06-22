@@ -93,7 +93,7 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
 
         list += transaction.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getTransactionType().name() + SingletonUtils.getCSVColumnDelimiter();
-        list += transaction.getTransferTo() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getAssociate() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getAmount() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getDate() + SingletonUtils.getCSVRowDelimiter();
 

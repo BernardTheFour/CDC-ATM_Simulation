@@ -26,9 +26,9 @@ public class TransactionHistoryScreen extends Page implements IState {
             String row = "";
             String transferName = "-\t";
 
-            if (!transaction.getTransferTo().equals("null")) {
-                transferName = "(" + transaction.getTransferTo() + ") ";
-                transferName += SingletonUtils.getCSVAccount().getById(transaction.getTransferTo()).get().getName();
+            if (!transaction.getAssociate().equals("null")) {
+                transferName = "(" + transaction.getAssociate() + ") ";
+                transferName += SingletonUtils.getCSVAccount().getById(transaction.getAssociate()).get().getName();
             }
 
             row += "$" + transaction.getAmount() + "\t";
