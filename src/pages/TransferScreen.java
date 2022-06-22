@@ -7,7 +7,6 @@ import java.util.Set;
 import domains.Account;
 import pattern.IState;
 import pattern.SingletonData;
-import pattern.SingletonPath;
 import pattern.SingletonScreen;
 import pattern.SingletonUtils;
 import pattern.StateController;
@@ -198,10 +197,10 @@ public class TransferScreen extends Page implements IState {
         accounts.add(destinationAccount.get());
         SingletonData.setAccounts(accounts);
 
-        SingletonUtils.getCsvAccount().edit(SingletonData.getLoggedUser());
-        SingletonUtils.getCsvAccount().edit(destinationAccount.get());
+        SingletonUtils.getCSVAccount().edit(SingletonData.getLoggedUser());
+        SingletonUtils.getCSVAccount().edit(destinationAccount.get());
 
-        SingletonUtils.getCsvAccount().save();
+        SingletonUtils.getCSVAccount().save();
 
         return true;
     }

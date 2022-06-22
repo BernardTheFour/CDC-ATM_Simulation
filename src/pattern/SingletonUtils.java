@@ -1,6 +1,7 @@
 package pattern;
 
 import csv_access.CSVAccount;
+import csv_access.CSVTransaction;
 
 public class SingletonUtils {
 
@@ -15,6 +16,7 @@ public class SingletonUtils {
     private String csvColumnDelimiter = ";";
 
     private CSVAccount csvAccount;
+    private CSVTransaction csvTransaction;
 
     public static void init() {
         if (instance == null) {
@@ -34,7 +36,15 @@ public class SingletonUtils {
         instance.csvAccount = cAccount;
     }
 
-    public static CSVAccount getCsvAccount() {
+    public static CSVAccount getCSVAccount() {
         return instance.csvAccount;
+    }
+
+    public static void setCSVTransaction(CSVTransaction cTransaction){
+        instance.csvTransaction = cTransaction;
+    }
+
+    public static CSVTransaction getCSVTransaction(){
+        return instance.csvTransaction;
     }
 }

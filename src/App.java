@@ -1,11 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 import csv_access.CSVAccount;
-import domains.Account;
+import csv_access.CSVTransaction;
 import pattern.SingletonData;
 import pattern.SingletonPath;
 import pattern.SingletonScreen;
@@ -36,10 +34,11 @@ public class App {
         }
 
         CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
+        CSVTransaction csvTransaction = new CSVTransaction(SingletonPath.getTransactions());
 
-
+        SingletonUtils.setCSVTransaction(csvTransaction);
         SingletonUtils.setCSVAccount(csvAccount);
-        SingletonData.setAccounts(new HashSet<>(SingletonUtils.getCsvAccount().getAll().get()));
+        SingletonData.setAccounts(new HashSet<>(SingletonUtils.getCSVAccount().getAll().get()));
 
         screenNavigator = new StateController(
                 SingletonScreen.WelcomeScreen());

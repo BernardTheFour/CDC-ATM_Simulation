@@ -3,7 +3,6 @@ package csv_access;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -93,7 +92,7 @@ public class DataAccess {
             scanner.close();
             writer.close();
 
-            // copy prev file path in order to rename
+            // copy prev file path for renaming
             Path filePath = Paths.get(file.getAbsolutePath());
 
             // delete file
