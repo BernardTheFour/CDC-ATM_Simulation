@@ -1,7 +1,13 @@
 package pages;
 
+import java.time.LocalDateTime;
+
+import domains.Transaction;
+import domains.Transaction.Type;
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class TransferSummaryScreen extends Page implements IState {
@@ -18,17 +24,34 @@ public class TransferSummaryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Transfer Summary Screen--");
+        // write transaction
+        Transaction transactionSender = new Transaction(
+                SingletonData.getLoggedUser().getAccountNumber(),
+                Type.TRANSFER,
+                destination,
+                amount,
+                LocalDateTime.now());
+        Transaction transactionReceiver = new Transaction(
+                destination, Type.RECEIVE,
+                SingletonData.getLoggedUser().getAccountNumber(),
+                amount,
+                LocalDateTime.now());
+
+        SingletonUtils.getCSVTransaction().add(transactionSender);
+        SingletonUtils.getCSVTransaction().add(transactionReceiver);
+
+        System.out.println("--Transfer Summary Screen--");
         System.out.println("Destination Account: " + destination);
         System.out.println("Transfer Amount: $" + amount);
         System.out.println("Reference Number: " + referenceNumber);
-        System.out.println("Balance : $" + Singleton.getLoggedUser().getBalance());
+        System.out.println("Balance : $" + SingletonData.getLoggedUser().getBalance());
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
@@ -50,10 +73,10 @@ public class TransferSummaryScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             case WELCOME:
-                controller.nextState(Singleton.WelcomeScreen());
+                controller.nextState(SingletonScreen.WelcomeScreen());
             default:
                 controller.nextState(controller.getCurrentState());
                 break;

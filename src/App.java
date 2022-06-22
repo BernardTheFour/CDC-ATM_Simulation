@@ -1,31 +1,73 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-import domains.Account;
-import pattern.Singleton;
+import csv_access.CSVAccount;
+import csv_access.CSVTransaction;
+import pattern.SingletonData;
+import pattern.SingletonPath;
+import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
+import util.FileManagement;
+import util.FileValidation;
 
 public class App {
 
     private static StateController screenNavigator;
 
-    public static void main(String[] args) throws Exception {
-        Singleton.init();
+    public static void main(String[] args) {
 
-        Singleton.setAccounts(initDummyData());
+        CheckPath(args);
+
+        Initialization();
+
+        try {
+            FileManagement.extractPath(args[0]);
+
+        } catch (Exception e) {
+            if (e instanceof FileNotFoundException) {
+                System.out.println(e.getMessage());
+            } else {
+                e.printStackTrace();
+                System.exit(0);
+            }
+        }
+
+        CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
+        CSVTransaction csvTransaction = new CSVTransaction(SingletonPath.getTransactions());
+
+        SingletonUtils.setCSVTransaction(csvTransaction);
+        SingletonUtils.setCSVAccount(csvAccount);
+        SingletonData.setAccounts(new ArrayList<>(SingletonUtils.getCSVAccount().getAll().get()));
+
+        FileValidation.validateFile();
 
         screenNavigator = new StateController(
-                Singleton.WelcomeScreen());
+                SingletonScreen.WelcomeScreen());
 
         screenNavigator.run();
     }
 
-    private static Set<Account> initDummyData() {
-        Set<Account> account = new HashSet<Account>();
+    private static void CheckPath(String[] path) {
+        File file = path.length > 0 ? new File(path[0]) : null;
 
-        account.add(new Account("112233", "012108", "John Doe", 100));
-        account.add(new Account("112244", "932012", "Jane Doe", 30));
+        if (file == null) {
+            System.out.println("\nPlease input directory path argument\n");
+            System.exit(0);
+        }
 
-        return account;
+        if (!file.isDirectory()) {
+            System.out.println("Pathfile should be folder directory, not file.");
+            System.exit(0);
+        }
+    }
+
+    private static void Initialization() {
+        System.out.println("\nProgram starting...");
+        SingletonPath.init();
+        SingletonData.init();
+        SingletonScreen.init();
+        SingletonUtils.init();
     }
 }

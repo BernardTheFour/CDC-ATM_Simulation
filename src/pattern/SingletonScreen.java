@@ -1,24 +1,17 @@
 package pattern;
 
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
-
-import domains.Account;
 import pages.OtherWithdrawScreen;
 import pages.SummaryScreen;
+import pages.TransactionHistoryScreen;
 import pages.TransactionScreen;
 import pages.TransferScreen;
 import pages.TransferSummaryScreen;
 import pages.WelcomeScreen;
 import pages.WithdrawScreen;
 
-public class Singleton {
+public class SingletonScreen {
 
-    public static Singleton instance;
-
-    private Account loggedUser = new Account();;
-    private Set<Account> accounts = new HashSet<>();
+    private static SingletonScreen instance;
 
     private WelcomeScreen welcomeScreen = new WelcomeScreen();
     private TransactionScreen transactionScreen = new TransactionScreen();
@@ -26,38 +19,20 @@ public class Singleton {
     private TransferSummaryScreen transferSummaryScreen = new TransferSummaryScreen();
     private WithdrawScreen withdrawScreen = new WithdrawScreen();
     private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
-
     private TransferScreen transferScreen = new TransferScreen();
+    private TransactionHistoryScreen transactionHistoryScreen = new TransactionHistoryScreen();
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
-    public static void init() throws Exception {
+    public static void init() {
         if (instance == null) {
-            instance = new Singleton();
-        } else {
-            throw new Exception("Only one singleton at a time!");
+            instance = new SingletonScreen();
         }
     }
 
     public static String getDateFormat() {
         return instance.dateTimeFormat;
-    }
-
-    public static Account getLoggedUser() {
-        return instance.loggedUser;
-    }
-
-    public static void setLoggedUser(Account loggedUser) {
-        instance.loggedUser = loggedUser;
-    }
-
-    public static Set<Account> getAccounts() {
-        return instance.accounts;
-    }
-
-    public static void setAccounts(Set<Account> accounts) {
-        instance.accounts = accounts;
-    }
+    }   
 
     public static WelcomeScreen WelcomeScreen() {
         return instance.welcomeScreen;
@@ -85,5 +60,9 @@ public class Singleton {
 
     public static OtherWithdrawScreen OtherWithdrawScreen() {
         return instance.otherWithdrawScreen;
+    }
+
+    public static TransactionHistoryScreen TransactionHistoryScreen(){
+        return instance.transactionHistoryScreen;
     }
 }

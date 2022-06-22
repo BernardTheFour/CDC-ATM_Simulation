@@ -1,18 +1,21 @@
 package pages;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import domains.Account;
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
+import pattern.SingletonUtils;
 import pattern.StateController;
 
 public class TransferScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
@@ -20,7 +23,7 @@ public class TransferScreen extends Page implements IState {
     @Override
     public void logic() {
 
-        System.out.println("\n--Transfer--");
+        System.out.println("--Transfer--");
 
         String destination = getDestination();
         if (destination == null) {
@@ -45,13 +48,14 @@ public class TransferScreen extends Page implements IState {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
-        
-        if (!processTransfer(destination, amount, referenceNumber)) {
+
+        boolean transferSuccess = processTransfer(destination, amount, referenceNumber);
+        if (!transferSuccess) {
             super.nextPage = Pages.TRANSACTION;
             return;
         }
 
-        Singleton.TransferSummaryScreen().setInfo(destination, amount, referenceNumber);
+        SingletonScreen.TransferSummaryScreen().setInfo(destination, amount, referenceNumber);
         super.nextPage = Pages.TRANSFER_SUMMARY;
     }
 
@@ -59,10 +63,10 @@ public class TransferScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case TRANSACTION:
-                controller.nextState(Singleton.TransactionScreen());
+                controller.nextState(SingletonScreen.TransactionScreen());
                 break;
             case TRANSFER_SUMMARY:
-                controller.nextState(Singleton.TransferSummaryScreen());
+                controller.nextState(SingletonScreen.TransferSummaryScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());
@@ -157,7 +161,7 @@ public class TransferScreen extends Page implements IState {
     }
 
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
-        Optional<Account> destinationAccount = Singleton.getAccounts().stream()
+        Optional<Account> destinationAccount = SingletonData.getAccounts().stream()
                 .filter(i -> destination.equals(i.getAccountNumber()))
                 .findAny();
 
@@ -176,22 +180,27 @@ public class TransferScreen extends Page implements IState {
             return false;
         }
 
-        if (amount > Singleton.getLoggedUser().getBalance()) {
+        if (amount > SingletonData.getLoggedUser().getBalance()) {
             System.out.println("Insufficient Balance: cannot transfer $" + amount);
             return false;
         }
 
-        Set<Account> accounts = Singleton.getAccounts();
+        List<Account> accounts = SingletonData.getAccounts();
         accounts.remove(destinationAccount.get());
 
-        int senderBalance = Singleton.getLoggedUser().getBalance() - amount;
-        Singleton.getLoggedUser().setBalance(senderBalance);
+        int senderBalance = SingletonData.getLoggedUser().getBalance() - amount;
+        SingletonData.getLoggedUser().setBalance(senderBalance);
 
         int retrieverBalance = destinationAccount.get().getBalance() + amount;
         destinationAccount.get().setBalance(retrieverBalance);
 
         accounts.add(destinationAccount.get());
-        Singleton.setAccounts(accounts);
+        SingletonData.setAccounts(accounts);
+
+        SingletonUtils.getCSVAccount().edit(SingletonData.getLoggedUser());
+        SingletonUtils.getCSVAccount().edit(destinationAccount.get());
+
+        SingletonUtils.getCSVAccount().save();
 
         return true;
     }

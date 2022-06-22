@@ -1,22 +1,22 @@
 package pages;
 
-import java.io.IOException;
-
 import pattern.IState;
-import pattern.Singleton;
+import pattern.SingletonData;
+import pattern.SingletonScreen;
 import pattern.StateController;
 
 public class OtherWithdrawScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
+        System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
-        System.out.println("\n--Other Withdraw--");
+        System.out.println("--Other Withdraw--");
         System.out.println("Enter amount to withdraw (max $1000):");
         System.out.printf("$");
 
@@ -34,7 +34,7 @@ public class OtherWithdrawScreen extends Page implements IState {
            return;
        }
 
-       int balance = Singleton.getLoggedUser().getBalance();
+       int balance = SingletonData.getLoggedUser().getBalance();
 
        if (balance < withdraw){
            System.out.println("Insufficient balance to withdraw $" + withdraw);
@@ -43,7 +43,7 @@ public class OtherWithdrawScreen extends Page implements IState {
 
        balance -= withdraw;
 
-       Singleton.SummaryScreen().setInfo(withdraw);
+       SingletonScreen.SummaryScreen().setInfo(withdraw);
        super.nextPage = Pages.SUMMARY;
     }
 
@@ -51,7 +51,7 @@ public class OtherWithdrawScreen extends Page implements IState {
     public void navigate() {
         switch (super.nextPage) {
             case SUMMARY:
-                controller.nextState(Singleton.SummaryScreen());
+                controller.nextState(SingletonScreen.SummaryScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

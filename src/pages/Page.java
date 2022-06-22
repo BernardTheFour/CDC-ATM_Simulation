@@ -13,7 +13,8 @@ public class Page {
         TRANSFER,
         TRANSFER_SUMMARY,
         WELCOME,
-        WITHDRAW
+        WITHDRAW,
+        TRANSACTION_HISTORY
     }
 
     protected Scanner input = new Scanner(System.in);

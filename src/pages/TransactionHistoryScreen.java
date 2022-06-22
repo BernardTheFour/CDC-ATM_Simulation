@@ -1,49 +1,43 @@
 package pages;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import domains.Transaction;
-import domains.Transaction.Type;
 import pattern.IState;
 import pattern.SingletonData;
 import pattern.SingletonScreen;
 import pattern.SingletonUtils;
 import pattern.StateController;
 
-public class SummaryScreen extends Page implements IState {
-
-    private int withdrawAmount;
-
-    public void setInfo(int withdrawAmount) {
-        this.withdrawAmount = withdrawAmount;
-    }
+public class TransactionHistoryScreen extends Page implements IState {
 
     @Override
     public void init(StateController controller) {
         System.out.println("\n-------------------------------");
         super.controller = controller;
         super.nextPage = Pages.DEFAULT;
+
     }
 
     @Override
     public void logic() {
-        // write transaction
-        Transaction transaction = new Transaction(
-                SingletonData.getLoggedUser().getAccountNumber(),
-                Type.WITHDRAW,
-                null,
-                withdrawAmount,
-                LocalDateTime.now());
+        System.out.println("--Transaction History--");
 
-        SingletonUtils.getCSVTransaction().add(transaction);
+        for (Transaction transaction : SingletonData.getTransactions()) {
+            String row = "";
+            String transferName = "-\t";
 
-        System.out.println("--Summary--");
-        System.out.printf("Date: %s%n",
-                LocalDateTime.now().format(
-                        DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));
-        System.out.println("Withdraw: $" + withdrawAmount);
-        System.out.println("Balance: $" + SingletonData.getLoggedUser().getBalance());
+            if (!transaction.getAssociate().equals("null")) {
+                transferName = "(" + transaction.getAssociate() + ") ";
+                transferName += SingletonUtils.getCSVAccount().getById(transaction.getAssociate()).get().getName();
+            }
+
+            row += "$" + transaction.getAmount() + "\t";
+            row += transaction.getTransactionType() + "\t";
+            row += transferName + "\t";
+            row += transaction.getDate().format(SingletonUtils.getDateTimeFormat());
+
+            System.out.println(row);
+        }
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
@@ -75,5 +69,7 @@ public class SummaryScreen extends Page implements IState {
                 controller.nextState(controller.getCurrentState());
                 break;
         }
+
     }
+
 }
