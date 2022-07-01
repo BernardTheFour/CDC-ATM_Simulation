@@ -31,6 +31,7 @@ public class FileValidation {
 
         for (Account account : store) {
             if (!compare.add(account.getAccountNumber())) {
+                isDuplicate = true;
                 duplicates.add(account);
             }
         }
@@ -43,13 +44,13 @@ public class FileValidation {
 
     private static void validateTransaction() throws Exception {
         List<Transaction> store = SingletonUtils.getCSVTransaction().getAll().get();
-        Set<Transaction> compare = new HashSet<>();
+        Set<String> compare = new HashSet<>();
         List<Transaction> duplicates = new ArrayList<>();
 
         boolean isDuplicate = false;
 
         for (Transaction transaction : store) {
-            if (!compare.add(transaction)) {
+            if (!compare.add(transaction.toString())) {
                 isDuplicate = true;
                 duplicates.add(transaction);
             }
@@ -57,7 +58,7 @@ public class FileValidation {
         if (isDuplicate) {
             System.out.println("\nDuplicate transaction found!");
             duplicates.forEach(member -> System.out.println(member.toString()));
-            // throw new Exception("DataIntegrityException");
+            throw new Exception("DataIntegrityException");
         }
     }
 }

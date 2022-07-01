@@ -54,9 +54,9 @@ public class Transaction {
     public String toString() {
         return "{" +
                 " accountNumber='" + getAccountNumber() + "'" +
-                ", pin='" + getTransactionType() + "'" +
-                ", name='" + getAssociate() + "'" +
-                ", balance='" + getAmount() + "'" +
+                ", type='" + getTransactionType() + "'" +
+                ", associateAccountNumber='" + getAssociate() + "'" +
+                ", amount='" + getAmount() + "'" +
                 ", date='" + getDate() + "'" +
                 "}";
     }
