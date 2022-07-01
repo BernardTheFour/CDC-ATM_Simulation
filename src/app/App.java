@@ -12,7 +12,7 @@ import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.util.FileManagement;
+import app.util.CreateMissingFile;
 import app.util.FileValidation;
 
 public class App {
@@ -26,7 +26,7 @@ public class App {
         Initialization();
 
         try {
-            FileManagement.extractPath(args[0]);
+            CreateMissingFile.extractPath(args[0]);
 
         } catch (Exception e) {
             if (e instanceof FileNotFoundException) {

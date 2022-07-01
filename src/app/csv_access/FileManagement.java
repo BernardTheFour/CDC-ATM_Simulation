@@ -18,11 +18,11 @@ import java.util.Scanner;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
-public class DataAccess {
+public class FileManagement {
 
     private File file;
 
-    public DataAccess(File file) {
+    public FileManagement(File file) {
         this.file = file;
     }
 

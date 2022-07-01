@@ -11,10 +11,10 @@ import app.pattern.SingletonUtils;
 
 public class CSVAccount implements IFileManipulation<Account> {
 
-    private DataAccess dataAccess;
+    private FileManagement dataAccess;
 
     public CSVAccount(File file) {
-        dataAccess = new DataAccess(file);
+        dataAccess = new FileManagement(file);
     }
 
     @Override

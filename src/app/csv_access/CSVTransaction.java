@@ -13,10 +13,10 @@ import app.pattern.SingletonUtils;
 
 public class CSVTransaction implements IFileManipulation<Transaction> {
 
-    private DataAccess dataAccess;
+    private FileManagement dataAccess;
 
     public CSVTransaction(File file) {
-        dataAccess = new DataAccess(file);
+        dataAccess = new FileManagement(file);
     }
 
     @Override

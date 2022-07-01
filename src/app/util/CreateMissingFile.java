@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import app.pattern.SingletonPath;
 
-public class FileManagement {
+public class CreateMissingFile {
 
     public static void extractPath(String path) throws FileNotFoundException, IOException {
         SingletonPath.setPath(new File(path));
