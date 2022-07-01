@@ -18,11 +18,11 @@ import java.util.Scanner;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
-public class FileManagement {
+public class FileManipulation {
 
     private File file;
 
-    public FileManagement(File file) {
+    public FileManipulation(File file) {
         this.file = file;
     }
 
