@@ -161,7 +161,7 @@ public class TransferScreen extends Page implements IState {
     }
 
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
-        Optional<Account> destinationAccount = SingletonData.getAccounts().stream()
+        Optional<Account> destinationAccount = Account.get().stream()
                 .filter(i -> destination.equals(i.getAccountNumber()))
                 .findAny();
 
@@ -185,7 +185,7 @@ public class TransferScreen extends Page implements IState {
             return false;
         }
 
-        List<Account> accounts = SingletonData.getAccounts();
+        List<Account> accounts = Account.get();
         accounts.remove(destinationAccount.get());
 
         int senderBalance = SingletonData.getLoggedUser().getBalance() - amount;
@@ -195,7 +195,7 @@ public class TransferScreen extends Page implements IState {
         destinationAccount.get().setBalance(retrieverBalance);
 
         accounts.add(destinationAccount.get());
-        SingletonData.setAccounts(accounts);
+        Account.set(accounts);
 
         SingletonUtils.getCSVAccount().edit(SingletonData.getLoggedUser());
         SingletonUtils.getCSVAccount().edit(destinationAccount.get());

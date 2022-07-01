@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import app.csv_access.CSVAccount;
 import app.csv_access.CSVTransaction;
+import app.domains.Account;
+import app.domains.Transaction;
 import app.pattern.SingletonData;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
@@ -40,7 +42,7 @@ public class App {
 
         SingletonUtils.setCSVTransaction(csvTransaction);
         SingletonUtils.setCSVAccount(csvAccount);
-        SingletonData.setAccounts(new ArrayList<>(SingletonUtils.getCSVAccount().getAll().get()));
+        Account.set(new ArrayList<>(SingletonUtils.getCSVAccount().getAll().get()));
 
         FileValidation.validateFile();
 
@@ -70,5 +72,7 @@ public class App {
         SingletonData.init();
         SingletonScreen.init();
         SingletonUtils.init();
+        new Account();
+        new Transaction();
     }
 }

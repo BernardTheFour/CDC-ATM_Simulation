@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import app.domains.Account;
-import app.pattern.SingletonData;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
@@ -51,7 +50,7 @@ public class CSVAccount implements IFileManipulation<Account> {
 
     @Override
     public void edit(Account data) {
-        SingletonData.getAccounts().forEach(member -> {
+        Account.get().forEach(member -> {
             if (member.getAccountNumber().equals(data.getAccountNumber())) {
                 member.setBalance(data.getBalance());
             }
@@ -62,7 +61,7 @@ public class CSVAccount implements IFileManipulation<Account> {
     public void save() {
         String list = "";
 
-        for (Account account : SingletonData.getAccounts()) {
+        for (Account account : Account.get()) {
            list += writeLine(account);
         }
 

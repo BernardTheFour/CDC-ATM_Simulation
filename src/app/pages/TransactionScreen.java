@@ -1,5 +1,6 @@
 package app.pages;
 
+import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
@@ -18,7 +19,7 @@ public class TransactionScreen extends Page implements IState {
     @Override
     public void logic() {
         // get all transaction information
-        SingletonData.setTransactions(
+        Transaction.set(
                 SingletonUtils.getCSVTransaction().getAllById(SingletonData.getLoggedUser().getAccountNumber()));
 
         System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");

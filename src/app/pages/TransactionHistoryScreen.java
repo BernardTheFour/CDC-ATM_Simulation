@@ -3,7 +3,6 @@ package app.pages;
 
 import app.domains.Transaction;
 import app.pattern.IState;
-import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
@@ -22,7 +21,7 @@ public class TransactionHistoryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Transaction History--");
 
-        for (Transaction transaction : SingletonData.getTransactions()) {
+        for (Transaction transaction : Transaction.get()) {
             String row = "";
             String transferName = "-\t";
 

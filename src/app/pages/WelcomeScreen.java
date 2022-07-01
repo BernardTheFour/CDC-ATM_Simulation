@@ -29,7 +29,7 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("PIN number: ");
             String pinNumber = checkPinNumber(super.input.nextLine());
 
-            Optional<Account> checkUser = SingletonData.getAccounts().stream()
+            Optional<Account> checkUser = Account.get().stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
                     .filter(i -> pinNumber.equals(i.getPin()))
                     .findAny();

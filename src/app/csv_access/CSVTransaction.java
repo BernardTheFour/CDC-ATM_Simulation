@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import app.domains.Transaction;
 import app.domains.Transaction.Type;
-import app.pattern.SingletonData;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
@@ -53,7 +52,7 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
     public void save() {
         String list = "";
 
-        for (Transaction transaction : SingletonData.getTransactions()) {
+        for (Transaction transaction : Transaction.get()) {
             list += writeLine(transaction);
         }
 
@@ -80,9 +79,9 @@ public class CSVTransaction implements IFileManipulation<Transaction> {
 
     @Override
     public void add(Transaction data) {
-        List<Transaction> transactions = SingletonData.getTransactions();
+        List<Transaction> transactions = Transaction.get();
         transactions.add(data);
-        SingletonData.setTransactions(transactions);
+        Transaction.set(transactions);
 
         SingletonPath.setTransactions(
                 dataAccess.add(SingletonPath.getTransactions(), writeLine(data)));

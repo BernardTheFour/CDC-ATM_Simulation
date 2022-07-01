@@ -1,8 +1,12 @@
 package app.domains;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Transaction {
+
+    private static List<Transaction> transactions;
 
     public static enum Type {
         WITHDRAW("WITHDRAW"),
@@ -22,6 +26,14 @@ public class Transaction {
     private int amount;
     private LocalDateTime date;
 
+    public static void set(List<Transaction> newTransaction) {
+        transactions = newTransaction;
+    }
+
+    public static List<Transaction> get() {
+        return transactions;
+    }
+
     public String getAccountNumber() {
         return this.accountNumber;
     }
@@ -40,6 +52,12 @@ public class Transaction {
 
     public LocalDateTime getDate() {
         return this.date;
+    }
+
+    public Transaction() {
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
     }
 
     public Transaction(String accountNumber, Type transactionType, String associate, int amount, LocalDateTime date) {
