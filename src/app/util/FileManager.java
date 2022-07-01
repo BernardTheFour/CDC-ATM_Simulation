@@ -1,4 +1,4 @@
-package app.csv_access;
+package app.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,11 +18,11 @@ import java.util.Scanner;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
-public class FileManipulation {
+public class FileManager {
 
     private File file;
 
-    public FileManipulation(File file) {
+    public FileManager(File file) {
         this.file = file;
     }
 

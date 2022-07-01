@@ -1,4 +1,4 @@
-package app.csv_access;
+package app.repository.file_implementation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,13 +8,15 @@ import java.util.Optional;
 import app.domains.Account;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
+import app.repository.IRepository;
+import app.util.FileManager;
 
-public class CSVAccount implements IFileManipulation<Account> {
+public class FileRepositoryAccount implements IRepository<Account> {
 
-    private FileManagement dataAccess;
+    private FileManager dataAccess;
 
-    public CSVAccount(File file) {
-        dataAccess = new FileManagement(file);
+    public FileRepositoryAccount(File file) {
+        dataAccess = new FileManager(file);
     }
 
     @Override

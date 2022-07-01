@@ -1,4 +1,4 @@
-package app.csv_access;
+package app.repository.file_implementation;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -10,13 +10,15 @@ import app.domains.Transaction;
 import app.domains.Transaction.Type;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
+import app.repository.IRepository;
+import app.util.FileManager;
 
-public class CSVTransaction implements IFileManipulation<Transaction> {
+public class FileRepositoryTransaction implements IRepository<Transaction> {
 
-    private FileManagement dataAccess;
+    private FileManager dataAccess;
 
-    public CSVTransaction(File file) {
-        dataAccess = new FileManagement(file);
+    public FileRepositoryTransaction(File file) {
+        dataAccess = new FileManager(file);
     }
 
     @Override

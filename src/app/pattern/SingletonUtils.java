@@ -2,8 +2,8 @@ package app.pattern;
 
 import java.time.format.DateTimeFormatter;
 
-import app.csv_access.CSVAccount;
-import app.csv_access.CSVTransaction;
+import app.repository.file_implementation.FileRepositoryAccount;
+import app.repository.file_implementation.FileRepositoryTransaction;
 
 public class SingletonUtils {
 
@@ -19,8 +19,8 @@ public class SingletonUtils {
 
     private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("hh:mm a dd-MM-yyyy");
 
-    private CSVAccount csvAccount;
-    private CSVTransaction csvTransaction;
+    private FileRepositoryAccount csvAccount;
+    private FileRepositoryTransaction csvTransaction;
 
     public static void init() {
         if (instance == null) {
@@ -36,19 +36,19 @@ public class SingletonUtils {
         return instance.csvColumnDelimiter;
     }
 
-    public static void setCSVAccount(CSVAccount cAccount) {
+    public static void setCSVAccount(FileRepositoryAccount cAccount) {
         instance.csvAccount = cAccount;
     }
 
-    public static CSVAccount getCSVAccount() {
+    public static FileRepositoryAccount getCSVAccount() {
         return instance.csvAccount;
     }
 
-    public static void setCSVTransaction(CSVTransaction cTransaction){
+    public static void setCSVTransaction(FileRepositoryTransaction cTransaction){
         instance.csvTransaction = cTransaction;
     }
 
-    public static CSVTransaction getCSVTransaction(){
+    public static FileRepositoryTransaction getCSVTransaction(){
         return instance.csvTransaction;
     }
 

@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import app.csv_access.CSVAccount;
-import app.csv_access.CSVTransaction;
 import app.domains.Account;
 import app.domains.Transaction;
 import app.pattern.SingletonData;
@@ -12,6 +10,8 @@ import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
+import app.repository.file_implementation.FileRepositoryAccount;
+import app.repository.file_implementation.FileRepositoryTransaction;
 import app.util.CreateMissingFile;
 import app.util.FileValidation;
 
@@ -37,8 +37,8 @@ public class App {
             }
         }
 
-        CSVAccount csvAccount = new CSVAccount(SingletonPath.getAccount());
-        CSVTransaction csvTransaction = new CSVTransaction(SingletonPath.getTransactions());
+        FileRepositoryAccount csvAccount = new FileRepositoryAccount(SingletonPath.getAccount());
+        FileRepositoryTransaction csvTransaction = new FileRepositoryTransaction(SingletonPath.getTransactions());
 
         SingletonUtils.setCSVTransaction(csvTransaction);
         SingletonUtils.setCSVAccount(csvAccount);
