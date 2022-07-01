@@ -13,15 +13,15 @@ import app.util.FileManager;
 
 public class FileRepositoryAccount implements IRepository<Account> {
 
-    private FileManager dataAccess;
+    private FileManager fileManager;
 
     public FileRepositoryAccount(File file) {
-        dataAccess = new FileManager(file);
+        fileManager = new FileManager(file);
     }
 
     @Override
     public Optional<Account> getById(String id) {
-        Optional<String> result = dataAccess.getById(id);
+        Optional<String> result = fileManager.getById(id);
 
         if (result.isEmpty()) {
             System.out.printf("failed: account %s not found%n", id);
@@ -35,7 +35,7 @@ public class FileRepositoryAccount implements IRepository<Account> {
 
     @Override
     public Optional<List<Account>> getAll() {
-        Optional<List<String>> result = dataAccess.getAll();
+        Optional<List<String>> result = fileManager.getAll();
         List<Account> data = new ArrayList<>();
 
         if (result.isEmpty()) {
@@ -68,7 +68,7 @@ public class FileRepositoryAccount implements IRepository<Account> {
         }
 
         SingletonPath.setAccount(
-                dataAccess.save(SingletonPath.getAccount(), list));
+                fileManager.save(SingletonPath.getAccount(), list));
     }
 
     @Override
