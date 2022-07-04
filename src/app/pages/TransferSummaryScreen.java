@@ -1,22 +1,19 @@
 package app.pages;
 
-import java.time.LocalDateTime;
 
-import app.domains.Transaction;
-import app.domains.Transaction.Type;
+import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
 import app.pattern.StateController;
 
 public class TransferSummaryScreen extends Page implements IState {
 
-    String destination;
+    Account destination;
     int amount;
     int referenceNumber;
 
-    public void setInfo(String destination, int amount, int referenceNumber) {
+    public void setInfo(Account destination, int amount, int referenceNumber) {
         this.destination = destination;
         this.amount = amount;
         this.referenceNumber = referenceNumber;
@@ -32,23 +29,11 @@ public class TransferSummaryScreen extends Page implements IState {
     @Override
     public void logic() {
         // write transaction
-        Transaction transactionSender = new Transaction(
-                SingletonData.getLoggedUser().getAccountNumber(),
-                Type.TRANSFER,
-                destination,
-                amount,
-                LocalDateTime.now());
-        Transaction transactionReceiver = new Transaction(
-                destination, Type.RECEIVE,
-                SingletonData.getLoggedUser().getAccountNumber(),
-                amount,
-                LocalDateTime.now());
-
-        SingletonUtils.getCSVTransaction().add(transactionSender);
-        SingletonUtils.getCSVTransaction().add(transactionReceiver);
 
         System.out.println("--Transfer Summary Screen--");
-        System.out.println("Destination Account: " + destination);
+        System.out.println("Destination Account: "
+                + destination.getName()
+                + "(" + destination.getAccountNumber() + ")");
         System.out.println("Transfer Amount: $" + amount);
         System.out.println("Reference Number: " + referenceNumber);
         System.out.println("Balance : $" + SingletonData.getLoggedUser().getBalance());

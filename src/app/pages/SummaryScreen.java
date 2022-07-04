@@ -8,8 +8,8 @@ import app.domains.Transaction.Type;
 import app.pattern.IState;
 import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
 import app.pattern.StateController;
+import app.services.TransactionService;
 
 public class SummaryScreen extends Page implements IState {
 
@@ -36,7 +36,7 @@ public class SummaryScreen extends Page implements IState {
                 withdrawAmount,
                 LocalDateTime.now());
 
-        SingletonUtils.getCSVTransaction().add(transaction);
+        TransactionService.addTransaction(transaction);
 
         System.out.println("--Summary--");
         System.out.printf("Date: %s%n",

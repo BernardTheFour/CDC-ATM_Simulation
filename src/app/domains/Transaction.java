@@ -20,22 +20,22 @@ public class Transaction {
         }
     }
 
-    private String accountNumber;
+    private String account;
     private Type transactionType;
     private String associate;
     private int amount;
     private LocalDateTime date;
 
-    public static void set(List<Transaction> newTransaction) {
+    public static void instance(List<Transaction> newTransaction) {
         transactions = newTransaction;
     }
 
-    public static List<Transaction> get() {
+    public static List<Transaction> instance() {
         return transactions;
     }
 
-    public String getAccountNumber() {
-        return this.accountNumber;
+    public String getAccount() {
+        return this.account;
     }
 
     public Type getTransactionType() {
@@ -54,6 +54,7 @@ public class Transaction {
         return this.date;
     }
 
+
     public Transaction() {
         if (transactions == null) {
             transactions = new ArrayList<>();
@@ -61,7 +62,7 @@ public class Transaction {
     }
 
     public Transaction(String accountNumber, Type transactionType, String associate, int amount, LocalDateTime date) {
-        this.accountNumber = accountNumber;
+        this.account = accountNumber;
         this.transactionType = transactionType;
         this.associate = associate;
         this.amount = amount;
@@ -71,7 +72,7 @@ public class Transaction {
     @Override
     public String toString() {
         return "{" +
-                " accountNumber='" + getAccountNumber() + "'" +
+                " accountNumber='" + getAccount() + "'" +
                 ", type='" + getTransactionType() + "'" +
                 ", associateAccountNumber='" + getAssociate() + "'" +
                 ", amount='" + getAmount() + "'" +

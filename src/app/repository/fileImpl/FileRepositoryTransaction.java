@@ -54,7 +54,7 @@ public class FileRepositoryTransaction implements IRepository<Transaction> {
     public void save() {
         String list = "";
 
-        for (Transaction transaction : Transaction.get()) {
+        for (Transaction transaction : Transaction.instance()) {
             list += writeLine(transaction);
         }
 
@@ -81,9 +81,9 @@ public class FileRepositoryTransaction implements IRepository<Transaction> {
 
     @Override
     public void add(Transaction data) {
-        List<Transaction> transactions = Transaction.get();
+        List<Transaction> transactions = Transaction.instance();
         transactions.add(data);
-        Transaction.set(transactions);
+        Transaction.instance(transactions);
 
         SingletonPath.setTransactions(
                 dataAccess.add(SingletonPath.getTransactions(), writeLine(data)));
@@ -92,7 +92,7 @@ public class FileRepositoryTransaction implements IRepository<Transaction> {
     private String writeLine(Transaction transaction) {
         String list = "";
 
-        list += transaction.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
+        list += transaction.getAccount() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getTransactionType().name() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getAssociate() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getAmount() + SingletonUtils.getCSVColumnDelimiter();

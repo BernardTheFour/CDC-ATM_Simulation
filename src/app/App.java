@@ -1,52 +1,35 @@
 package app;
+
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import app.domains.Account;
-import app.domains.Transaction;
 import app.pattern.SingletonData;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.repository.fileImpl.FileRepositoryAccount;
-import app.repository.fileImpl.FileRepositoryTransaction;
+import app.services.AccountService;
+import app.services.TransactionService;
 import app.util.CreateMissingFile;
 import app.util.FileValidation;
 
 public class App {
 
-    private static StateController screenNavigator;
-
     public static void main(String[] args) {
-
-        CheckPath(args);
 
         Initialization();
 
-        try {
-            CreateMissingFile.extractPath(args[0]);
+        CheckPath(args);
 
-        } catch (Exception e) {
-            if (e instanceof FileNotFoundException) {
-                System.out.println(e.getMessage());
-            } else {
-                e.printStackTrace();
-                System.exit(0);
-            }
-        }
-
-        FileRepositoryAccount csvAccount = new FileRepositoryAccount(SingletonPath.getAccount());
-        FileRepositoryTransaction csvTransaction = new FileRepositoryTransaction(SingletonPath.getTransactions());
-
-        SingletonUtils.setCSVTransaction(csvTransaction);
-        SingletonUtils.setCSVAccount(csvAccount);
-        Account.set(new ArrayList<>(SingletonUtils.getCSVAccount().getAll().get()));
+        StartService();
 
         FileValidation.validateFile();
 
-        screenNavigator = new StateController(
+        Account.set(new ArrayList<>(AccountService.getAll()));
+
+        StateController screenNavigator = new StateController(
                 SingletonScreen.WelcomeScreen());
 
         screenNavigator.run();
@@ -64,6 +47,13 @@ public class App {
             System.out.println("Pathfile should be folder directory, not file.");
             System.exit(0);
         }
+
+        try {
+            CreateMissingFile.extractPath(path[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     private static void Initialization() {
@@ -72,7 +62,10 @@ public class App {
         SingletonData.init();
         SingletonScreen.init();
         SingletonUtils.init();
-        new Account();
-        new Transaction();
+    }
+
+    private static void StartService() {
+        new AccountService(SingletonPath.getAccount());
+        new TransactionService(SingletonPath.getTransactions());
     }
 }

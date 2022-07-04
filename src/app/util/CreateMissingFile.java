@@ -2,7 +2,6 @@ package app.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -10,7 +9,7 @@ import app.pattern.SingletonPath;
 
 public class CreateMissingFile {
 
-    public static void extractPath(String path) throws FileNotFoundException, IOException {
+    public static void extractPath(String path) throws IOException {
         SingletonPath.setPath(new File(path));
 
         File[] files = SingletonPath.getPath().listFiles();
@@ -49,7 +48,7 @@ public class CreateMissingFile {
         }
 
         if (error) {
-            throw new FileNotFoundException("\nSuccessfully creating required file in the directory");
+            System.out.println("\nSuccessfully creating required file in the directory");
         }
     }
 

@@ -4,8 +4,8 @@ import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
 import app.pattern.StateController;
+import app.services.TransactionService;
 
 public class TransactionScreen extends Page implements IState {
 
@@ -19,8 +19,8 @@ public class TransactionScreen extends Page implements IState {
     @Override
     public void logic() {
         // get all transaction information
-        Transaction.set(
-                SingletonUtils.getCSVTransaction().getAllById(SingletonData.getLoggedUser().getAccountNumber()));
+        Transaction.instance(
+                TransactionService.getAllById(SingletonData.getLoggedUser().getAccountNumber()));
 
         System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");
         System.out.println("--Transactions--");

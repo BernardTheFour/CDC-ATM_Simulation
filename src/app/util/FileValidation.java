@@ -7,7 +7,8 @@ import java.util.Set;
 
 import app.domains.Account;
 import app.domains.Transaction;
-import app.pattern.SingletonUtils;
+import app.services.AccountService;
+import app.services.TransactionService;
 
 public class FileValidation {
 
@@ -23,7 +24,7 @@ public class FileValidation {
     }
 
     private static void validateAccount() throws Exception {
-        List<Account> store = SingletonUtils.getCSVAccount().getAll().get();
+        List<Account> store = AccountService.getAll();
         Set<String> compare = new HashSet<>();
         List<Account> duplicates = new ArrayList<>();
 
@@ -43,7 +44,7 @@ public class FileValidation {
     }
 
     private static void validateTransaction() throws Exception {
-        List<Transaction> store = SingletonUtils.getCSVTransaction().getAll().get();
+        List<Transaction> store = TransactionService.getAll();
         Set<String> compare = new HashSet<>();
         List<Transaction> duplicates = new ArrayList<>();
 

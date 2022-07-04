@@ -1,11 +1,11 @@
 package app.pages;
 
-
 import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
+import app.services.AccountService;
 
 public class TransactionHistoryScreen extends Page implements IState {
 
@@ -21,19 +21,19 @@ public class TransactionHistoryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Transaction History--");
 
-        for (Transaction transaction : Transaction.get()) {
+        for (int i = 0; i < Math.max(10, Transaction.instance().size()); i++) {
             String row = "";
             String transferName = "-\t";
 
-            if (!transaction.getAssociate().equals("null")) {
-                transferName = "(" + transaction.getAssociate() + ") ";
-                transferName += SingletonUtils.getCSVAccount().getById(transaction.getAssociate()).get().getName();
+            if (!Transaction.instance().get(i).getAssociate().equals("null")) {
+                transferName = "(" + Transaction.instance().get(i) + ") ";
+                transferName += AccountService.getById(Transaction.instance().get(i).getAssociate()).getName();
             }
 
-            row += "$" + transaction.getAmount() + "\t";
-            row += transaction.getTransactionType() + "\t";
+            row += "$" + Transaction.instance().get(i).getAmount() + "\t";
+            row += Transaction.instance().get(i).getTransactionType() + "\t";
             row += transferName + "\t";
-            row += transaction.getDate().format(SingletonUtils.getDateTimeFormat());
+            row += Transaction.instance().get(i).getDate().format(SingletonUtils.getDateTimeFormat());
 
             System.out.println(row);
         }

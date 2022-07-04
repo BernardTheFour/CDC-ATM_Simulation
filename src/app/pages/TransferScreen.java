@@ -1,15 +1,14 @@
 package app.pages;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
 import app.pattern.StateController;
+import app.services.TransactionService;
 
 public class TransferScreen extends Page implements IState {
 
@@ -55,7 +54,6 @@ public class TransferScreen extends Page implements IState {
             return;
         }
 
-        SingletonScreen.TransferSummaryScreen().setInfo(destination, amount, referenceNumber);
         super.nextPage = Pages.TRANSFER_SUMMARY;
     }
 
@@ -165,6 +163,8 @@ public class TransferScreen extends Page implements IState {
                 .filter(i -> destination.equals(i.getAccountNumber()))
                 .findAny();
 
+        System.out.println(destinationAccount.get());
+
         if (destinationAccount.isEmpty()) {
             System.out.println("Invalid Account: destination account not found");
             return false;
@@ -185,22 +185,9 @@ public class TransferScreen extends Page implements IState {
             return false;
         }
 
-        List<Account> accounts = Account.get();
-        accounts.remove(destinationAccount.get());
+        TransactionService.addTransaction(SingletonData.getLoggedUser(), destinationAccount.get(), amount);
 
-        int senderBalance = SingletonData.getLoggedUser().getBalance() - amount;
-        SingletonData.getLoggedUser().setBalance(senderBalance);
-
-        int retrieverBalance = destinationAccount.get().getBalance() + amount;
-        destinationAccount.get().setBalance(retrieverBalance);
-
-        accounts.add(destinationAccount.get());
-        Account.set(accounts);
-
-        SingletonUtils.getCSVAccount().edit(SingletonData.getLoggedUser());
-        SingletonUtils.getCSVAccount().edit(destinationAccount.get());
-
-        SingletonUtils.getCSVAccount().save();
+        SingletonScreen.TransferSummaryScreen().setInfo(destinationAccount.get(), amount, referenceNumber);
 
         return true;
     }
