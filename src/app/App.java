@@ -10,8 +10,8 @@ import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.repository.file_implementation.FileRepositoryAccount;
-import app.repository.file_implementation.FileRepositoryTransaction;
+import app.repository.fileImpl.FileRepositoryAccount;
+import app.repository.fileImpl.FileRepositoryTransaction;
 import app.util.CreateMissingFile;
 import app.util.FileValidation;
 
