@@ -64,7 +64,7 @@ public class FileRepoAccount implements IRepository<Account> {
         String list = "";
 
         for (Account account : Account.get()) {
-           list += writeLine(account);
+            list += writeLine(account);
         }
 
         SingletonPath.setAccount(
@@ -73,21 +73,25 @@ public class FileRepoAccount implements IRepository<Account> {
 
     @Override
     public void add(Account data) {
-        throw new UnsupportedOperationException("Not implemented yet");        
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @Override
+    public List<Account> getAllById(String id) {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     private Account readLine(List<String> data) {
         Account account = new Account(
-            data.get(0),
-            data.get(1),
-            data.get(2),
-            Integer.valueOf(data.get(3))
-        );
+                data.get(0),
+                data.get(1),
+                data.get(2),
+                Integer.valueOf(data.get(3)));
 
         return account;
     }
 
-    private String writeLine(Account account){
+    private String writeLine(Account account) {
         String list = "";
         list += account.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
         list += account.getPin() + SingletonUtils.getCSVColumnDelimiter();
@@ -95,10 +99,5 @@ public class FileRepoAccount implements IRepository<Account> {
         list += account.getBalance() + SingletonUtils.getCSVRowDelimiter();
 
         return list;
-    }
-
-    @Override
-    public List<Account> getAllById(String id) {
-        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
