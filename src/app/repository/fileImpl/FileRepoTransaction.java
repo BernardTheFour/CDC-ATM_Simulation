@@ -13,11 +13,11 @@ import app.pattern.SingletonUtils;
 import app.repository.IRepository;
 import app.util.FileManager;
 
-public class FileRepositoryTransaction implements IRepository<Transaction> {
+public class FileRepoTransaction implements IRepository<Transaction> {
 
     private FileManager dataAccess;
 
-    public FileRepositoryTransaction(File file) {
+    public FileRepoTransaction(File file) {
         dataAccess = new FileManager(file);
     }
 

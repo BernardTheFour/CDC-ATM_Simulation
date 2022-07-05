@@ -10,7 +10,7 @@ import app.domains.Account;
 import app.domains.Transaction;
 import app.domains.Transaction.Type;
 import app.repository.IRepository;
-import app.repository.fileImpl.FileRepositoryTransaction;
+import app.repository.fileImpl.FileRepoTransaction;
 
 public class TransactionService {
 
@@ -24,7 +24,7 @@ public class TransactionService {
     public TransactionService(File file) {
         if (instance == null) {
             instance = new TransactionService();
-            fileRepoTransaction = new FileRepositoryTransaction(file);
+            fileRepoTransaction = new FileRepoTransaction(file);
         }
     }
 

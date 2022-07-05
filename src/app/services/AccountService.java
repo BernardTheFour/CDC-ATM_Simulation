@@ -5,7 +5,7 @@ import java.util.List;
 
 import app.domains.Account;
 import app.repository.IRepository;
-import app.repository.fileImpl.FileRepositoryAccount;
+import app.repository.fileImpl.FileRepoAccount;
 
 public class AccountService {
 
@@ -18,7 +18,7 @@ public class AccountService {
     public AccountService(File file){
         if (instance == null){
             instance = new AccountService();
-            fileRepoAccount = new FileRepositoryAccount(file);
+            fileRepoAccount = new FileRepoAccount(file);
         }
     }
 

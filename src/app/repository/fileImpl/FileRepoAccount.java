@@ -11,11 +11,11 @@ import app.pattern.SingletonUtils;
 import app.repository.IRepository;
 import app.util.FileManager;
 
-public class FileRepositoryAccount implements IRepository<Account> {
+public class FileRepoAccount implements IRepository<Account> {
 
     private FileManager fileManager;
 
-    public FileRepositoryAccount(File file) {
+    public FileRepoAccount(File file) {
         fileManager = new FileManager(file);
     }
 
