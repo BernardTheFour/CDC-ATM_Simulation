@@ -1,6 +1,5 @@
 package app.pages;
 
-import app.domains.Account;
 import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
