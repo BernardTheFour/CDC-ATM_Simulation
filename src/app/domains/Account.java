@@ -25,11 +25,11 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public static void set(List<Account> newAccounts){
+    public static void setData(List<Account> newAccounts){
         accounts = newAccounts;
     }
 
-    public static List<Account> get(){
+    public static List<Account> getData(){
         return accounts;
     }
 

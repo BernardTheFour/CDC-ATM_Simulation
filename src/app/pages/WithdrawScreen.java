@@ -1,17 +1,19 @@
 package app.pages;
 
 import app.pattern.IState;
-import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
 
 public class WithdrawScreen extends Page implements IState {
 
+    public WithdrawScreen(StateController controller) {
+        super(controller);
+    }
+
     @Override
-    public void init(StateController controller) {
+    public void init() {
         System.out.println("\n-------------------------------");
-        super.controller = controller;
-        super.nextPage = Pages.DEFAULT;
+        nextPage = Pages.DEFAULT;
     }
 
     @Override
@@ -25,46 +27,43 @@ public class WithdrawScreen extends Page implements IState {
 
         System.out.print("\nNavigate to: ");
 
-        String answer = super.input.nextLine();
+        String answer = cmdInput.nextLine();
         int withdraw = 0;
 
         switch (answer) {
             case "1":
-                super.nextPage = Pages.SUMMARY;
+                nextPage = Pages.SUMMARY;
                 withdraw = 10;
                 break;
             case "2":
-                super.nextPage = Pages.SUMMARY;
+                nextPage = Pages.SUMMARY;
                 withdraw = 50;
                 break;
             case "3":
-                super.nextPage = Pages.SUMMARY;
+                nextPage = Pages.SUMMARY;
                 withdraw = 100;
                 break;
             case "4":
-                super.nextPage = Pages.OTHER_WITHDRAW;
+                nextPage = Pages.OTHER_WITHDRAW;
                 return;
             case "5":
-                super.nextPage = Pages.TRANSACTION;
+                nextPage = Pages.TRANSACTION;
                 return;
         }
 
-        int balance = SingletonData.getLoggedUser().getBalance();
+        int balance = loggedAccount.getBalance();
 
         if (balance < withdraw) {
             System.out.println("Insufficient balance to withdraw $" + withdraw);
             return;
         }
 
-        balance -= withdraw;
-        
-        SingletonData.getLoggedUser().setBalance(balance);
         SingletonScreen.SummaryScreen().setInfo(withdraw);
     }
 
     @Override
     public void navigate() {
-        switch (super.nextPage) {
+        switch (nextPage) {
             case SUMMARY:
                 controller.nextState(SingletonScreen.SummaryScreen());
                 break;

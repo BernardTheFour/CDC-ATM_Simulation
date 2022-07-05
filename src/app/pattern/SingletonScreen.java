@@ -13,20 +13,28 @@ public class SingletonScreen {
 
     private static SingletonScreen instance;
 
-    private WelcomeScreen welcomeScreen = new WelcomeScreen();
-    private TransactionScreen transactionScreen = new TransactionScreen();
-    private SummaryScreen summaryScreen = new SummaryScreen();
-    private TransferSummaryScreen transferSummaryScreen = new TransferSummaryScreen();
-    private WithdrawScreen withdrawScreen = new WithdrawScreen();
-    private OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen();
-    private TransferScreen transferScreen = new TransferScreen();
-    private TransactionHistoryScreen transactionHistoryScreen = new TransactionHistoryScreen();
+    private WelcomeScreen welcomeScreen;
+    private TransactionScreen transactionScreen;
+    private SummaryScreen summaryScreen;
+    private TransferSummaryScreen transferSummaryScreen;
+    private WithdrawScreen withdrawScreen;
+    private OtherWithdrawScreen otherWithdrawScreen;
+    private TransferScreen transferScreen;
+    private TransactionHistoryScreen transactionHistoryScreen;
 
     private String dateTimeFormat = "yyy-MM-dd hh:mm a";
 
-    public static void init() {
+    public static void init(StateController controller) {
         if (instance == null) {
             instance = new SingletonScreen();
+            instance.welcomeScreen = new WelcomeScreen(controller);
+            instance.transactionScreen = new TransactionScreen(controller);
+            instance.summaryScreen = new SummaryScreen(controller);
+            instance.transferSummaryScreen = new TransferSummaryScreen(controller);
+            instance.withdrawScreen = new WithdrawScreen(controller);
+            instance.otherWithdrawScreen = new OtherWithdrawScreen(controller);
+            instance.transferScreen = new TransferScreen(controller);
+            instance.transactionHistoryScreen = new TransactionHistoryScreen(controller);
         }
     }
 

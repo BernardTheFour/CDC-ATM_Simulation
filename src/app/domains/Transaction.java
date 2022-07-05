@@ -26,11 +26,11 @@ public class Transaction {
     private int amount;
     private LocalDateTime date;
 
-    public static void instance(List<Transaction> newTransaction) {
+    public static void setData(List<Transaction> newTransaction) {
         transactions = newTransaction;
     }
 
-    public static List<Transaction> instance() {
+    public static List<Transaction> getData() {
         return transactions;
     }
 

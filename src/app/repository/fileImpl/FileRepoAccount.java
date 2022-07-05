@@ -52,18 +52,19 @@ public class FileRepoAccount implements IRepository<Account> {
 
     @Override
     public void edit(Account data) {
-        Account.get().forEach(member -> {
+        Account.getData().forEach(member -> {
             if (member.getAccountNumber().equals(data.getAccountNumber())) {
                 member.setBalance(data.getBalance());
             }
         });
+        save();
     }
 
     @Override
     public void save() {
         String list = "";
 
-        for (Account account : Account.get()) {
+        for (Account account : Account.getData()) {
             list += writeLine(account);
         }
 

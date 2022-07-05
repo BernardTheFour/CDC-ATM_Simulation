@@ -3,11 +3,15 @@ package app.pages;
 
 import app.domains.Account;
 import app.pattern.IState;
-import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
+import app.services.TransactionService;
 
 public class TransferSummaryScreen extends Page implements IState {
+
+    public TransferSummaryScreen(StateController controller) {
+        super(controller);
+    }
 
     Account destination;
     int amount;
@@ -20,15 +24,16 @@ public class TransferSummaryScreen extends Page implements IState {
     }
 
     @Override
-    public void init(StateController controller) {
+    public void init() {
         System.out.println("\n-------------------------------");
-        super.controller = controller;
-        super.nextPage = Pages.DEFAULT;
+        nextPage = Pages.DEFAULT;
+
+        // write transaction
+        TransactionService.addTransaction(loggedAccount, destination, amount);
     }
 
     @Override
     public void logic() {
-        // write transaction
 
         System.out.println("--Transfer Summary Screen--");
         System.out.println("Destination Account: "
@@ -36,27 +41,27 @@ public class TransferSummaryScreen extends Page implements IState {
                 + "(" + destination.getAccountNumber() + ")");
         System.out.println("Transfer Amount: $" + amount);
         System.out.println("Reference Number: " + referenceNumber);
-        System.out.println("Balance : $" + SingletonData.getLoggedUser().getBalance());
+        System.out.println("Balance : $" + loggedAccount.getBalance());
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
 
         System.out.print("\nChoose option: ");
-        String answer = super.input.nextLine();
+        String answer = cmdInput.nextLine();
 
         switch (answer) {
             case "1":
-                super.nextPage = Pages.TRANSACTION;
+                nextPage = Pages.TRANSACTION;
                 break;
             case "2":
-                super.nextPage = Pages.WELCOME;
+                nextPage = Pages.WELCOME;
                 break;
         }
     }
 
     @Override
     public void navigate() {
-        switch (super.nextPage) {
+        switch (nextPage) {
             case TRANSACTION:
                 controller.nextState(SingletonScreen.TransactionScreen());
                 break;

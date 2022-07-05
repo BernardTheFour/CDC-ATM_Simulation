@@ -54,7 +54,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     public void save() {
         String list = "";
 
-        for (Transaction transaction : Transaction.instance()) {
+        for (Transaction transaction : Transaction.getData()) {
             list += writeLine(transaction);
         }
 
@@ -81,9 +81,9 @@ public class FileRepoTransaction implements IRepository<Transaction> {
 
     @Override
     public void add(Transaction data) {
-        List<Transaction> transactions = Transaction.instance();
+        List<Transaction> transactions = Transaction.getData();
         transactions.add(data);
-        Transaction.instance(transactions);
+        Transaction.setData(transactions);
 
         SingletonPath.setTransactions(
                 dataAccess.add(SingletonPath.getTransactions(), writeLine(data)));

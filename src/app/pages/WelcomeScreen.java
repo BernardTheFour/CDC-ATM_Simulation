@@ -5,17 +5,23 @@ import java.util.Optional;
 
 import app.domains.Account;
 import app.pattern.IState;
-import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
+import app.services.AccountService;
 
 public class WelcomeScreen extends Page implements IState {
 
+    public WelcomeScreen(StateController controller) {
+        super(controller);
+    }
+
     @Override
-    public void init(StateController controller) {
+    public void init() {
         System.out.println("\n-------------------------------");
-        super.controller = controller;
-        super.nextPage = Pages.DEFAULT;
+        nextPage = Pages.DEFAULT;
+        loggedAccount = null;
+
+        Account.setData(AccountService.getAll());
     }
 
     @Override
@@ -24,12 +30,12 @@ public class WelcomeScreen extends Page implements IState {
 
         try {
             System.out.print("Account number: ");
-            String accountNumber = checkAccountNumber(super.input.nextLine());
+            String accountNumber = checkAccountNumber(cmdInput.nextLine());
 
             System.out.print("PIN number: ");
-            String pinNumber = checkPinNumber(super.input.nextLine());
+            String pinNumber = checkPinNumber(cmdInput.nextLine());
 
-            Optional<Account> checkUser = Account.get().stream()
+            Optional<Account> checkUser = AccountService.getAll().stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
                     .filter(i -> pinNumber.equals(i.getPin()))
                     .findAny();
@@ -39,12 +45,12 @@ public class WelcomeScreen extends Page implements IState {
                 return;
             }
 
-            SingletonData.setLoggedUser(checkUser.get());
+            loggedAccount = checkUser.get();
 
             System.out.printf("%nWelcome %s",
-                    SingletonData.getLoggedUser().getName());
+                    loggedAccount.getName());
 
-            super.nextPage = Pages.TRANSACTION;
+            nextPage = Pages.TRANSACTION;
 
         } catch (Exception e) {
 
@@ -59,7 +65,7 @@ public class WelcomeScreen extends Page implements IState {
 
     @Override
     public void navigate() {
-        switch (super.nextPage) {
+        switch (nextPage) {
             case TRANSACTION:
                 controller.nextState(SingletonScreen.TransactionScreen());
                 break;

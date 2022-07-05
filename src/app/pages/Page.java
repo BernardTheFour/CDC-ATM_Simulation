@@ -2,6 +2,7 @@ package app.pages;
 
 import java.util.Scanner;
 
+import app.domains.Account;
 import app.pattern.StateController;
 
 public class Page {
@@ -17,7 +18,12 @@ public class Page {
         TRANSACTION_HISTORY
     }
 
-    protected Scanner input = new Scanner(System.in);
-    protected StateController controller;
-    protected Page.Pages nextPage = Pages.DEFAULT;
+    protected static Scanner cmdInput = new Scanner(System.in);
+    protected static StateController controller;
+    protected static Page.Pages nextPage = Pages.DEFAULT;
+    protected static Account loggedAccount = null;
+    
+    public Page(StateController controller){
+        Page.controller = controller;
+    }
 }

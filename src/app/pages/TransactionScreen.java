@@ -1,28 +1,31 @@
 package app.pages;
 
+import app.domains.Account;
 import app.domains.Transaction;
 import app.pattern.IState;
-import app.pattern.SingletonData;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
 import app.services.TransactionService;
 
 public class TransactionScreen extends Page implements IState {
 
+    public TransactionScreen(StateController controller) {
+        super(controller);
+    }
+
     @Override
-    public void init(StateController controller) {
+    public void init() {
         System.out.println("\n-------------------------------");
-        super.controller = controller;
-        super.nextPage = Pages.DEFAULT;
+        nextPage = Pages.DEFAULT;
     }
 
     @Override
     public void logic() {
         // get all transaction information
-        Transaction.instance(
-                TransactionService.getAllById(SingletonData.getLoggedUser().getAccountNumber()));
+        Transaction.setData(
+                TransactionService.getAllById(loggedAccount.getAccountNumber()));
 
-        System.out.println("Balance: " + SingletonData.getLoggedUser().getBalance() + "\n");
+        System.out.println("Balance: " + loggedAccount.getBalance() + "\n");
         System.out.println("--Transactions--");
         System.out.println("1. Withdraw");
         System.out.println("2. Fund Transfer");
@@ -31,27 +34,27 @@ public class TransactionScreen extends Page implements IState {
 
         System.out.print("\nChoose option: ");
 
-        String answer = super.input.nextLine();
+        String answer = cmdInput.nextLine();
 
         switch (answer) {
             case "1":
-                super.nextPage = Pages.WITHDRAW;
+                nextPage = Pages.WITHDRAW;
                 break;
             case "2":
-                super.nextPage = Pages.TRANSFER;
+                nextPage = Pages.TRANSFER;
                 break;
             case "3":
-                super.nextPage = Pages.TRANSACTION_HISTORY;
+                nextPage = Pages.TRANSACTION_HISTORY;
                 break;
             case "4":
-                super.nextPage = Pages.WELCOME;
+                nextPage = Pages.WELCOME;
                 break;
         }
     }
 
     @Override
     public void navigate() {
-        switch (super.nextPage) {
+        switch (nextPage) {
             case WELCOME:
                 controller.nextState(SingletonScreen.WelcomeScreen());
                 break;
@@ -62,7 +65,7 @@ public class TransactionScreen extends Page implements IState {
                 controller.nextState(SingletonScreen.TransferScreen());
                 break;
             case TRANSACTION_HISTORY:
-                controller.nextState((SingletonScreen.TransactionHistoryScreen()));
+                controller.nextState(SingletonScreen.TransactionHistoryScreen());
                 break;
             default:
                 controller.nextState(controller.getCurrentState());

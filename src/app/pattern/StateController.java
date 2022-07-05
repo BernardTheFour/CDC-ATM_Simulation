@@ -12,13 +12,13 @@ public class StateController {
         run();
     }
 
-    public void run(){
-        currentState.init(this);
+    public void run(){ 
+        currentState.init();    
         currentState.logic();
         currentState.navigate();
     }
 
-    public StateController (IState initState){
-        currentState = initState;        
+    public void firstState(IState initState){
+        currentState = initState;   
     }
 }

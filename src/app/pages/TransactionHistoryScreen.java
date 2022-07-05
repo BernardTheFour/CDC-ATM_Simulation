@@ -9,11 +9,14 @@ import app.services.AccountService;
 
 public class TransactionHistoryScreen extends Page implements IState {
 
+    public TransactionHistoryScreen(StateController controller) {
+        super(controller);
+    }
+
     @Override
-    public void init(StateController controller) {
+    public void init() {
         System.out.println("\n-------------------------------");
-        super.controller = controller;
-        super.nextPage = Pages.DEFAULT;
+        nextPage = Pages.DEFAULT;
 
     }
 
@@ -21,19 +24,19 @@ public class TransactionHistoryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Transaction History--");
 
-        for (int i = 0; i < Math.max(10, Transaction.instance().size()); i++) {
+        for (int i = 0; i < Math.max(10, Transaction.getData().size()); i++) {
             String row = "";
             String transferName = "-\t";
 
-            if (!Transaction.instance().get(i).getAssociate().equals("null")) {
-                transferName = "(" + Transaction.instance().get(i) + ") ";
-                transferName += AccountService.getById(Transaction.instance().get(i).getAssociate()).getName();
+            if (!Transaction.getData().get(i).getAssociate().equals("null")) {
+                transferName = "(" + Transaction.getData().get(i) + ") ";
+                transferName += AccountService.getById(Transaction.getData().get(i).getAssociate()).getName();
             }
 
-            row += "$" + Transaction.instance().get(i).getAmount() + "\t";
-            row += Transaction.instance().get(i).getTransactionType() + "\t";
+            row += "$" + Transaction.getData().get(i).getAmount() + "\t";
+            row += Transaction.getData().get(i).getTransactionType() + "\t";
             row += transferName + "\t";
-            row += Transaction.instance().get(i).getDate().format(SingletonUtils.getDateTimeFormat());
+            row += Transaction.getData().get(i).getDate().format(SingletonUtils.getDateTimeFormat());
 
             System.out.println(row);
         }
@@ -43,21 +46,21 @@ public class TransactionHistoryScreen extends Page implements IState {
 
         System.out.print("\nChoose option: ");
 
-        String answer = super.input.nextLine();
+        String answer = cmdInput.nextLine();
 
         switch (answer) {
             case "1":
-                super.nextPage = Pages.TRANSACTION;
+                nextPage = Pages.TRANSACTION;
                 break;
             case "2":
-                super.nextPage = Pages.WELCOME;
+                nextPage = Pages.WELCOME;
                 break;
         }
     }
 
     @Override
     public void navigate() {
-        switch (super.nextPage) {
+        switch (nextPage) {
             case TRANSACTION:
                 controller.nextState(SingletonScreen.TransactionScreen());
                 break;

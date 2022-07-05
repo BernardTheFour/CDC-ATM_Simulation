@@ -4,14 +4,13 @@ import java.io.File;
 import java.util.List;
 
 import app.domains.Account;
-import app.repository.IRepository;
 import app.repository.fileImpl.FileRepoAccount;
 
 public class AccountService {
 
     private static AccountService instance;
 
-    private static IRepository<Account> fileRepoAccount;
+    private static FileRepoAccount fileRepoAccount;
 
     public AccountService(){}
 

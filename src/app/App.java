@@ -2,10 +2,7 @@ package app;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import app.domains.Account;
-import app.pattern.SingletonData;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
@@ -19,7 +16,9 @@ public class App {
 
     public static void main(String[] args) {
 
-        Initialization();
+        StateController screenNavigator = new StateController();
+
+        Initialization(screenNavigator);
 
         CheckPath(args);
 
@@ -27,11 +26,7 @@ public class App {
 
         FileValidation.validateFile();
 
-        Account.set(new ArrayList<>(AccountService.getAll()));
-
-        StateController screenNavigator = new StateController(
-                SingletonScreen.WelcomeScreen());
-
+        screenNavigator.firstState(SingletonScreen.WelcomeScreen());
         screenNavigator.run();
     }
 
@@ -56,11 +51,10 @@ public class App {
         }
     }
 
-    private static void Initialization() {
+    private static void Initialization(StateController screenNavigator) {
         System.out.println("\nProgram starting...");
         SingletonPath.init();
-        SingletonData.init();
-        SingletonScreen.init();
+        SingletonScreen.init(screenNavigator);
         SingletonUtils.init();
     }
 
