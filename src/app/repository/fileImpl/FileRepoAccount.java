@@ -53,27 +53,28 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     @Override
-    public void edit(Account data) {
-        Account.getData().forEach(member -> {
-            if (member.getAccountNumber().equals(data.getAccountNumber())) {
-                member.setBalance(data.getBalance());
-            }
-        });
+    public Stream<Account> edit(Account data) {
+        return getAll().get().stream()
+                .map(x -> {
+                    if (x.getAccountNumber().equals(data.getAccountNumber())) {
+                        x.setBalance(data.getBalance());
+                    }
+                    return x;
+                });
     }
 
     @Override
-    public void save() {
+    public void save(Stream<Account> stream) {
         StringBuilder sb = new StringBuilder();
 
-        Account.getData()
-                .forEach(i -> sb.append(writeLine(i)));
+        stream.forEach(i -> sb.append(writeLine(i)));
 
         SingletonPath.setAccount(
                 fileManager.save(SingletonPath.getAccount(), sb.toString()));
     }
 
     @Override
-    public void add(Account data) {
+    public Stream<Account> add(Account data) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -93,11 +94,11 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     private String writeLine(Account account) {
-        String list = "";
+        String list = SingletonUtils.getCSVRowDelimiter();
         list += account.getAccountNumber() + SingletonUtils.getCSVColumnDelimiter();
         list += account.getPin() + SingletonUtils.getCSVColumnDelimiter();
         list += account.getName() + SingletonUtils.getCSVColumnDelimiter();
-        list += account.getBalance() + SingletonUtils.getCSVRowDelimiter();
+        list += account.getBalance() + ";";
 
         return list;
     }

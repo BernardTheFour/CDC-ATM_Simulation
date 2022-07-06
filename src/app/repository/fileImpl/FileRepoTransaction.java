@@ -49,20 +49,18 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     @Override
-    public void edit(Transaction data) {
+    public Stream<Transaction> edit(Transaction data) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public void save() {
-        String list = "";
+    public void save(Stream<Transaction> stream) {
+        StringBuilder sb = new StringBuilder();
 
-        for (Transaction transaction : Transaction.getData()) {
-            list += writeLine(transaction);
-        }
+        stream.forEach(i -> sb.append(writeLine(i)));
 
         SingletonPath.setTransactions(
-                fileManager.save(SingletonPath.getTransactions(), list));
+                fileManager.save(SingletonPath.getTransactions(), sb.toString()));
     }
 
     @Override
@@ -83,23 +81,24 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     @Override
-    public void add(Transaction data) {
+    public Stream<Transaction> add(Transaction data) {
         List<Transaction> transactions = Transaction.getData();
         transactions.add(data);
         Transaction.setData(transactions);
 
         SingletonPath.setTransactions(
                 fileManager.add(SingletonPath.getTransactions(), writeLine(data)));
+        return null;
     }
 
     private String writeLine(Transaction transaction) {
-        String list = "";
+        String list = SingletonUtils.getCSVRowDelimiter();
 
         list += transaction.getAccount() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getTransactionType().name() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getAssociate() + SingletonUtils.getCSVColumnDelimiter();
         list += transaction.getAmount() + SingletonUtils.getCSVColumnDelimiter();
-        list += transaction.getDate() + SingletonUtils.getCSVRowDelimiter();
+        list += transaction.getDate() + ";";
 
         return list;
     }

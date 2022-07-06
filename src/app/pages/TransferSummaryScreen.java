@@ -29,7 +29,9 @@ public class TransferSummaryScreen extends Page implements IState {
         nextPage = Pages.DEFAULT;
 
         // write transaction
-        TransactionService.addTransaction(loggedAccount, destination, amount);
+        TransactionService.addTransaction(loggedAccount, destination, amount);        
+        
+        loggedAccount.setBalance(loggedAccount.getBalance() - amount);
     }
 
     @Override

@@ -16,10 +16,10 @@ public class SummaryScreen extends Page implements IState {
         super(controller);
     }
 
-    private int withdrawAmount;
+    private int amount;
 
-    public void setInfo(int withdrawAmount) {
-        this.withdrawAmount = withdrawAmount;
+    public void setInfo(int amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -32,10 +32,12 @@ public class SummaryScreen extends Page implements IState {
                 loggedAccount.getAccountNumber(),
                 Type.WITHDRAW,
                 null,
-                withdrawAmount,
+                amount,
                 LocalDateTime.now());
 
-        TransactionService.addTransaction(transaction);
+        TransactionService.addTransaction(transaction);        
+        
+        loggedAccount.setBalance(loggedAccount.getBalance() - amount);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class SummaryScreen extends Page implements IState {
         System.out.printf("Date: %s%n",
                 LocalDateTime.now().format(
                         DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));
-        System.out.println("Withdraw: $" + withdrawAmount);
+        System.out.println("Withdraw: $" + amount);
         System.out.println("Balance: $" + loggedAccount.getBalance());
 
         System.out.println("\n1. Transaction");

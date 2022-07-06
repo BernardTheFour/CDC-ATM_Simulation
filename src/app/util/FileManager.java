@@ -98,7 +98,6 @@ public class FileManager {
             writer.write(scanner.nextLine());
 
             // write data to the temp file and flush
-            writer.newLine();
             writer.write(data);
 
             // close stream

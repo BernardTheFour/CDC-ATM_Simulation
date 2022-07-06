@@ -162,8 +162,6 @@ public class TransferScreen extends Page implements IState {
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
         Account destinationAccount = AccountService.getById(destination);
 
-        System.out.println(destinationAccount);
-
         if (destinationAccount == null) {
             System.out.println("Invalid Account: destination account not found");
             return false;

@@ -61,8 +61,7 @@ public class CreateMissingFile {
         for (String column : columns) {
             writer.write(column + ";");
         }
-
-        writer.newLine();
+        
         writer.flush();
         writer.close();
         return file;

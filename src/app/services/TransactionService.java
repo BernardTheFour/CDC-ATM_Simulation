@@ -41,11 +41,9 @@ public class TransactionService {
         else
             account.setBalance(balance - transaction.getAmount());
 
-
         AccountService.editAccount(account);
 
         fileRepoTransaction.add(transaction);
-        fileRepoTransaction.save();
     }
 
     public static void addTransaction(Account sender, Account receiver, int amount) {

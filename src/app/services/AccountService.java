@@ -29,8 +29,7 @@ public class AccountService {
         return fileRepoAccount.getById(associate).get();
     }
 
-    public static void editAccount(Account account) {
-        fileRepoAccount.edit(account);
-        fileRepoAccount.save();
+    public static void editAccount(Account account) {        
+        fileRepoAccount.save(fileRepoAccount.edit(account));
     }
 }
