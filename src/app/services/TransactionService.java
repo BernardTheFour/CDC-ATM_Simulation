@@ -35,10 +35,12 @@ public class TransactionService {
     public static void addTransaction(Transaction transaction) {
         Account account = AccountService.getById(transaction.getAccount());
 
+        int balance = account.getBalance();
         if (transaction.getTransactionType() == Type.RECEIVE)
-            account.setBalance(account.getBalance() + transaction.getAmount());
+            account.setBalance(balance + transaction.getAmount());
         else
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(balance - transaction.getAmount());
+
 
         AccountService.editAccount(account);
 

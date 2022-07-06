@@ -1,9 +1,11 @@
 package app.repository.fileImpl;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import app.domains.Account;
 import app.pattern.SingletonPath;
@@ -35,19 +37,19 @@ public class FileRepoAccount implements IRepository<Account> {
 
     @Override
     public Optional<List<Account>> getAll() {
-        Optional<List<String>> result = fileManager.getAll();
-        List<Account> data = new ArrayList<>();
+        try (Stream<String> result = fileManager.getAll()) {
 
-        if (result.isEmpty()) {
+            return Optional.of(result
+                    .map(i -> {
+                        List<String> line = List.of(i.split(SingletonUtils.getCSVColumnDelimiter()));
+                        return readLine(line);
+                    }).collect(Collectors.toList()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
             return Optional.empty();
         }
-
-        result.get().forEach(member -> {
-            List<String> line = List.of(member.split(SingletonUtils.getCSVColumnDelimiter()));
-            data.add(readLine(line));
-        });
-
-        return Optional.of(data);
     }
 
     @Override
@@ -57,19 +59,17 @@ public class FileRepoAccount implements IRepository<Account> {
                 member.setBalance(data.getBalance());
             }
         });
-        save();
     }
 
     @Override
     public void save() {
-        String list = "";
+        StringBuilder sb = new StringBuilder();
 
-        for (Account account : Account.getData()) {
-            list += writeLine(account);
-        }
+        Account.getData()
+                .forEach(i -> sb.append(writeLine(i)));
 
         SingletonPath.setAccount(
-                fileManager.save(SingletonPath.getAccount(), list));
+                fileManager.save(SingletonPath.getAccount(), sb.toString()));
     }
 
     @Override

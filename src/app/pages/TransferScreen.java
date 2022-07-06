@@ -1,7 +1,6 @@
 package app.pages;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import app.domains.Account;
 import app.pattern.IState;
@@ -161,13 +160,11 @@ public class TransferScreen extends Page implements IState {
     }
 
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
-        Optional<Account> destinationAccount = Account.getData().stream()
-                .filter(i -> destination.equals(i.getAccountNumber()))
-                .findAny();
+        Account destinationAccount = AccountService.getById(destination);
 
-        System.out.println(destinationAccount.get());
+        System.out.println(destinationAccount);
 
-        if (destinationAccount.isEmpty()) {
+        if (destinationAccount == null) {
             System.out.println("Invalid Account: destination account not found");
             return false;
         }
@@ -187,7 +184,7 @@ public class TransferScreen extends Page implements IState {
             return false;
         }
 
-        SingletonScreen.TransferSummaryScreen().setInfo(destinationAccount.get(), amount, referenceNumber);
+        SingletonScreen.TransferSummaryScreen().setInfo(destinationAccount, amount, referenceNumber);
 
         return true;
     }

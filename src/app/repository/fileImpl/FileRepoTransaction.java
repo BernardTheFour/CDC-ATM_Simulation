@@ -1,10 +1,13 @@
 package app.repository.fileImpl;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import app.domains.Transaction;
 import app.domains.Transaction.Type;
@@ -15,10 +18,10 @@ import app.util.FileManager;
 
 public class FileRepoTransaction implements IRepository<Transaction> {
 
-    private FileManager dataAccess;
+    private FileManager fileManager;
 
     public FileRepoTransaction(File file) {
-        dataAccess = new FileManager(file);
+        fileManager = new FileManager(file);
     }
 
     @Override
@@ -28,7 +31,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
 
     @Override
     public List<Transaction> getAllById(String id) {
-        Optional<List<String>> result = dataAccess.getAllByid(id);
+        Optional<List<String>> result = fileManager.getAllByid(id);
 
         if (result.isEmpty()) {
             System.out.printf("failed: account %s not found%n", id);
@@ -59,24 +62,24 @@ public class FileRepoTransaction implements IRepository<Transaction> {
         }
 
         SingletonPath.setTransactions(
-                dataAccess.save(SingletonPath.getTransactions(), list));
+                fileManager.save(SingletonPath.getTransactions(), list));
     }
 
     @Override
     public Optional<List<Transaction>> getAll() {
-        Optional<List<String>> result = dataAccess.getAll();
-        List<Transaction> data = new ArrayList<>();
+        try (Stream<String> result = fileManager.getAll()) {
 
-        if (result.isEmpty()) {
+            return Optional.of(result
+                    .map(i -> {
+                        List<String> line = List.of(i.split(SingletonUtils.getCSVColumnDelimiter()));
+                        return readLine(line);
+                    }).collect(Collectors.toList()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
             return Optional.empty();
         }
-
-        result.get().forEach(member -> {
-            List<String> line = List.of(member.split(SingletonUtils.getCSVColumnDelimiter()));
-            data.add(readLine(line));
-        });
-
-        return Optional.of(data);
     }
 
     @Override
@@ -86,7 +89,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
         Transaction.setData(transactions);
 
         SingletonPath.setTransactions(
-                dataAccess.add(SingletonPath.getTransactions(), writeLine(data)));
+                fileManager.add(SingletonPath.getTransactions(), writeLine(data)));
     }
 
     private String writeLine(Transaction transaction) {

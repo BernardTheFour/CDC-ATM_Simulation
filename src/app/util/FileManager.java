@@ -12,9 +12,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import app.pattern.SingletonPath;
@@ -53,18 +53,8 @@ public class FileManager {
         return Optional.empty();
     }
 
-    public Optional<List<String>> getAll() {
-
-        List<String> lines = new ArrayList<>();
-
-        try (Stream<String> stream = Files.lines(path)) {
-            lines = stream.skip(1).collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        return Optional.of(lines);
+    public Stream<String> getAll() throws IOException {
+        return Files.lines(path).skip(1).filter(Objects::nonNull);
     }
 
     public Optional<List<String>> getAllByid(String id) {
