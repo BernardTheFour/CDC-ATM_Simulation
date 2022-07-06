@@ -35,7 +35,11 @@ public class TransactionService {
     public static void addTransaction(Transaction transaction) {
         Account account = AccountService.getById(transaction.getAccount());
 
-        account.setBalance(account.getBalance() - transaction.getAmount());
+        if (transaction.getTransactionType() == Type.RECEIVE)
+            account.setBalance(account.getBalance() + transaction.getAmount());
+        else
+            account.setBalance(account.getBalance() - transaction.getAmount());
+
         AccountService.editAccount(account);
 
         fileRepoTransaction.add(transaction);
@@ -43,9 +47,15 @@ public class TransactionService {
     }
 
     public static void addTransaction(Account sender, Account receiver, int amount) {
-        addTransaction(new Transaction(sender.getAccountNumber(), Type.TRANSFER, receiver.getAccountNumber(), amount,
+        addTransaction(new Transaction(sender.getAccountNumber(),
+                Type.TRANSFER,
+                receiver.getAccountNumber(),
+                amount,
                 LocalDateTime.now()));
-        addTransaction(new Transaction(receiver.getAccountNumber(), Type.RECEIVE, sender.getAccountNumber(), amount * -1,
+        addTransaction(new Transaction(receiver.getAccountNumber(),
+                Type.RECEIVE,
+                sender.getAccountNumber(),
+                amount,
                 LocalDateTime.now()));
     }
 
