@@ -161,7 +161,7 @@ public class TransferScreen extends Page implements IState {
     }
 
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
-        Optional<Account> destinationAccount = AccountService.getAll().stream()
+        Optional<Account> destinationAccount = Account.getData().stream()
                 .filter(i -> destination.equals(i.getAccountNumber()))
                 .findAny();
 

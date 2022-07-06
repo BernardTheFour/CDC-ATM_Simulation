@@ -35,7 +35,7 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("PIN number: ");
             String pinNumber = checkPinNumber(cmdInput.nextLine());
 
-            Optional<Account> checkUser = AccountService.getAll().stream()
+            Optional<Account> checkUser = Account.getData().stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
                     .filter(i -> pinNumber.equals(i.getPin()))
                     .findAny();

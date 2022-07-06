@@ -14,15 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
 public class FileManager {
 
+    private Path path;
     private File file;
 
     public FileManager(File file) {
+        path = Paths.get(file.getAbsolutePath());
         this.file = file;
     }
 
@@ -50,25 +54,17 @@ public class FileManager {
     }
 
     public Optional<List<String>> getAll() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            List<String> lines = new ArrayList<>();
 
-            reader.readLine();
-            String line = reader.readLine();
+        List<String> lines = new ArrayList<>();
 
-            while (line != null) {
-                lines.add(line);
-                line = reader.readLine();
-            }
-
-            reader.close();
-            return Optional.of(lines);
+        try (Stream<String> stream = Files.lines(path)) {
+            lines = stream.skip(1).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
-        return Optional.empty();
+
+        return Optional.of(lines);
     }
 
     public Optional<List<String>> getAllByid(String id) {
