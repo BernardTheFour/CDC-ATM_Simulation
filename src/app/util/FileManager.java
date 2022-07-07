@@ -50,29 +50,10 @@ public class FileManager {
 
     public Optional<List<String>> getAllByid(String id) {
         try (Stream<String> stream = Files.lines(path)) {
-
             return Optional.of(stream.skip(1)
                     .filter(Objects::nonNull)
                     .filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id))
                     .collect(Collectors.toList()));
-
-            // BufferedReader reader = new BufferedReader(new FileReader(file));
-            // List<String> lines = new ArrayList<>();
-
-            // reader.readLine();
-            // String line = reader.readLine();
-
-            // while (line != null) {
-            // String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
-
-            // if (readId.equals(id)) {
-            // lines.add(line);
-            // }
-            // line = reader.readLine();
-            // }
-
-            // reader.close();
-            // return Optional.of(lines);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
