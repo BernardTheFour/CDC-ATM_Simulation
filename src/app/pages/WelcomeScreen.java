@@ -20,8 +20,6 @@ public class WelcomeScreen extends Page implements IState {
         System.out.println("\n-------------------------------");
         nextPage = Pages.DEFAULT;
         loggedAccount = null;
-
-        Account.setData(AccountService.getAll());
     }
 
     @Override

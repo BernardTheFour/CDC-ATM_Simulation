@@ -31,24 +31,14 @@ public class FileManager {
     }
 
     public Optional<String> getById(String id) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-
-            while (line != null) {
-                line = reader.readLine();
-                String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
-
-                if (readId.equals(id)) {
-                    reader.close();
-                    return Optional.of(line);
-                }
-            }
-
-            reader.close();
+        try (Stream<String> stream = Files.lines(path)) {
+            return stream.skip(1)
+                    .filter(Objects::nonNull)
+                    .filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id))
+                    .findFirst();
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
         return Optional.empty();
     }

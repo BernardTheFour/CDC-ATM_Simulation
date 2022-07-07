@@ -1,36 +1,19 @@
 package app.domains;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Account {
-
-    private static List<Account> accounts;
 
     private String accountNumber;
     private String pin;
     private String name;
     private int balance;
 
-    public Account() {
-        if (accounts == null){
-            accounts = new ArrayList<>();
-        }
-    }
+    public Account(){}
 
     public Account(String accountNumber, String pin, String name, int balance) {
         this.name = name;
         this.pin = pin;
         this.balance = balance;
         this.accountNumber = accountNumber;
-    }
-
-    public static void setData(List<Account> newAccounts){
-        accounts = newAccounts;
-    }
-
-    public static List<Account> getData(){
-        return accounts;
     }
 
     public String getName() {
