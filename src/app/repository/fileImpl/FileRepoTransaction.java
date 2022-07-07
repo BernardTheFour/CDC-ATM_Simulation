@@ -30,7 +30,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     @Override
-    public List<Transaction> getAllById(String id) {
+    public Optional<List<Transaction>> getAllById(String id) {
         Optional<List<String>> result = fileManager.getAllByid(id);
 
         if (result.isEmpty()) {
@@ -45,7 +45,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
             transactions.add(readLine(toList));
         });
 
-        return transactions;
+        return Optional.of(transactions);
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import app.domains.Account;
@@ -60,9 +61,14 @@ public class TransactionService {
     }
 
     public static List<Transaction> getAllById(String accountNumber) {
-        List<Transaction> result = fileRepoTransaction.getAllById(accountNumber);
+        Optional<List<Transaction>> result = fileRepoTransaction.getAllById(accountNumber);
 
-        return result.stream()
+        if (result.isEmpty()){
+            System.out.println("failed: no data found");
+            return null;
+        }
+
+        return result.get().stream()
                 .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .collect(Collectors.toList());
     }

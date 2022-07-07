@@ -79,7 +79,7 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     @Override
-    public List<Account> getAllById(String id) {
+    public Optional<List<Account>> getAllById(String id) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 

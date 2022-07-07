@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public interface IRepository<T> {
     Optional<T> getById(String id);
-    List<T> getAllById(String id);
+    Optional<List<T>> getAllById(String id);
     Stream<T> add(T data);
     Stream<T> edit(T data);
     void save(Stream<T> stream);
