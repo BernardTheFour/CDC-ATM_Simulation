@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import app.domains.Transaction;
 import app.domains.Transaction.Type;
-import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 import app.repository.IRepository;
 import app.util.FileManager;
@@ -49,18 +48,8 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     @Override
-    public Stream<Transaction> edit(Transaction data) {
+    public void edit(Transaction data) {
         throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    @Override
-    public void save(Stream<Transaction> stream) {
-        StringBuilder sb = new StringBuilder();
-
-        stream.forEach(i -> sb.append(writeLine(i)));
-
-        SingletonPath.setTransactions(
-                fileManager.save(SingletonPath.getTransactions(), sb.toString()));
     }
 
     @Override
@@ -82,7 +71,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
 
     @Override
     public void add(Transaction data) {
-        fileManager.add(SingletonPath.getTransactions(), writeLine(data));
+        fileManager.add(writeLine(data));
     }
 
     private String writeLine(Transaction transaction) {

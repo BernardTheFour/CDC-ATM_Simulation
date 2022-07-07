@@ -2,20 +2,16 @@ package app.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 
 public class FileManager {
@@ -23,7 +19,7 @@ public class FileManager {
     private Path path;
 
     public FileManager(File file) {
-        path = Paths.get(file.getAbsolutePath());
+        path = file.toPath();
     }
 
     public Optional<String> getById(String id) {
@@ -51,64 +47,35 @@ public class FileManager {
                     .collect(Collectors.toList()));
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
 
         return Optional.empty();
     }
 
-    public File save(File file, String data) {
-        try {
-            // create scanner to read prev file
-            Scanner scanner = new Scanner(file);
-            scanner.useDelimiter(SingletonUtils.getCSVRowDelimiter());
+    public void edit(String data) {
+        try (Stream<String> stream = Files.lines(path)) {
+            Optional<String> title = stream.findFirst();
 
-            // create temporary file
-            File tempFile = new File(SingletonPath.getPath() + "\\tmp.txt");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            String rewrite = title.get() + data;
 
-            // copy first line of prev file to temp file
-            writer.write(scanner.nextLine());
+            Files.writeString(path, rewrite);
 
-            // write data to the temp file and flush
-            writer.write(data);
-
-            // close stream
-            scanner.close();
-            writer.close();
-
-            // copy prev file path for renaming
-            Path filePath = Paths.get(file.getAbsolutePath());
-
-            // delete file
-            file.delete();
-
-            // replace file with tmp file
-            Path newFilePath = Paths.get(tempFile.getAbsolutePath());
-            Files.move(newFilePath,
-                    filePath.resolveSibling(filePath.getFileName()),
-                    StandardCopyOption.REPLACE_EXISTING);
-
-            // return file reference
-            return file;
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
-        return null;
     }
 
-    public void add(File file, String data) {
+    public void add(String data) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-
-            writer.write(data);
-
-            writer.close();
-
+            Files.writeString(path,
+                    data,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
     }
 }

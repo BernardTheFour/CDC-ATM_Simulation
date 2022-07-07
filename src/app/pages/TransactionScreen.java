@@ -1,10 +1,8 @@
 package app.pages;
 
-import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.TransactionService;
 
 public class TransactionScreen extends Page implements IState {
 

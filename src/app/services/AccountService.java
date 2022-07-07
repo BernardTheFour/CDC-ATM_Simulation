@@ -12,16 +12,17 @@ public class AccountService {
 
     private static FileRepoAccount fileRepoAccount;
 
-    public AccountService(){}
+    public AccountService() {
+    }
 
-    public AccountService(File file){
-        if (instance == null){
+    public AccountService(File file) {
+        if (instance == null) {
             instance = new AccountService();
             fileRepoAccount = new FileRepoAccount(file);
         }
     }
 
-    public static List<Account> getAll(){
+    public static List<Account> getAll() {
         return fileRepoAccount.getAll().get();
     }
 
@@ -29,7 +30,7 @@ public class AccountService {
         return fileRepoAccount.getById(associate).get();
     }
 
-    public static void editAccount(Account account) {        
-        fileRepoAccount.save(fileRepoAccount.edit(account));
+    public static void editAccount(Account account) {
+        fileRepoAccount.edit(account);
     }
 }

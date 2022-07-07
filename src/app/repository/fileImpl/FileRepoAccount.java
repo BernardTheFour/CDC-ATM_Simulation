@@ -3,12 +3,12 @@ package app.repository.fileImpl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import app.domains.Account;
-import app.pattern.SingletonPath;
 import app.pattern.SingletonUtils;
 import app.repository.IRepository;
 import app.util.FileManager;
@@ -53,24 +53,26 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     @Override
-    public Stream<Account> edit(Account data) {
-        return getAll().get().stream()
-                .map(x -> {
-                    if (x.getAccountNumber().equals(data.getAccountNumber())) {
-                        x.setBalance(data.getBalance());
-                    }
-                    return x;
-                });
-    }
-
-    @Override
-    public void save(Stream<Account> stream) {
+    public void edit(Account data) {
         StringBuilder sb = new StringBuilder();
 
-        stream.forEach(i -> sb.append(writeLine(i)));
+        Optional<List<Account>> result = getAll();
 
-        SingletonPath.setAccount(
-                fileManager.save(SingletonPath.getAccount(), sb.toString()));
+        if (result.isPresent()) {
+            result.get().stream()
+                    .map(x -> {
+                        if (x.getAccountNumber().equals(data.getAccountNumber())) {
+                            x.setBalance(data.getBalance());
+                        }
+                        return x;
+                    })
+                    .forEach(x -> sb.append(writeLine(x)));
+
+            fileManager.edit(sb.toString());
+            return;
+        }
+
+        throw new NoSuchElementException();
     }
 
     @Override
@@ -84,13 +86,11 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     private Account readLine(List<String> data) {
-        Account account = new Account(
+        return new Account(
                 data.get(0),
                 data.get(1),
                 data.get(2),
                 Integer.valueOf(data.get(3)));
-
-        return account;
     }
 
     private String writeLine(Account account) {
