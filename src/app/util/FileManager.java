@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import app.pattern.SingletonPath;
@@ -48,24 +49,30 @@ public class FileManager {
     }
 
     public Optional<List<String>> getAllByid(String id) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            List<String> lines = new ArrayList<>();
+        try (Stream<String> stream = Files.lines(path)) {
 
-            reader.readLine();
-            String line = reader.readLine();
+            return Optional.of(stream.skip(1)
+                    .filter(Objects::nonNull)
+                    .filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id))
+                    .collect(Collectors.toList()));
 
-            while (line != null) {
-                String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
+            // BufferedReader reader = new BufferedReader(new FileReader(file));
+            // List<String> lines = new ArrayList<>();
 
-                if (readId.equals(id)) {
-                    lines.add(line);
-                }
-                line = reader.readLine();
-            }
+            // reader.readLine();
+            // String line = reader.readLine();
 
-            reader.close();
-            return Optional.of(lines);
+            // while (line != null) {
+            // String readId = line.split(SingletonUtils.getCSVColumnDelimiter())[0];
+
+            // if (readId.equals(id)) {
+            // lines.add(line);
+            // }
+            // line = reader.readLine();
+            // }
+
+            // reader.close();
+            // return Optional.of(lines);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

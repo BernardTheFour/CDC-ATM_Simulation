@@ -26,10 +26,10 @@ public class TransactionHistoryScreen extends Page implements IState {
 
         for (int i = 0; i < Math.max(10, Transaction.getData().size()); i++) {
             String row = "";
-            String transferName = "-\t";
+            String transferName = "-\t\t";
 
             if (!Transaction.getData().get(i).getAssociate().equals("null")) {
-                transferName = "(" + Transaction.getData().get(i) + ") ";
+                transferName = "(" + Transaction.getData().get(i).getAccount() + ") ";
                 transferName += AccountService.getById(Transaction.getData().get(i).getAssociate()).getName();
             }
 
