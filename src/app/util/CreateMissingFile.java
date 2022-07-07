@@ -4,8 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import app.pattern.SingletonPath;
+import app.pattern.SingletonUtils;
 
 public class CreateMissingFile {
 
@@ -56,14 +58,13 @@ public class CreateMissingFile {
         File file = new File(path + "\\" + fileName);
         file.createNewFile();
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-
+        String line = "";
         for (String column : columns) {
-            writer.write(column + ";");
+            line += column + ";";
         }
-        
-        writer.flush();
-        writer.close();
+
+        Files.writeString(file.toPath(), line);
+
         return file;
     }
 }
