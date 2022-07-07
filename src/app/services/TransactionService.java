@@ -37,7 +37,7 @@ public class TransactionService {
         Account account = AccountService.getById(transaction.getAccount());
 
         int balance = account.getBalance();
-        if (transaction.getTransactionType() == Type.RECEIVE)
+        if (transaction.getTransactionType() == Type.RECEIVES)
             account.setBalance(balance + transaction.getAmount());
         else
             account.setBalance(balance - transaction.getAmount());
@@ -54,7 +54,7 @@ public class TransactionService {
                 amount,
                 LocalDateTime.now()));
         addTransaction(new Transaction(receiver.getAccountNumber(),
-                Type.RECEIVE,
+                Type.RECEIVES,
                 sender.getAccountNumber(),
                 amount,
                 LocalDateTime.now()));

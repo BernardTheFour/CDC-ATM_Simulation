@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import app.pattern.SingletonUtils;
@@ -38,18 +36,10 @@ public class FileManager {
         return Files.lines(path).skip(1).filter(Objects::nonNull);
     }
 
-    public Optional<List<String>> getAllById(String id) {
-        try (Stream<String> stream = Files.lines(path)) {
-            return Optional.of(stream.skip(1)
-                    .filter(Objects::nonNull)
-                    .filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id))
-                    .collect(Collectors.toList()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        return Optional.empty();
+    public Stream<String> getAllById(String id) throws IOException {
+        return Files.lines(path).skip(1)
+                .filter(Objects::nonNull)
+                .filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id));
     }
 
     public void edit(String data) {
