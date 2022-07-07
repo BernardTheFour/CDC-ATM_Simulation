@@ -30,21 +30,19 @@ public class FileRepoTransaction implements IRepository<Transaction> {
 
     @Override
     public Optional<List<Transaction>> getAllById(String id) {
-        Optional<List<String>> result = fileManager.getAllById(id);
+        try (Stream<String> result = fileManager.getAll()) {
 
-        if (result.isEmpty()) {
-            System.out.printf("failed: account %s not found%n", id);
-            return null;
+            return Optional.of(
+                    result.filter(i -> i.split(SingletonUtils.getCSVColumnDelimiter())[0].equals(id))
+                            .map(i -> {
+                                List<String> toList = List.of(i.split(SingletonUtils.getCSVColumnDelimiter()));
+                                return readLine(toList);
+                            }).collect(Collectors.toList()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+            return Optional.empty();
         }
-
-        List<Transaction> transactions = new ArrayList<>();
-
-        result.get().forEach(data -> {
-            List<String> toList = List.of(data.split(SingletonUtils.getCSVColumnDelimiter()));
-            transactions.add(readLine(toList));
-        });
-
-        return Optional.of(transactions);
     }
 
     @Override

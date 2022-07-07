@@ -7,7 +7,7 @@ public class Transaction {
     public static enum Type {
         WITHDRAW("WITHDRAW"),
         TRANSFER("TRANSFER"),
-        RECEIVE("RECEIVE");
+        RECEIVES("RECEIVES");
 
         String value;
 
