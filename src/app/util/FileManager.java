@@ -1,16 +1,13 @@
 package app.util;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,11 +21,9 @@ import app.pattern.SingletonUtils;
 public class FileManager {
 
     private Path path;
-    private File file;
 
     public FileManager(File file) {
         path = Paths.get(file.getAbsolutePath());
-        this.file = file;
     }
 
     public Optional<String> getById(String id) {
@@ -103,7 +98,7 @@ public class FileManager {
         return null;
     }
 
-    public File add(File file, String data) {
+    public void add(File file, String data) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 
@@ -111,11 +106,9 @@ public class FileManager {
 
             writer.close();
 
-            return file;
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
-            return null;
         }
     }
 }

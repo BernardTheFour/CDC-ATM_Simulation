@@ -6,8 +6,6 @@ import java.util.List;
 
 public class Transaction {
 
-    private static List<Transaction> transactions;
-
     public static enum Type {
         WITHDRAW("WITHDRAW"),
         TRANSFER("TRANSFER"),
@@ -25,14 +23,6 @@ public class Transaction {
     private String associate;
     private int amount;
     private LocalDateTime date;
-
-    public static void setData(List<Transaction> newTransaction) {
-        transactions = newTransaction;
-    }
-
-    public static List<Transaction> getData() {
-        return transactions;
-    }
 
     public String getAccount() {
         return this.account;
@@ -54,11 +44,7 @@ public class Transaction {
         return this.date;
     }
 
-
     public Transaction() {
-        if (transactions == null) {
-            transactions = new ArrayList<>();
-        }
     }
 
     public Transaction(String accountNumber, Type transactionType, String associate, int amount, LocalDateTime date) {

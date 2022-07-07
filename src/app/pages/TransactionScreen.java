@@ -20,10 +20,6 @@ public class TransactionScreen extends Page implements IState {
 
     @Override
     public void logic() {
-        // get all transaction information
-        Transaction.setData(
-                TransactionService.getAllById(loggedAccount.getAccountNumber()));
-
         System.out.println("Balance: " + loggedAccount.getBalance() + "\n");
         System.out.println("--Transactions--");
         System.out.println("1. Withdraw");

@@ -1,11 +1,14 @@
 package app.pages;
 
+import java.util.List;
+
 import app.domains.Transaction;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
 import app.services.AccountService;
+import app.services.TransactionService;
 
 public class TransactionHistoryScreen extends Page implements IState {
 
@@ -24,19 +27,22 @@ public class TransactionHistoryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Transaction History--");
 
-        for (int i = 0; i < Math.max(10, Transaction.getData().size()); i++) {
+        List<Transaction> transactions = TransactionService.getAllById(loggedAccount.getAccountNumber());
+
+        int max = Math.min(10, transactions.size());
+        for (int i = 0; i < max; i++) {
             String row = "";
             String transferName = "-\t\t";
 
-            if (!Transaction.getData().get(i).getAssociate().equals("null")) {
-                transferName = "(" + Transaction.getData().get(i).getAccount() + ") ";
-                transferName += AccountService.getById(Transaction.getData().get(i).getAssociate()).getName();
+            if (!transactions.get(i).getAssociate().equals("null")) {
+                transferName = "(" + transactions.get(i).getAccount() + ") ";
+                transferName += AccountService.getById(transactions.get(i).getAssociate()).getName();
             }
 
-            row += "$" + Transaction.getData().get(i).getAmount() + "\t";
-            row += Transaction.getData().get(i).getTransactionType() + "\t";
+            row += "$" + transactions.get(i).getAmount() + "\t";
+            row += transactions.get(i).getTransactionType() + "\t";
             row += transferName + "\t";
-            row += Transaction.getData().get(i).getDate().format(SingletonUtils.getDateTimeFormat());
+            row += transactions.get(i).getDate().format(SingletonUtils.getDateTimeFormat());
 
             System.out.println(row);
         }

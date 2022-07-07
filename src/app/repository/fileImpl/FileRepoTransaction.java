@@ -81,14 +81,8 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     @Override
-    public Stream<Transaction> add(Transaction data) {
-        List<Transaction> transactions = Transaction.getData();
-        transactions.add(data);
-        Transaction.setData(transactions);
-
-        SingletonPath.setTransactions(
-                fileManager.add(SingletonPath.getTransactions(), writeLine(data)));
-        return null;
+    public void add(Transaction data) {
+        fileManager.add(SingletonPath.getTransactions(), writeLine(data));
     }
 
     private String writeLine(Transaction transaction) {

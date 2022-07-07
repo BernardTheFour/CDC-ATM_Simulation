@@ -74,7 +74,7 @@ public class FileRepoAccount implements IRepository<Account> {
     }
 
     @Override
-    public Stream<Account> add(Account data) {
+    public void add(Account data) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
