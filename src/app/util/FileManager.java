@@ -1,6 +1,5 @@
 package app.util;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,7 +38,7 @@ public class FileManager {
         return Files.lines(path).skip(1).filter(Objects::nonNull);
     }
 
-    public Optional<List<String>> getAllByid(String id) {
+    public Optional<List<String>> getAllById(String id) {
         try (Stream<String> stream = Files.lines(path)) {
             return Optional.of(stream.skip(1)
                     .filter(Objects::nonNull)

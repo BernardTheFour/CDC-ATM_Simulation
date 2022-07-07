@@ -30,7 +30,7 @@ public class FileRepoTransaction implements IRepository<Transaction> {
 
     @Override
     public Optional<List<Transaction>> getAllById(String id) {
-        Optional<List<String>> result = fileManager.getAllByid(id);
+        Optional<List<String>> result = fileManager.getAllById(id);
 
         if (result.isEmpty()) {
             System.out.printf("failed: account %s not found%n", id);
