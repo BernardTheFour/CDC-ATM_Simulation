@@ -8,7 +8,6 @@ import app.domains.Transaction.Type;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.TransactionService;
 
 public class SummaryScreen extends Page implements IState {
 

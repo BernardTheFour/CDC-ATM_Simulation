@@ -7,8 +7,6 @@ import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.services.AccountService;
-import app.services.TransactionService;
 
 public class TransactionHistoryScreen extends Page implements IState {
 

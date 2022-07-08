@@ -3,12 +3,7 @@ package app.pages;
 import java.util.Scanner;
 
 import app.domains.Account;
-import app.domains.Transaction;
-import app.pattern.SingletonPath;
 import app.pattern.StateController;
-import app.repository.IRepository;
-import app.repository.fileImpl.FileRepoAccount;
-import app.repository.fileImpl.FileRepoTransaction;
 import app.services.ServiceFactory;
 
 public class Page {

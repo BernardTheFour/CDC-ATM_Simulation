@@ -3,13 +3,10 @@ package app;
 import java.io.File;
 import java.io.IOException;
 
-import app.domains.Account;
-import app.domains.Transaction;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.repository.IRepository;
 import app.repository.fileImpl.FileRepoAccount;
 import app.repository.fileImpl.FileRepoTransaction;
 import app.services.ServiceFactory;

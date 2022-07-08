@@ -7,7 +7,6 @@ import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.AccountService;
 
 public class WelcomeScreen extends Page implements IState {
 

@@ -4,7 +4,6 @@ import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.TransactionService;
 
 public class TransferSummaryScreen extends Page implements IState {
 
