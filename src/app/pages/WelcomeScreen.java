@@ -7,7 +7,6 @@ import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.AccountService;
 
 public class WelcomeScreen extends Page implements IState {
 
@@ -33,7 +32,8 @@ public class WelcomeScreen extends Page implements IState {
             System.out.print("PIN number: ");
             String pinNumber = checkPinNumber(cmdInput.nextLine());
 
-            Optional<Account> checkUser = AccountService.getAll().stream()
+            Optional<Account> checkUser = services.getInstanceOfAccountService().getAll()
+                    .stream()
                     .filter(i -> accountNumber.equals(i.getAccountNumber()))
                     .filter(i -> pinNumber.equals(i.getPin()))
                     .findAny();

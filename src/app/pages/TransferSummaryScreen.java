@@ -1,11 +1,9 @@
 package app.pages;
 
-
 import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.TransactionService;
 
 public class TransferSummaryScreen extends Page implements IState {
 
@@ -29,8 +27,9 @@ public class TransferSummaryScreen extends Page implements IState {
         nextPage = Pages.DEFAULT;
 
         // write transaction
-        TransactionService.addTransaction(loggedAccount, destination, amount);        
-        
+        services.getInstanceOfTransactionService()
+                .addTransaction(loggedAccount, destination, amount);
+
         loggedAccount.setBalance(loggedAccount.getBalance() - amount);
     }
 

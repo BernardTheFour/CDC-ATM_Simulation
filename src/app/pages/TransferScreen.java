@@ -6,7 +6,6 @@ import app.domains.Account;
 import app.pattern.IState;
 import app.pattern.SingletonScreen;
 import app.pattern.StateController;
-import app.services.AccountService;
 
 public class TransferScreen extends Page implements IState {
 
@@ -160,7 +159,8 @@ public class TransferScreen extends Page implements IState {
     }
 
     private boolean processTransfer(String destination, int amount, int referenceNumber) {
-        Account destinationAccount = AccountService.getById(destination);
+        Account destinationAccount = services.getInstanceOfAccountService()
+                .getById(destination);
 
         if (destinationAccount == null) {
             System.out.println("Invalid Account: destination account not found");

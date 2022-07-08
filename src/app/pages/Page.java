@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import app.domains.Account;
 import app.pattern.StateController;
+import app.services.ServiceFactory;
 
 public class Page {
     public static enum Pages {
@@ -22,6 +23,7 @@ public class Page {
     protected static StateController controller;
     protected static Page.Pages nextPage = Pages.DEFAULT;
     protected static Account loggedAccount = null;
+    protected static ServiceFactory services = new ServiceFactory();
     
     public Page(StateController controller){
         Page.controller = controller;
