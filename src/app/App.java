@@ -3,12 +3,16 @@ package app;
 import java.io.File;
 import java.io.IOException;
 
+import app.domains.Account;
+import app.domains.Transaction;
 import app.pattern.SingletonPath;
 import app.pattern.SingletonScreen;
 import app.pattern.SingletonUtils;
 import app.pattern.StateController;
-import app.services.AccountService;
-import app.services.TransactionService;
+import app.repository.IRepository;
+import app.repository.fileImpl.FileRepoAccount;
+import app.repository.fileImpl.FileRepoTransaction;
+import app.services.ServiceFactory;
 import app.util.CreateMissingFile;
 import app.util.FileValidation;
 
@@ -22,9 +26,8 @@ public class App {
 
         CheckPath(args);
 
-        StartService();
-
-        FileValidation.validateFile();
+        ServiceFactory services = new ServiceFactory();
+        ValidateFile(services);
 
         screenNavigator.firstState(SingletonScreen.WelcomeScreen());
         screenNavigator.run();
@@ -58,8 +61,18 @@ public class App {
         SingletonUtils.init();
     }
 
-    private static void StartService() {
-        new AccountService(SingletonPath.getAccount());
-        new TransactionService(SingletonPath.getTransactions());
+    private static void ValidateFile(ServiceFactory services) {
+
+        services.setInstanceOfAccountService(new FileRepoAccount(SingletonPath.getAccount()));
+        services.setInstanceOfTransactionService(new FileRepoTransaction(SingletonPath.getTransactions()));
+
+        FileValidation validation = new FileValidation();
+        try {
+            validation.validateAccount(services.getInstanceOfAccountService());
+            validation.validateTransaction(services.getInstanceOfTransactionService());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 }

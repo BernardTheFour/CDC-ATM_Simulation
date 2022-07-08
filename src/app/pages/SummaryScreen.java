@@ -35,8 +35,8 @@ public class SummaryScreen extends Page implements IState {
                 amount,
                 LocalDateTime.now());
 
-        TransactionService.addTransaction(transaction);        
-        
+        services.getInstanceOfTransactionService().addTransaction(transaction);
+
         loggedAccount.setBalance(loggedAccount.getBalance() - amount);
     }
 

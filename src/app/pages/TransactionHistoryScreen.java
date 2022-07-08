@@ -27,7 +27,8 @@ public class TransactionHistoryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Transaction History--");
 
-        List<Transaction> transactions = TransactionService.getAllById(loggedAccount.getAccountNumber());
+        List<Transaction> transactions = services.getInstanceOfTransactionService()
+                .getAllById(loggedAccount.getAccountNumber());
 
         int max = Math.min(10, transactions.size());
         for (int i = 0; i < max; i++) {
@@ -36,7 +37,8 @@ public class TransactionHistoryScreen extends Page implements IState {
 
             if (!transactions.get(i).getAssociate().equals("null")) {
                 transferName = "(" + transactions.get(i).getAccount() + ") ";
-                transferName += AccountService.getById(transactions.get(i).getAssociate()).getName();
+                transferName += services.getInstanceOfAccountService()
+                        .getById(transactions.get(i).getAssociate()).getName();
             }
 
             row += "$" + transactions.get(i).getAmount() + "\t";

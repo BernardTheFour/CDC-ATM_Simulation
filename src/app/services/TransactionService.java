@@ -11,30 +11,29 @@ import app.domains.Account;
 import app.domains.Transaction;
 import app.domains.Transaction.Type;
 import app.repository.IRepository;
-import app.repository.fileImpl.FileRepoTransaction;
 
 public class TransactionService {
 
-    private static TransactionService instance;
+    private IRepository<Transaction> repository;
 
-    private static IRepository<Transaction> fileRepoTransaction;
+    private AccountService accountService;
 
-    public TransactionService() {
+    public TransactionService(IRepository<Transaction> repository, AccountService accountService) {
+        this.repository = repository;
+        this.accountService = accountService;
     }
 
-    public TransactionService(File file) {
-        if (instance == null) {
-            instance = new TransactionService();
-            fileRepoTransaction = new FileRepoTransaction(file);
+    public List<Transaction> getAll() {
+        return repository.getAll().get();
+    }
+
+    public void addTransaction(Transaction transaction) {
+        Account account = accountService.getById(transaction.getAccount());
+
+        if (account == null){
+            System.out.println("failed: account not found");
+            return;
         }
-    }
-
-    public static List<Transaction> getAll() {
-        return fileRepoTransaction.getAll().get();
-    }
-
-    public static void addTransaction(Transaction transaction) {
-        Account account = AccountService.getById(transaction.getAccount());
 
         int balance = account.getBalance();
         if (transaction.getTransactionType() == Type.RECEIVES)
@@ -42,12 +41,12 @@ public class TransactionService {
         else
             account.setBalance(balance - transaction.getAmount());
 
-        AccountService.editAccount(account);
+        accountService.editAccount(account);
 
-        fileRepoTransaction.add(transaction);
+        repository.add(transaction);
     }
 
-    public static void addTransaction(Account sender, Account receiver, int amount) {
+    public void addTransaction(Account sender, Account receiver, int amount) {
         addTransaction(new Transaction(sender.getAccountNumber(),
                 Type.TRANSFER,
                 receiver.getAccountNumber(),
@@ -60,10 +59,10 @@ public class TransactionService {
                 LocalDateTime.now()));
     }
 
-    public static List<Transaction> getAllById(String accountNumber) {
-        Optional<List<Transaction>> result = fileRepoTransaction.getAllById(accountNumber);
+    public List<Transaction> getAllById(String accountNumber) {
+        Optional<List<Transaction>> result = repository.getAllById(accountNumber);
 
-        if (result.isEmpty()){
+        if (result.isEmpty()) {
             System.out.println("failed: no data found");
             return null;
         }

@@ -7,56 +7,43 @@ import java.util.Set;
 
 import app.domains.Account;
 import app.domains.Transaction;
+import app.repository.IRepository;
 import app.services.AccountService;
+import app.services.ServiceFactory;
 import app.services.TransactionService;
 
 public class FileValidation {
 
-    public static void validateFile() {
-        try {
-            validateAccount();
-            validateTransaction();
-        } catch (Exception e) {
-            System.out.println();
-            e.printStackTrace();
-            System.exit(0);
-        }
-    }
-
-    private static void validateAccount() throws Exception {
-        List<Account> store = AccountService.getAll();
+    public void validateAccount(AccountService service) throws Exception {
         Set<String> compare = new HashSet<>();
         List<Account> duplicates = new ArrayList<>();
 
-        boolean isDuplicate = false;
+        service.getAll().stream()
+                .forEach(i -> {
+                    if (!compare.add(i.getAccountNumber())) {
+                        duplicates.add(i);
+                    }
+                });
 
-        for (Account account : store) {
-            if (!compare.add(account.getAccountNumber())) {
-                isDuplicate = true;
-                duplicates.add(account);
-            }
-        }
-        if (isDuplicate) {
+        if (duplicates.size() > 0) {
             System.out.println("\nDuplicate account number found!");
             duplicates.forEach(member -> System.out.println(member.toString()));
             throw new Exception("DataIntegrityException");
         }
     }
 
-    private static void validateTransaction() throws Exception {
-        List<Transaction> store = TransactionService.getAll();
+    public void validateTransaction(TransactionService service) throws Exception {
         Set<String> compare = new HashSet<>();
         List<Transaction> duplicates = new ArrayList<>();
 
-        boolean isDuplicate = false;
+        service.getAll().stream()
+                .forEach(i -> {
+                    if (!compare.add(i.toString())) {
+                        duplicates.add(i);
+                    }
+                });
 
-        for (Transaction transaction : store) {
-            if (!compare.add(transaction.toString())) {
-                isDuplicate = true;
-                duplicates.add(transaction);
-            }
-        }
-        if (isDuplicate) {
+        if (duplicates.size() > 0) {
             System.out.println("\nDuplicate transaction found!");
             duplicates.forEach(member -> System.out.println(member.toString()));
             throw new Exception("DataIntegrityException");
