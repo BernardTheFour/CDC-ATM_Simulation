@@ -1,4 +1,4 @@
-package app.domains;
+package app.entity.accounts.domain;
 
 public class Account {
 

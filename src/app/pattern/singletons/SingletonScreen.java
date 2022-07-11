@@ -1,13 +1,14 @@
-package app.pattern;
+package app.pattern.singletons;
 
-import app.pages.OtherWithdrawScreen;
-import app.pages.SummaryScreen;
-import app.pages.TransactionHistoryScreen;
-import app.pages.TransactionScreen;
-import app.pages.TransferScreen;
-import app.pages.TransferSummaryScreen;
-import app.pages.WelcomeScreen;
-import app.pages.WithdrawScreen;
+import app.pages.consolepages.OtherWithdrawScreen;
+import app.pages.consolepages.SummaryScreen;
+import app.pages.consolepages.TransactionHistoryScreen;
+import app.pages.consolepages.TransactionScreen;
+import app.pages.consolepages.TransferScreen;
+import app.pages.consolepages.TransferSummaryScreen;
+import app.pages.consolepages.WelcomeScreen;
+import app.pages.consolepages.WithdrawScreen;
+import app.pattern.StateController;
 
 public class SingletonScreen {
 

@@ -1,5 +1,7 @@
 package app.pattern;
 
+import app.interfaces.IState;
+
 public class StateController {
     private IState currentState;
     

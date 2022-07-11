@@ -1,12 +1,12 @@
-package app.pages;
+package app.pages.consolepages;
 
 import java.io.IOException;
 import java.util.Optional;
 
-import app.domains.Account;
-import app.pattern.IState;
-import app.pattern.SingletonScreen;
+import app.entity.accounts.domain.Account;
+import app.interfaces.IState;
 import app.pattern.StateController;
+import app.pattern.singletons.SingletonScreen;
 
 public class WelcomeScreen extends Page implements IState {
 

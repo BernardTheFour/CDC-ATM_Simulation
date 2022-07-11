@@ -1,8 +1,8 @@
-package app.pages;
+package app.pages.consolepages;
 
-import app.pattern.IState;
-import app.pattern.SingletonScreen;
+import app.interfaces.IState;
 import app.pattern.StateController;
+import app.pattern.singletons.SingletonScreen;
 
 public class WithdrawScreen extends Page implements IState {
 

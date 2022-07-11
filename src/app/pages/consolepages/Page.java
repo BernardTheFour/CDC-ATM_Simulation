@@ -1,10 +1,10 @@
-package app.pages;
+package app.pages.consolepages;
 
 import java.util.Scanner;
 
-import app.domains.Account;
+import app.entity.accounts.domain.Account;
+import app.pattern.ServiceFactory;
 import app.pattern.StateController;
-import app.services.ServiceFactory;
 
 public class Page {
     public static enum Pages {

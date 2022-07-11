@@ -1,12 +1,12 @@
-package app.pages;
+package app.pages.consolepages;
 
 import java.util.List;
 
-import app.domains.Transaction;
-import app.pattern.IState;
-import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
+import app.entity.transactions.domain.Transaction;
+import app.interfaces.IState;
 import app.pattern.StateController;
+import app.pattern.singletons.SingletonScreen;
+import app.pattern.singletons.SingletonUtils;
 
 public class TransactionHistoryScreen extends Page implements IState {
 

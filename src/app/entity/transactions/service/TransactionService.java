@@ -1,4 +1,4 @@
-package app.services;
+package app.entity.transactions.service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import app.domains.Account;
-import app.domains.Transaction;
-import app.domains.Transaction.Type;
-import app.repository.IRepository;
+import app.entity.accounts.domain.Account;
+import app.entity.accounts.service.AccountService;
+import app.entity.transactions.domain.Transaction;
+import app.entity.transactions.domain.Transaction.Type;
+import app.interfaces.IRepository;
 
 public class TransactionService {
 

@@ -1,8 +1,10 @@
-package app.services;
+package app.pattern;
 
-import app.domains.Account;
-import app.domains.Transaction;
-import app.repository.IRepository;
+import app.entity.accounts.domain.Account;
+import app.entity.accounts.service.AccountService;
+import app.entity.transactions.domain.Transaction;
+import app.entity.transactions.service.TransactionService;
+import app.interfaces.IRepository;
 
 public class ServiceFactory {
 

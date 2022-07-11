@@ -1,4 +1,4 @@
-package app.pattern;
+package app.pattern.singletons;
 
 import java.io.File;
 

@@ -1,11 +1,11 @@
-package app.pages;
+package app.pages.consolepages;
 
 import java.io.IOException;
 
-import app.domains.Account;
-import app.pattern.IState;
-import app.pattern.SingletonScreen;
+import app.entity.accounts.domain.Account;
+import app.interfaces.IState;
 import app.pattern.StateController;
+import app.pattern.singletons.SingletonScreen;
 
 public class TransferScreen extends Page implements IState {
 

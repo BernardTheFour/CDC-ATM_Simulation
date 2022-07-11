@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import app.pattern.SingletonPath;
+import app.pattern.singletons.SingletonPath;
 
 public class CreateMissingFile {
 

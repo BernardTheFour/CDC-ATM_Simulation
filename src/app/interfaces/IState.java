@@ -1,4 +1,4 @@
-package app.pattern;
+package app.interfaces;
 
 public interface IState {
     public void init();

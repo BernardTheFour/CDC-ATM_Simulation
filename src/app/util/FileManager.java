@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import app.pattern.SingletonUtils;
+import app.pattern.singletons.SingletonUtils;
 
 public class FileManager {
 

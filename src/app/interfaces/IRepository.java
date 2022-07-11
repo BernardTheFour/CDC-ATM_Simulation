@@ -1,4 +1,4 @@
-package app.repository;
+package app.interfaces;
 
 import java.util.List;
 import java.util.Optional;

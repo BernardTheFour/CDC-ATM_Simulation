@@ -1,9 +1,9 @@
-package app.services;
+package app.entity.accounts.service;
 
 import java.util.List;
 
-import app.domains.Account;
-import app.repository.IRepository;
+import app.entity.accounts.domain.Account;
+import app.interfaces.IRepository;
 
 public class AccountService {
 

@@ -1,24 +1,24 @@
-package app.pages;
+package app.pages.consolepages;
 
-import app.domains.Account;
-import app.pattern.IState;
-import app.pattern.SingletonScreen;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import app.entity.transactions.domain.Transaction;
+import app.entity.transactions.domain.Transaction.Type;
+import app.interfaces.IState;
 import app.pattern.StateController;
+import app.pattern.singletons.SingletonScreen;
 
-public class TransferSummaryScreen extends Page implements IState {
+public class SummaryScreen extends Page implements IState {
 
-    public TransferSummaryScreen(StateController controller) {
+    public SummaryScreen(StateController controller) {
         super(controller);
     }
 
-    Account destination;
-    int amount;
-    int referenceNumber;
+    private int amount;
 
-    public void setInfo(Account destination, int amount, int referenceNumber) {
-        this.destination = destination;
+    public void setInfo(int amount) {
         this.amount = amount;
-        this.referenceNumber = referenceNumber;
     }
 
     @Override
@@ -27,27 +27,32 @@ public class TransferSummaryScreen extends Page implements IState {
         nextPage = Pages.DEFAULT;
 
         // write transaction
-        services.getInstanceOfTransactionService()
-                .addTransaction(loggedAccount, destination, amount);
+        Transaction transaction = new Transaction(
+                loggedAccount.getAccountNumber(),
+                Type.WITHDRAW,
+                null,
+                amount,
+                LocalDateTime.now());
+
+        services.getInstanceOfTransactionService().addTransaction(transaction);
 
         loggedAccount.setBalance(loggedAccount.getBalance() - amount);
     }
 
     @Override
     public void logic() {
-
-        System.out.println("--Transfer Summary Screen--");
-        System.out.println("Destination Account: "
-                + destination.getName()
-                + "(" + destination.getAccountNumber() + ")");
-        System.out.println("Transfer Amount: $" + amount);
-        System.out.println("Reference Number: " + referenceNumber);
-        System.out.println("Balance : $" + loggedAccount.getBalance());
+        System.out.println("--Summary--");
+        System.out.printf("Date: %s%n",
+                LocalDateTime.now().format(
+                        DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));
+        System.out.println("Withdraw: $" + amount);
+        System.out.println("Balance: $" + loggedAccount.getBalance());
 
         System.out.println("\n1. Transaction");
         System.out.println("2. Exit");
 
         System.out.print("\nChoose option: ");
+
         String answer = cmdInput.nextLine();
 
         switch (answer) {
@@ -68,6 +73,7 @@ public class TransferSummaryScreen extends Page implements IState {
                 break;
             case WELCOME:
                 controller.nextState(SingletonScreen.WelcomeScreen());
+                break;
             default:
                 controller.nextState(controller.getCurrentState());
                 break;

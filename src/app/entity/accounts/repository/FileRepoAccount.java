@@ -1,4 +1,4 @@
-package app.repository.fileImpl;
+package app.entity.accounts.repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import app.domains.Account;
-import app.pattern.SingletonUtils;
-import app.repository.IRepository;
+import app.entity.accounts.domain.Account;
+import app.interfaces.IRepository;
+import app.pattern.singletons.SingletonUtils;
 import app.util.FileManager;
 
 public class FileRepoAccount implements IRepository<Account> {

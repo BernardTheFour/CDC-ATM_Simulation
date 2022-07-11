@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import app.domains.Account;
-import app.domains.Transaction;
-import app.services.AccountService;
-import app.services.TransactionService;
+import app.entity.accounts.domain.Account;
+import app.entity.accounts.service.AccountService;
+import app.entity.transactions.domain.Transaction;
+import app.entity.transactions.service.TransactionService;
 
 public class FileValidation {
 

@@ -3,13 +3,13 @@ package app;
 import java.io.File;
 import java.io.IOException;
 
-import app.pattern.SingletonPath;
-import app.pattern.SingletonScreen;
-import app.pattern.SingletonUtils;
+import app.entity.accounts.repository.FileRepoAccount;
+import app.entity.transactions.repository.FileRepoTransaction;
+import app.pattern.ServiceFactory;
 import app.pattern.StateController;
-import app.repository.fileImpl.FileRepoAccount;
-import app.repository.fileImpl.FileRepoTransaction;
-import app.services.ServiceFactory;
+import app.pattern.singletons.SingletonPath;
+import app.pattern.singletons.SingletonScreen;
+import app.pattern.singletons.SingletonUtils;
 import app.util.CreateMissingFile;
 import app.util.FileValidation;
 

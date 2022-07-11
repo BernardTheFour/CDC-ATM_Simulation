@@ -1,4 +1,4 @@
-package app.domains;
+package app.entity.transactions.domain;
 
 import java.time.LocalDateTime;
 
