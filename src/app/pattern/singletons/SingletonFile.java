@@ -2,8 +2,8 @@ package app.pattern.singletons;
 
 import java.io.File;
 
-public class SingletonPath {
-    private static SingletonPath instance;
+public class SingletonFile {
+    private static SingletonFile instance;
 
     private File generalPath;
 
@@ -12,7 +12,7 @@ public class SingletonPath {
 
     public static void init() {
         if (instance == null) {
-            instance = new SingletonPath();
+            instance = new SingletonFile();
         }
     }
 

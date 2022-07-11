@@ -7,7 +7,7 @@ import app.entity.accounts.repository.FileRepoAccount;
 import app.entity.transactions.repository.FileRepoTransaction;
 import app.pattern.ServiceFactory;
 import app.pattern.StateController;
-import app.pattern.singletons.SingletonPath;
+import app.pattern.singletons.SingletonFile;
 import app.pattern.singletons.SingletonScreen;
 import app.pattern.singletons.SingletonUtils;
 import app.util.CreateMissingFile;
@@ -53,15 +53,15 @@ public class App {
 
     private static void Initialization(StateController screenNavigator) {
         System.out.println("\nProgram starting...");
-        SingletonPath.init();
+        SingletonFile.init();
         SingletonScreen.init(screenNavigator);
         SingletonUtils.init();
     }
 
     private static void ValidateFile(ServiceFactory services) {
 
-        services.setInstanceOfAccountService(new FileRepoAccount(SingletonPath.getAccount()));
-        services.setInstanceOfTransactionService(new FileRepoTransaction(SingletonPath.getTransactions()));
+        services.setInstanceOfAccountService(new FileRepoAccount(SingletonFile.getAccount()));
+        services.setInstanceOfTransactionService(new FileRepoTransaction(SingletonFile.getTransactions()));
 
         FileValidation validation = new FileValidation();
         try {
