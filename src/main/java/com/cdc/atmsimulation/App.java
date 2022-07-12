@@ -6,8 +6,8 @@ import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.cdc.atmsimulation.entity.accounts.repository.FileRepoAccount;
 import com.cdc.atmsimulation.entity.transactions.repository.FileRepoTransaction;
+import com.cdc.atmsimulation.entity.users.repository.FileRepoAccount;
 import com.cdc.atmsimulation.pattern.ServiceFactory;
 import com.cdc.atmsimulation.pattern.StateController;
 import com.cdc.atmsimulation.pattern.singletons.SingletonFile;

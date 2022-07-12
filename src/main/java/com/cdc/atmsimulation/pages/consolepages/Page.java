@@ -2,7 +2,7 @@ package com.cdc.atmsimulation.pages.consolepages;
 
 import java.util.Scanner;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
+import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.pattern.ServiceFactory;
 import com.cdc.atmsimulation.pattern.StateController;
 

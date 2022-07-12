@@ -2,7 +2,7 @@ package com.cdc.atmsimulation.pages.consolepages;
 
 import java.io.IOException;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
+import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.interfaces.IState;
 import com.cdc.atmsimulation.pattern.StateController;
 import com.cdc.atmsimulation.pattern.singletons.SingletonScreen;

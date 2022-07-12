@@ -1,8 +1,8 @@
-package com.cdc.atmsimulation.entity.accounts.service;
+package com.cdc.atmsimulation.entity.users.service;
 
 import java.util.List;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
+import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.interfaces.IRepository;
 
 public class AccountService {

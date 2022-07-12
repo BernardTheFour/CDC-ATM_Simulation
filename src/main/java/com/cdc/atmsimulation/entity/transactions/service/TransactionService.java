@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
-import com.cdc.atmsimulation.entity.accounts.service.AccountService;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction.Type;
+import com.cdc.atmsimulation.entity.users.domain.Account;
+import com.cdc.atmsimulation.entity.users.service.AccountService;
 import com.cdc.atmsimulation.interfaces.IRepository;
 
 public class TransactionService {

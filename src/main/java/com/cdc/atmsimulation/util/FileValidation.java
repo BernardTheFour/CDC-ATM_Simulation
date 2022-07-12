@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
-import com.cdc.atmsimulation.entity.accounts.service.AccountService;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
 import com.cdc.atmsimulation.entity.transactions.service.TransactionService;
+import com.cdc.atmsimulation.entity.users.domain.Account;
+import com.cdc.atmsimulation.entity.users.service.AccountService;
 
 public class FileValidation {
 

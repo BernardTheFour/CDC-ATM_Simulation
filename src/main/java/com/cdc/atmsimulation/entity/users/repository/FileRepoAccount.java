@@ -1,4 +1,4 @@
-package com.cdc.atmsimulation.entity.accounts.repository;
+package com.cdc.atmsimulation.entity.users.repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.cdc.atmsimulation.entity.accounts.domain.Account;
+import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.interfaces.IRepository;
 import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 import com.cdc.atmsimulation.util.FileManager;

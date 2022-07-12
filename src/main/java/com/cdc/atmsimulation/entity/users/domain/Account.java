@@ -1,4 +1,4 @@
-package com.cdc.atmsimulation.entity.accounts.domain;
+package com.cdc.atmsimulation.entity.users.domain;
 
 public class Account {
 
