@@ -23,11 +23,11 @@ public class App {
 
         CheckArgs(args);
 
-        if (args.length > 1 && args[1].equals("-web".toString())) {
+        if (args[1].equals("-web".toString())) {
             SpringApplication.run(App.class, args);
         }
 
-        if (args.length > 1 && args[1].equals("-console".toString())) {
+        if (args[1].equals("-console".toString())) {
             StateController screenNavigator = new StateController();
 
             SingletonUtils.init();
@@ -42,12 +42,12 @@ public class App {
     }
 
     private static void CheckArgs(String[] args) {
-        File file = args.length > 0 ? new File(args[0]) : null;
-
         if (args.length > 0 && args.length < 2) {
             System.out.println("ERROR: Arguments missing -web or -console");
             System.exit(0);
         }
+
+        File file = args.length > 0 ? new File(args[0]) : null;
 
         if (file == null) {
             System.out.println("\nERROR: Please input directory path argument\n");

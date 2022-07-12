@@ -33,11 +33,6 @@
                 <button type="submit" class="btn-default btn" name="btn-login" id="btn-login">Login</button>
             </div>
         </div>
-
-        <%
-            String name = request.getParameter("field-account-number");
-            out.print("Print" + name); 
-        %>
 </body>
 
 </html>
