@@ -3,6 +3,9 @@ package com.cdc.atmsimulation;
 import java.io.File;
 import java.io.IOException;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.cdc.atmsimulation.entity.accounts.repository.FileRepoAccount;
 import com.cdc.atmsimulation.entity.transactions.repository.FileRepoTransaction;
 import com.cdc.atmsimulation.pattern.ServiceFactory;
@@ -13,49 +16,56 @@ import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 import com.cdc.atmsimulation.util.CreateMissingFile;
 import com.cdc.atmsimulation.util.FileValidation;
 
+@SpringBootApplication
 public class App {
 
     public static void main(String[] args) {
 
-        StateController screenNavigator = new StateController();
+        CheckArgs(args);
 
-        Initialization(screenNavigator);
+        if (args.length > 1 && args[1].equals("-web".toString())) {
+            SpringApplication.run(App.class, args);
+        }
 
-        CheckPath(args);
+        if (args.length > 1 && args[1].equals("-console".toString())) {
+            StateController screenNavigator = new StateController();
 
-        ServiceFactory services = new ServiceFactory();
-        ValidateFile(services);
+            SingletonUtils.init();
+            SingletonScreen.init(screenNavigator);
 
-        screenNavigator.firstState(SingletonScreen.WelcomeScreen());
-        screenNavigator.run();
+            ServiceFactory services = new ServiceFactory();
+            ValidateFile(services);
+
+            screenNavigator.firstState(SingletonScreen.WelcomeScreen());
+            screenNavigator.run();
+        }
     }
 
-    private static void CheckPath(String[] path) {
-        File file = path.length > 0 ? new File(path[0]) : null;
+    private static void CheckArgs(String[] args) {
+        File file = args.length > 0 ? new File(args[0]) : null;
+
+        if (args.length > 0 && args.length < 2) {
+            System.out.println("ERROR: Arguments missing -web or -console");
+            System.exit(0);
+        }
 
         if (file == null) {
-            System.out.println("\nPlease input directory path argument\n");
+            System.out.println("\nERROR: Please input directory path argument\n");
             System.exit(0);
         }
 
         if (!file.isDirectory()) {
-            System.out.println("Pathfile should be folder directory, not file.");
+            System.out.println("ERROR: Pathfile should be folder directory, not file.");
             System.exit(0);
         }
 
         try {
-            CreateMissingFile.extractPath(path[0]);
+            SingletonFile.init();
+            CreateMissingFile.extractPath(args[0]);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
         }
-    }
-
-    private static void Initialization(StateController screenNavigator) {
-        System.out.println("\nProgram starting...");
-        SingletonFile.init();
-        SingletonScreen.init(screenNavigator);
-        SingletonUtils.init();
     }
 
     private static void ValidateFile(ServiceFactory services) {

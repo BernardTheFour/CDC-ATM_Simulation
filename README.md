@@ -1,7 +1,9 @@
 ## Run the Build File
 1. Open CMD
 2. java -jar (your folder directory)\CDC-ATM_Simulation\build\"CDC-ATM_Simulation 2.0.jar" (your directory file)
- > example: java -jar D:\file\CDC-ATM_Simulation\build\"CDC-ATM_Simulation 2.0.jar" D:\file\CDC-ATM_Simulation\data
+3. Put argument -web for webserver and -console for console app
+ > example: java -jar D:\file\CDC-ATM_Simulation\build\"CDC-ATM_Simulation 2.0.jar" D:\file\CDC-ATM_Simulation\data -web
+ > example: java -jar D:\file\CDC-ATM_Simulation\build\"CDC-ATM_Simulation 2.0.jar" D:\file\CDC-ATM_Simulation\data -console
 
 ## Getting Started
 
