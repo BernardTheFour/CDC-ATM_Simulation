@@ -7,6 +7,6 @@
     <title>Main Menu - Automated Teller Machine</title>
 </head>
 <body>
-    Welcome
+    Welcome ${name}
 </body>
 </html>

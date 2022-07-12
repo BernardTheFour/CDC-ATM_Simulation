@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div>
+    <form method="post">
         <div>
             <h1 id="control-3973373">Automated Teller Machine</h1>
         </div>
@@ -20,19 +20,19 @@
 
         <div class="formbuilder-text form-group field-field-account-number">
             <label for="field-account-number" class="formbuilder-text-label">Account Number</label></br>
-            <input type="number" class="form-control" name="field-account-number" maxlength="6"
-                id="field-account-number">
+            <input type="number" class="form-control" name="fieldAccountNumber" maxlength="6" id="field-account-number">
         </div>
         </br>
         <div class="formbuilder-text form-group field-field-pin-number">
             <label for="field-pin-number" class="formbuilder-text-label">PIN Number</label></br>
-            <input type="password" class="form-control" name="field-pin-number" maxlength="6" id="field-pin-number">
+            <input type="password" class="form-control" name="fieldPinNumber" maxlength="6" id="field-pin-number">
         </div>
+        ${errorMsg}
         </br>
         <div class="formbuilder-button form-group field-btn-login">
-            <button type="submit" class="btn-default btn" name="btn-login" id="btn-login">Login</button>
+            <button type="submit" class="btn-default btn" name="btnLogin" id="btn-login">Login</button>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>

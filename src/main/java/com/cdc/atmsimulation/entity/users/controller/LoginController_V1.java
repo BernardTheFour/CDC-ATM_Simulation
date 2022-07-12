@@ -6,24 +6,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cdc.atmsimulation.entity.users.service.LoginService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1")
 public class LoginController_V1 {
-    
 
-    @RequestMapping(value = {"", "/", "/login" }, method = RequestMethod.GET)
+    private final LoginService loginService;
+
+    @RequestMapping(value = { "", "/"}, method = RequestMethod.GET)
     public String showLoginPage(ModelMap model) {
         return "login";
     }
 
-    @RequestMapping(value = {"", "/", "/login" }, method = RequestMethod.POST)
-    public String showTransactionPage(ModelMap mode,
-            @RequestParam String accountNumber,
-            @RequestParam String pin) {
+    @RequestMapping(value = { "", "/"}, method = RequestMethod.POST)
+    public String showTransactionPage(ModelMap model,
+            @RequestParam String fieldAccountNumber,
+            @RequestParam String fieldPinNumber) {
 
-        return "transaction";
+        try {
+            loginService.validateLoginInput(fieldAccountNumber, fieldPinNumber);
+            return "forward:transaction?accountNumber=" + fieldAccountNumber;
+        } catch (Exception e) {
+            model.put("errorMsg", "</br>Invalid input: " + e.getMessage() + "</br>");
+        }
+
+        return "login";
     }
 }
