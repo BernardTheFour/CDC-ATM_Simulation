@@ -6,16 +6,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction.Type;
 import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.entity.users.service.AccountService;
 import com.cdc.atmsimulation.interfaces.IRepository;
 
+@Service
 public class TransactionService {
 
+    @Autowired
     private IRepository<Transaction> repository;
 
+    @Autowired
     private AccountService accountService;
 
     public TransactionService(IRepository<Transaction> repository, AccountService accountService) {

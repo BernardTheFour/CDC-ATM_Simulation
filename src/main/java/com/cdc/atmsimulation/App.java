@@ -22,6 +22,7 @@ public class App {
     public static void main(String[] args) {
 
         CheckArgs(args);
+        SingletonUtils.init();
 
         if (args[1].equals("-web".toString())) {
             SpringApplication.run(App.class, args);
@@ -30,7 +31,6 @@ public class App {
         if (args[1].equals("-console".toString())) {
             StateController screenNavigator = new StateController();
 
-            SingletonUtils.init();
             SingletonScreen.init(screenNavigator);
 
             ServiceFactory services = new ServiceFactory();
@@ -70,8 +70,8 @@ public class App {
 
     private static void ValidateFile(ServiceFactory services) {
 
-        services.setInstanceOfAccountService(new FileRepoAccount(SingletonFile.getAccount()));
-        services.setInstanceOfTransactionService(new FileRepoTransaction(SingletonFile.getTransactions()));
+        services.setInstanceOfAccountService(new FileRepoAccount());
+        services.setInstanceOfTransactionService(new FileRepoTransaction());
 
         FileValidation validation = new FileValidation();
         try {

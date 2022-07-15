@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form method="post">
+    <form action="transaction" method="post">
         <div>
             <h1 id="control-3973373">Automated Teller Machine</h1>
         </div>
@@ -27,7 +27,6 @@
             <label for="field-pin-number" class="formbuilder-text-label">PIN Number</label></br>
             <input type="password" class="form-control" name="fieldPinNumber" maxlength="6" id="field-pin-number">
         </div>
-        ${errorMsg}
         </br>
         <div class="formbuilder-button form-group field-btn-login">
             <button type="submit" class="btn-default btn" name="btnLogin" id="btn-login">Login</button>

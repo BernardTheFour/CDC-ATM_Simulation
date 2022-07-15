@@ -12,9 +12,8 @@ public class ServiceFactory {
     private static TransactionService transactionService;
 
     public void setInstanceOfAccountService(IRepository<Account> repository) {
-        if (accountService == null) {
+        
             accountService = new AccountService(repository);
-        }
     }
 
     public AccountService getInstanceOfAccountService() {
@@ -25,9 +24,7 @@ public class ServiceFactory {
     }
 
     public void setInstanceOfTransactionService(IRepository<Transaction> repository) {
-        if (transactionService == null) {
             transactionService = new TransactionService(repository, accountService);
-        }
     }
 
     public TransactionService getInstanceOfTransactionService() {

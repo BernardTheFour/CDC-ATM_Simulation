@@ -8,17 +8,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.interfaces.IRepository;
+import com.cdc.atmsimulation.pattern.singletons.SingletonFile;
 import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 import com.cdc.atmsimulation.util.FileManager;
 
+@Repository
 public class FileRepoAccount implements IRepository<Account> {
 
     private FileManager fileManager;
 
-    public FileRepoAccount(File file) {
-        fileManager = new FileManager(file);
+    public FileRepoAccount() {
+        fileManager = new FileManager(SingletonFile.getAccount());
     }
 
     @Override

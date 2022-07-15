@@ -8,18 +8,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.stereotype.Repository;
+
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction.Type;
 import com.cdc.atmsimulation.interfaces.IRepository;
+import com.cdc.atmsimulation.pattern.singletons.SingletonFile;
 import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 import com.cdc.atmsimulation.util.FileManager;
 
+@Repository
 public class FileRepoTransaction implements IRepository<Transaction> {
 
     private FileManager fileManager;
 
-    public FileRepoTransaction(File file) {
-        fileManager = new FileManager(file);
+    public FileRepoTransaction() {
+        fileManager = new FileManager(SingletonFile.getTransactions());
     }
 
     @Override

@@ -12,28 +12,26 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1")
+@RequestMapping(value = "api/v1/")
 public class LoginController_V1 {
 
     private final LoginService loginService;
 
-    @RequestMapping(value = { "", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "", "/login" }, method = RequestMethod.GET)
     public String showLoginPage(ModelMap model) {
         return "login";
     }
 
-    @RequestMapping(value = { "", "/"}, method = RequestMethod.POST)
+    @RequestMapping(value = { "/transaction" }, method = RequestMethod.POST)
     public String showTransactionPage(ModelMap model,
             @RequestParam String fieldAccountNumber,
             @RequestParam String fieldPinNumber) {
-
         try {
             loginService.validateLoginInput(fieldAccountNumber, fieldPinNumber);
-            return "forward:transaction?accountNumber=" + fieldAccountNumber;
+            return "forward:transaction-show?accountNumber=" + fieldAccountNumber;
+            
         } catch (Exception e) {
-            model.put("errorMsg", "</br>Invalid input: " + e.getMessage() + "</br>");
+            return "redirect:login";
         }
-
-        return "login";
     }
 }
