@@ -1,6 +1,5 @@
 package com.cdc.atmsimulation.entity.transactions.repository;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;

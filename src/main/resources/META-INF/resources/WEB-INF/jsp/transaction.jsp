@@ -19,19 +19,19 @@
         <h3 access="false" id="control-6741689">Menu:</h3>
     </div>
     <div class="navigationbutton">
-        <a href="${accountNumber}/withdraw">
+        <a href="${urlversion}/${accountNumber}/withdraw">
             <button value="1" type="button" class="btn btn-default" name="btnWithdraw"
                 id="btnWithdraw">Withdraw</button>
         </a>
-        <a href="${accountNumber}/transfer">
+        <a href="${urlversion}/${accountNumber}/transfer">
             <button value="2" type="button" class="btn btn-default" name="btnTransfer" id="btnTransfer">Fund
                 Transfer</button>
         </a>
-        <a href="${accountNumber}/history">
+        <a href="${urlversion}/${accountNumber}/history">
             <button value="3" type="button" class="btn btn-default" name="btnHistory" id="btnHistory">Transaction
                 History</button>
         </a>
-        <a href="/api/v1/">
+        <a href="${urlversion}/">
             <button value="4" type="button" class="btn btn-default" name="btnExit" id="btnExit">Exit</button>
         </a>
     </div>

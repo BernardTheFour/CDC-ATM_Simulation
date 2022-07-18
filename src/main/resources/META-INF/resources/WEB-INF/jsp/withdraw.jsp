@@ -18,7 +18,7 @@
 
     <div class="rendered-form">
         <div class="formbuilder-button form-group field-btnWithdraw10">
-            <form action="withdraw" method="post">
+            <form action="${urlversion}/${accountNumber}/withdraw" method="post">
                 <button type="submit" class="btn-default btn" name="amount" value="10"
                     id="btnWithdraw10">$10</button>
                 <button type="submit" class="btn-default btn" name="amount" value="50"

@@ -1,6 +1,5 @@
 package com.cdc.atmsimulation.entity.users.repository;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,7 +7,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.cdc.atmsimulation.entity.users.domain.Account;
