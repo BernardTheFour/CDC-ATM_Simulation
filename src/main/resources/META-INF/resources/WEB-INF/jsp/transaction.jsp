@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Menu - Automated Teller Machine</title>
+    <title>Main Menu - ATM</title>
 </head>
 
 <body>
@@ -19,19 +19,19 @@
         <h3 access="false" id="control-6741689">Menu:</h3>
     </div>
     <div class="navigationbutton">
-        <a href="withdraw">
+        <a href="${accountNumber}/withdraw">
             <button value="1" type="button" class="btn btn-default" name="btnWithdraw"
                 id="btnWithdraw">Withdraw</button>
         </a>
-        <a href="transfer">
+        <a href="${accountNumber}/transfer">
             <button value="2" type="button" class="btn btn-default" name="btnTransfer" id="btnTransfer">Fund
                 Transfer</button>
         </a>
-        <a href="history">
+        <a href="${accountNumber}/history">
             <button value="3" type="button" class="btn btn-default" name="btnHistory" id="btnHistory">Transaction
                 History</button>
         </a>
-        <a href="login">
+        <a href="/api/v1/">
             <button value="4" type="button" class="btn btn-default" name="btnExit" id="btnExit">Exit</button>
         </a>
     </div>
