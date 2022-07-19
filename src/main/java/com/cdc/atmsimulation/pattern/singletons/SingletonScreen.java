@@ -23,8 +23,6 @@ public class SingletonScreen {
     private TransferScreen transferScreen;
     private TransactionHistoryScreen transactionHistoryScreen;
 
-    private String dateTimeFormat = "yyy-MM-dd hh:mm a";
-
     public static void init(StateController controller) {
         if (instance == null) {
             instance = new SingletonScreen();
@@ -39,9 +37,6 @@ public class SingletonScreen {
         }
     }
 
-    public static String getDateFormat() {
-        return instance.dateTimeFormat;
-    }   
 
     public static WelcomeScreen WelcomeScreen() {
         return instance.welcomeScreen;

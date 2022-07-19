@@ -1,13 +1,13 @@
 package com.cdc.atmsimulation.pages.consolepages;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction.Type;
 import com.cdc.atmsimulation.interfaces.IState;
 import com.cdc.atmsimulation.pattern.StateController;
 import com.cdc.atmsimulation.pattern.singletons.SingletonScreen;
+import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 
 public class SummaryScreen extends Page implements IState {
 
@@ -43,8 +43,8 @@ public class SummaryScreen extends Page implements IState {
     public void logic() {
         System.out.println("--Summary--");
         System.out.printf("Date: %s%n",
-                LocalDateTime.now().format(
-                        DateTimeFormatter.ofPattern(SingletonScreen.getDateFormat())));
+        LocalDateTime.now()
+        .format(SingletonUtils.getDateTimeFormat()));
         System.out.println("Withdraw: $" + amount);
         System.out.println("Balance: $" + loggedAccount.getBalance());
 

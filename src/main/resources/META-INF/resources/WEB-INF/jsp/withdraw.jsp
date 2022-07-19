@@ -30,7 +30,7 @@
             </form>
         </div>
         </br>
-        <div class="formbuilder-button form-group field-btnBack">
+        <div class="navigationbutton">
             <form action="transaction" method="post">
                 <button type="submit" class="btn-default btn">Back</button>
             </form>

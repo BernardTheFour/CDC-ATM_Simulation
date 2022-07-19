@@ -1,5 +1,7 @@
 package com.cdc.atmsimulation.entity.transactions.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
+import com.cdc.atmsimulation.entity.transactions.domain.Transaction.Type;
+import com.cdc.atmsimulation.entity.transactions.service.TransactionService;
 import com.cdc.atmsimulation.entity.users.domain.Account;
 import com.cdc.atmsimulation.entity.users.service.AccountService;
+import com.cdc.atmsimulation.pattern.singletons.SingletonUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +27,7 @@ public class WithdrawControllerV1 {
     private static final String URLVERSION = "/api/v1";
 
     private final AccountService accountService;
+    private final TransactionService transactionService;
 
     @GetMapping(value = "{accountNumber}/withdraw")
     public String showWithdrawPage(ModelMap model,
@@ -62,8 +69,21 @@ public class WithdrawControllerV1 {
     public String withdrawSummary(ModelMap model,
             @PathVariable String accountNumber,
             @RequestParam int amount) {
-        System.out.println("PRINT: " + accountNumber);
-        System.out.println("PRINT: " + amount);
-        return null;
+        LocalDateTime date = LocalDateTime.now();
+
+        transactionService.addTransaction(
+                new Transaction(accountNumber,
+                        Type.WITHDRAW,
+                        null,
+                        amount, date));
+
+        model.put("transactiondate", LocalDateTime.now()
+                .format(SingletonUtils.getDateTimeFormat()));
+        model.put("balancefund", accountService.getById(accountNumber)
+                .getBalance());
+                
+        model.put("withdrawfund", amount);
+        model.put("urlversion", URLVERSION);
+        return "summary-withdraw";
     }
 }
