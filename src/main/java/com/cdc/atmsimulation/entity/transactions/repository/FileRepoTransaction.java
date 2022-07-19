@@ -87,13 +87,11 @@ public class FileRepoTransaction implements IRepository<Transaction> {
     }
 
     private Transaction readLine(List<String> data) {
-        Transaction transaction = new Transaction(
-                data.get(0),
-                Type.valueOf(data.get(1)),
-                data.get(2),
-                Integer.valueOf(data.get(3)),
-                LocalDateTime.parse(data.get(4)));
-
-        return transaction;
+        return new Transaction(
+            data.get(0),
+            Type.valueOf(data.get(1)),
+            data.get(2),
+            Integer.valueOf(data.get(3)),
+            LocalDateTime.parse(data.get(4)));
     }
 }

@@ -16,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1")
-public class WithdrawController_V1 {
+public class WithdrawControllerV1 {
 
-    private final String urlversion = "/api/v1";
+    private static final String URLVERSION = "/api/v1";
 
     private final AccountService accountService;
 
@@ -29,7 +29,7 @@ public class WithdrawController_V1 {
 
         model.put("credit", account.getBalance());
         model.put("accountNumber", account.getAccountNumber());
-        model.put("urlversion", urlversion);
+        model.put("urlversion", URLVERSION);
 
         return "withdraw";
     }
@@ -42,7 +42,7 @@ public class WithdrawController_V1 {
         Account account = accountService.getById(accountNumber);
         model.put("credit", account.getBalance());
         model.put("accountNumber", account.getAccountNumber());
-        model.put("urlversion", urlversion);
+        model.put("urlversion", URLVERSION);
 
         switch (amount) {
             case "10":
@@ -54,7 +54,7 @@ public class WithdrawController_V1 {
             case "other":
                 return "otherwithdraw";
             default:
-                return "forward:" + urlversion + "/" + accountNumber + "/transaction";
+                return "forward:" + URLVERSION + "/" + accountNumber + "/transaction";
         }
     }
 

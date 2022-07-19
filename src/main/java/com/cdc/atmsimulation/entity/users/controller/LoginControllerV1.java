@@ -14,15 +14,15 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1/")
-public class LoginController_V1 {
+public class LoginControllerV1 {
 
-    private final String urlversion = "/api/v1";
+    private static final String URLVERSION = "/api/v1";
 
     private final LoginService loginService;
 
     @GetMapping(value = { "", "/login" })
     public String showLoginPage(ModelMap model) {
-        model.put("urlversion", urlversion);
+        model.put("urlversion", URLVERSION);
         return "login";
     }
 

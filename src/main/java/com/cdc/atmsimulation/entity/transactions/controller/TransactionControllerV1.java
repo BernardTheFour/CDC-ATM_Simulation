@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1")
-public class TransactionController_V1 {
+public class TransactionControllerV1 {
 
-    private final String urlversion = "/api/v1";
+    private static final String URLVERSION = "/api/v1";
 
     private final AccountService accountService;
 
@@ -27,7 +27,7 @@ public class TransactionController_V1 {
         model.put("credit", account.getBalance());
         model.put("fullname", account.getName());
         model.put("accountNumber", account.getAccountNumber());
-        model.put("urlversion", urlversion);
+        model.put("urlversion", URLVERSION);
 
         return "transaction";
     }
