@@ -12,6 +12,7 @@
     <form action="${urlversion}/transaction" method="post">
         <div>
             <h1 id="control-3973373">Automated Teller Machine</h1>
+            <hr>
         </div>
 
         <div>

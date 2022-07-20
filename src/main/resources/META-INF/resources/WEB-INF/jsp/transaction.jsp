@@ -11,6 +11,7 @@
 <body>
     <div class="">
         <h1 access="false" id="control-2198787">Welcome&nbsp; ${fullname}</h1>
+        <hr>
     </div>
     <div class="">
         <h3 access="false" id="control-9987720">Current Balance: $ ${credit}</h3>
@@ -27,7 +28,7 @@
             <button value="2" type="button" class="btn btn-default" name="btnTransfer" id="btnTransfer">Fund
                 Transfer</button>
         </a>
-        <a href="${urlversion}/${accountNumber}/history">
+        <a href="${urlversion}/${accountNumber}/transaction-history">
             <button value="3" type="button" class="btn btn-default" name="btnHistory" id="btnHistory">Transaction
                 History</button>
         </a>

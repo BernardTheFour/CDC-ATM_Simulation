@@ -14,7 +14,7 @@ public class SingletonUtils {
     private String csvRowDelimiter = "\r\n";
     private String csvColumnDelimiter = ";";
 
-    private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("hh:mm a dd-MM-yyyy");
+    private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("hh:mm a dd/MM/yyyy");
 
     public static void init() {
         if (instance == null) {

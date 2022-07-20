@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <h1>Custom Withdraw - ATM</h1>
+    <hr>
     <div class="">
         <h3 access="false" id="control-9987720">Current Balance: $ ${credit}</h3>
     </div>

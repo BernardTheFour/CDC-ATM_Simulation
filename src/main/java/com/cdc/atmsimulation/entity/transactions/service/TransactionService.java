@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.cdc.atmsimulation.entity.transactions.domain.Transaction;
@@ -18,10 +19,8 @@ import com.cdc.atmsimulation.interfaces.IRepository;
 @Service
 public class TransactionService {
 
-    @Autowired
     private IRepository<Transaction> repository;
 
-    @Autowired
     private AccountService accountService;
 
     public TransactionService(IRepository<Transaction> repository, AccountService accountService) {
@@ -33,10 +32,20 @@ public class TransactionService {
         return repository.getAll().get();
     }
 
+    public List<Transaction> getAllById(String accountNumber, int limit) {
+        Optional<List<Transaction>> result = repository.getAllById(accountNumber);
+
+        return result.get()
+                .stream()
+                .limit(limit)
+                .sorted((x, y) -> x.getDate().compareTo(y.getDate()))
+                .collect(Collectors.toList());
+    }
+
     public void addTransaction(Transaction transaction) {
         Account account = accountService.getById(transaction.getAccount());
 
-        if (account == null){
+        if (account == null) {
             System.out.println("failed: account not found");
             return;
         }
@@ -52,6 +61,7 @@ public class TransactionService {
         repository.add(transaction);
     }
 
+    @Transactional
     public void addTransaction(Account sender, Account receiver, int amount) {
         addTransaction(new Transaction(sender.getAccountNumber(),
                 Type.TRANSFER,

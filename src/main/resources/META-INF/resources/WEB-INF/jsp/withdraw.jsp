@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <h1>Withdraw - ATM</h1>
+    <hr>
     <div class="">
         <h3 access="false" id="control-9987720">Current Balance: $ ${credit}</h3>
     </div>
@@ -19,10 +21,8 @@
     <div class="rendered-form">
         <div class="formbuilder-button form-group field-btnWithdraw10">
             <form action="${urlversion}/${accountNumber}/withdraw" method="post">
-                <button type="submit" class="btn-default btn" name="amount" value="10"
-                    id="btnWithdraw10">$10</button>
-                <button type="submit" class="btn-default btn" name="amount" value="50"
-                    id="btnWithdraw50">$50</button>
+                <button type="submit" class="btn-default btn" name="amount" value="10" id="btnWithdraw10">$10</button>
+                <button type="submit" class="btn-default btn" name="amount" value="50" id="btnWithdraw50">$50</button>
                 <button type="submit" class="btn-default btn" name="amount" value="100"
                     id="btnWithdraw100">$100</button>
                 <button type="submit" class="btn-default btn" name="amount" value="other"
