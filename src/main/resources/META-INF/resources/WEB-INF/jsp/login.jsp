@@ -9,16 +9,15 @@
 </head>
 
 <body>
+    <div>
+        <h1 id="control-3973373">Automated Teller Machine</h1>
+        <hr>
+    </div>
+    <div>
+        <h3 id="control-1003910">Insert your credentials</h3>
+    </div>
+
     <form action="${urlversion}/transaction" method="post">
-        <div>
-            <h1 id="control-3973373">Automated Teller Machine</h1>
-            <hr>
-        </div>
-
-        <div>
-            <h3 id="control-1003910">Insert your credentials</h3>
-        </div>
-
         <div class="formbuilder-text form-group field-field-account-number">
             <label for="field-account-number" class="formbuilder-text-label">Account Number</label></br>
             <input type="number" class="form-control" name="fieldAccountNumber" maxlength="6" id="field-account-number">
