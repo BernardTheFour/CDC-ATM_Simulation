@@ -29,9 +29,9 @@ public class TransactionHistoryControllerV1 {
             @PathVariable(value = "accountNumber") String accountNumber) {
         String table = "";
 
-        List<Transaction> transactions = transactionService.getAllById(accountNumber);
+        List<Transaction> result = transactionService.getAllById(accountNumber);
 
-        for (Transaction transaction : transactions) {
+        for (Transaction transaction : result) {
             table += "<tr>";
             table += "<td>" + transaction.getAmount() + "</td>";
             table += "<td>" + transaction.getTransactionType()
