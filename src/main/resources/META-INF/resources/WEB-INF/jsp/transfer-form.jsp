@@ -11,10 +11,10 @@
 <body>
     <h1>Transfer Fund - ATM</h1>
     <hr>
-    <form action="${urlversion}/${acccountNumber}/transfer" method="post">
+    <form action="${urlversion}/${accountNumber}/transfer" method="post">
         <div class="formbuilder-text form-group field-field-account-number">
             <label for="field-account-number" class="formbuilder-text-label">Receiver Account Number</label></br>
-            <input type="number" class="form-control" name="accountNumber" maxlength="6">
+            <input type="number" class="form-control" name="receiverNumber" maxlength="6">
         </div>
         </br>
         <div class="formbuilder-text form-group field-field-pin-number">
@@ -27,8 +27,8 @@
         </div>
     </form>
     <br>
-    <a href="transaction">
-        <button type="button"> Cancel</button>
-    </a>
+    <form action="transaction" method="post">
+        <button type="submit" class="btn-default btn">Cancel</button>
+    </form>
 </body>
 </html>

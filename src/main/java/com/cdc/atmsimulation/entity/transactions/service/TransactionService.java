@@ -51,6 +51,12 @@ public class TransactionService {
         }
 
         int balance = account.getBalance();
+
+        if (transaction.getAmount() < 1 || transaction.getAmount() > 1000) {
+            System.out.println("failed: amount invalid, cannot less than 1 or more than 1000");
+            return;
+        }
+
         if (transaction.getTransactionType() == Type.RECEIVES)
             account.setBalance(balance + transaction.getAmount());
         else
